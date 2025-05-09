@@ -1,0 +1,37 @@
+﻿  main.cpp
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(94,28): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(137,17): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,72): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,72): warning C4244:         with
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,72): warning C4244:         [
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,72): warning C4244:             T=int
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,72): warning C4244:         ]
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,63): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,63): warning C4244:         with
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,63): warning C4244:         [
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,63): warning C4244:             T=int
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(169,63): warning C4244:         ]
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,90): warning C4244:         with
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,90): warning C4244:         [
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,90): warning C4244:             T=int
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,90): warning C4244:         ]
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,81): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,81): warning C4244:         with
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,81): warning C4244:         [
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,81): warning C4244:             T=int
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,81): warning C4244:         ]
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,51): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,51): warning C4244:         with
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,51): warning C4244:         [
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,51): warning C4244:             T=int
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(205,51): warning C4244:         ]
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(219,32): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(222,31): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(233,38): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Generating code
+  1 of 170 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  sfmlSolving.vcxproj -> C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\x64\Release\sfmlSolving.exe
