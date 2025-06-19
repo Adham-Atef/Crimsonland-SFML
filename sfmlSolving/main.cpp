@@ -13,6 +13,8 @@ const double PI = 3.14159265f;
 using namespace sf;
 using namespace std;
 
+
+
 // Weapon types (IDs)
 int levelIDMenu = -1;
 
@@ -50,67 +52,116 @@ bool isEndedEndScene = false;
 const int MAX_SCORES = 10;
 const char* const SCORE_FILE = "highscores.txt";
 
-int scores[MAX_SCORES] = { 0 }; // Array Array Array  ArrayArrayArrayArrayArrayArrayArrayArrayArrayArrayArrayArrayArrayArrayArray
-int scoreCount = 0;
+string playerName = "Player1"; // Change it With GUI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+struct Scores {
+	int scoreCount = 0;
+	int scores[MAX_SCORES] = { 0 };
+	string playerName[MAX_SCORES] = { "" };
+} mainScores;
 
 void loadScores() {
 	ifstream inFile(SCORE_FILE);
-
 	if (!inFile) {
 		cout << "No existing high score file. Starting fresh." << endl;
 		return;
 	}
 
-	scoreCount = 0;
-	while (scoreCount < MAX_SCORES && inFile >> scores[scoreCount]) {
-		scoreCount++;
+	mainScores.scoreCount = 0;
+	int score;
+	string name;
+	while (mainScores.scoreCount < MAX_SCORES && inFile >> score) {
+		inFile.ignore(1); 
+		getline(inFile, name);
+		mainScores.scores[mainScores.scoreCount] = score;
+		mainScores.playerName[mainScores.scoreCount] = name;
+		mainScores.scoreCount++;
 	}
 
-	sort(scores, scores + scoreCount, greater<int>());
+	vector<pair<int, string>> scorePairs(mainScores.scoreCount);
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+		scorePairs[i] = { mainScores.scores[i], mainScores.playerName[i] };
+	}
+	sort(scorePairs.begin(), scorePairs.end(), greater<pair<int, string>>());
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+		mainScores.scores[i] = scorePairs[i].first;
+		mainScores.playerName[i] = scorePairs[i].second;
+	}
 
 	inFile.close();
 }
 
 void saveScores() {
-	sort(scores, scores + scoreCount, greater<int>());
+	vector<pair<int, string>> scorePairs(mainScores.scoreCount);
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+		scorePairs[i] = { mainScores.scores[i], mainScores.playerName[i] };
+	}
+	sort(scorePairs.begin(), scorePairs.end(), greater<pair<int, string>>());
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+		mainScores.scores[i] = scorePairs[i].first;
+		mainScores.playerName[i] = scorePairs[i].second;
+	}
 
 	ofstream outFile(SCORE_FILE, ios::trunc);
-
 	if (!outFile) {
 		cerr << "Error saving high scores!" << endl;
 		return;
 	}
 
-	for (int i = 0; i < scoreCount; i++) {
-		outFile << scores[i] << "\n";
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+		outFile << mainScores.scores[i] << "\n" << mainScores.playerName[i] << "\n";
 	}
 
 	outFile.close();
-	cout << "Scores saved successfully (" << scoreCount << " entries)." << endl;
+	cout << "Scores saved successfully (" << mainScores.scoreCount << " entries)." << endl;
 }
 
-void addScoreIfHigh(int newScore) {
-	if (scoreCount < MAX_SCORES) {
-		scores[scoreCount++] = newScore;
+void addScoreIfHigh(int newScore, const string& newName) {
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+		if (mainScores.playerName[i] == newName) {
+			if (newScore > mainScores.scores[i]) {
+				mainScores.scores[i] = newScore;
+			}
+			return;
+		}
+	}
+
+	if (mainScores.scoreCount < MAX_SCORES) {
+		mainScores.scores[mainScores.scoreCount] = newScore;
+		mainScores.playerName[mainScores.scoreCount] = newName;
+		mainScores.scoreCount++;
 		return;
 	}
 
-	if (newScore > scores[MAX_SCORES - 1]) {
-		scores[MAX_SCORES - 1] = newScore;
+	int minIndex = 0;
+	for (int i = 1; i < mainScores.scoreCount; i++) {
+		if (mainScores.scores[i] < mainScores.scores[minIndex]) {
+			minIndex = i;
+		}
+	}
+
+	if (newScore > mainScores.scores[minIndex]) {
+		mainScores.scores[minIndex] = newScore;
+		mainScores.playerName[minIndex] = newName;
 	}
 }
 
 void displayScores() {
-	sort(scores, scores + scoreCount, greater<int>());
+	vector<pair<int, string>> scorePairs(mainScores.scoreCount);
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+		scorePairs[i] = { mainScores.scores[i], mainScores.playerName[i] };
+	}
+	sort(scorePairs.begin(), scorePairs.end(), greater<pair<int, string>>());
 
 	cout << "\nCurrent High Scores:" << endl;
-	if (scoreCount == 0) {
+	if (mainScores.scoreCount == 0) {
 		cout << "No scores recorded yet." << endl;
 		return;
 	}
 
-	for (int i = 0; i < scoreCount; i++) {
-		cout << i + 1 << ". " << scores[i] << endl;
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+		cout << i + 1 << ". " << scorePairs[i].second << ": " << scorePairs[i].first << endl;
 	}
 }
 
@@ -737,22 +788,18 @@ void runLeaderboard(RenderWindow& window) {
 
 
 
-	for (int i = 0; i < MAX_SCORES - 1; ++i) {  //sort the leaderboard
-		for (int j = i + 1; j < MAX_SCORES; ++j) {
-			if (scores[j] > scores[i]) {
-				int temp = scores[i];
-				scores[i] = scores[j];
-				scores[j] = temp;
-			}
-		}
+	vector<pair<int, string>> scorePairs(mainScores.scoreCount);
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+		scorePairs[i] = { mainScores.scores[i], mainScores.playerName[i] };
 	}
+	sort(scorePairs.begin(), scorePairs.end(), greater<pair<int, string>>());
 
-	for (int i = 0; i < MAX_SCORES; i++) { //setup the leaderboard
+	for (int i = 0; i < mainScores.scoreCount; i++) { //setup the leaderboard
 		x_[i].setFont(font);
 		x_[i].setCharacterSize(36);
 		x_[i].setPosition(150, 200 + i * 70);
 		x_[i].setFillColor(Color(200, 200, 200));
-		x_[i].setString(to_string(scores[i]));
+		x_[i].setString(scorePairs[i].second + " : " + to_string(scorePairs[i].first));
 	}
 
 	//cout << x[0] << endl;
@@ -804,7 +851,7 @@ void runLeaderboard(RenderWindow& window) {
 		window.draw(title);
 		//window.draw(placeholder);
 		window.draw(backButton);
-		for (int i = 0; i < MAX_SCORES; i++)
+		for (int i = 0; i < mainScores.scoreCount; i++)
 		{
 			window.draw(x_[i]);
 		}
@@ -1083,7 +1130,6 @@ bool loadTexture(Texture& texture, const string& filePath) {
 	return false;
 }
 
-
 void loadingAssets() {
 
 
@@ -1196,14 +1242,6 @@ void loadingAssets() {
 	}
 }
 
-
-
-
-
-
-
-
-
 void loadSounds() {
 
 	if (!gameSounds[0].loadFromFile("Sound/foot.wav")) {
@@ -1310,14 +1348,6 @@ void loadSounds() {
 
 }
 
-
-
-
-
-
-
-
-
 void foot() {
 
 	gameSounds[0].play();
@@ -1387,8 +1417,6 @@ void PlasmaRifle() {
 	gameSounds[10].play();
 
 }
-
-
 
 void PlasmaShotgun() {
 
@@ -1526,7 +1554,6 @@ struct Trains {
 
 
 };
-
 struct Rail {
 	Sprite railS;
 
@@ -1558,7 +1585,6 @@ struct TrainRails {
 		}
 	}
 };
-
 struct decor {
 	Sprite sprite;
 
@@ -1572,7 +1598,6 @@ struct decor {
 		window.draw(sprite);
 	}
 };
-
 const int NUM_DECOR = 4;
 struct decorations {
 	decor trees[NUM_DECOR];
@@ -1697,9 +1722,6 @@ struct Weapon {
 	}
 
 };
-
-
-
 struct Bullet {
 	Sprite shape;
 	Vector2f velocity;
@@ -1711,18 +1733,13 @@ struct Bullet {
 		damage = localDamage;
 	}
 };
-
 vector<Bullet> bullets;
-
-
 Vector2f getDirection(Vector2f from, Vector2f to) {
 	Vector2f d = to - from;
 	float len = sqrt(d.x * d.x + d.y * d.y);
 
 	return len != 0 ? d / len : Vector2f(0.f, 0.f);
 }
-
-
 Vector2f rotateVector(Vector2f v, float angleDeg) {
 	float rad = angleDeg * (PI / 180.f);
 	float cosA = cos(rad);
@@ -1732,7 +1749,6 @@ Vector2f rotateVector(Vector2f v, float angleDeg) {
 		v.x * sinA + v.y * cosA
 	);
 }
-
 Bullet createBullet(Vector2f playerPos, float playerRotationDeg, Weapon currentWeapon, RenderWindow& window) {
 	Bullet b(currentWeapon.damage);
 
@@ -1769,8 +1785,6 @@ Bullet createBullet(Vector2f playerPos, float playerRotationDeg, Weapon currentW
 
 	return b;
 }
-
-
 void updateBullets(float dt) {
 	for (int i = 0; i < bullets.size();) {
 		bullets[i].shape.move(bullets[i].velocity * dt);
@@ -2222,32 +2236,30 @@ struct PLAYER {
 				}
 			}
 
-			if (currentWeapon[currentWeaponindex].currentClipSize) {
-				if (currentWeapon[currentWeaponindex].id == RIFLE) {
+			if (currentWeapon[currentWeaponindex].id == RIFLE) {
 
-					AutoRifle();
+				AutoRifle();
 
-				}
+			}
 
-				if (currentWeapon[currentWeaponindex].id == PISTOL) {
+			if (currentWeapon[currentWeaponindex].id == PISTOL) {
 
-					Fire();
+				Fire();
 
-				}
-
+			}
 
 
-				if (currentWeapon[currentWeaponindex].id == PLASMA_PISTOL) {
 
-					PlasmaShotgun();
+			if (currentWeapon[currentWeaponindex].id == PLASMA_PISTOL) {
 
-				}
+				PlasmaShotgun();
 
-				if (currentWeapon[currentWeaponindex].id == PLASMA_RIFLE) {
+			}
 
-					PlasmaRifle();
+			if (currentWeapon[currentWeaponindex].id == PLASMA_RIFLE) {
 
-				}
+				PlasmaRifle();
+
 			}
 
 
@@ -2343,7 +2355,7 @@ void gui_game_loop(vector<PLAYER>& playersArr, RenderWindow& window, bool missio
 		zombies.setString("Zombies left: " + to_string(mission1_zombies_counter));
 	}
 
-	timeleft.setString("Time Left:" + to_string(120 - (int)gameTimer.getTime()));
+	timeleft.setString("Time Left:" + to_string(120 - (int)time_left.getElapsedTime().asSeconds()));
 
 	if (!playersArr.empty())
 	{
@@ -6923,7 +6935,7 @@ struct BeachRush {
 	Texture beach, seatexture;
 	Sprite sand, sea;
 
-	//Clock gameTimer;
+	Clock gameTimer;
 
 	BeachRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, PISTOL, RIFLE, PLASMA_SHOTGUN, 1, window, 0.35, 0.35, true));
@@ -6960,6 +6972,7 @@ struct BeachRush {
 		);*/
 		sea.setScale(2, 1);
 
+		gameTimer.restart();
 		zombieSpawn.restart();
 
 		//background
@@ -6970,7 +6983,7 @@ struct BeachRush {
 	};
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score);
+			addScoreIfHigh(score , playerName);
 			cout << score << endl;
 			isSaved = true;
 		}
@@ -6993,7 +7006,7 @@ struct BeachRush {
 		// Dynamically adjust zombie spawn time
 		if (!playersArr.empty()) {
 
-			float elapsed = gameTimer.getTime();
+			float elapsed = gameTimer.getElapsedTime().asSeconds();
 			float t = min(elapsed / spawnRampDuration, 1.0f);
 			zombieSpawnTime = 3.0f - t * (3.0f - minSpawnTime);
 
@@ -7097,6 +7110,7 @@ struct DesertroadRush {
 	const int mapHeight = 1500;
 	int mission1_zombies_counter = 0;
 	bool isSaved = false;
+	Clock gameTimer;
 	Sprite backgroundDesertRoadSprite;
 
 	DesertroadRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
@@ -7113,6 +7127,7 @@ struct DesertroadRush {
 		);
 
 
+		gameTimer.restart();
 		zombieSpawn.restart();
 
 		//background
@@ -7129,7 +7144,7 @@ struct DesertroadRush {
 	};
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score);
+			addScoreIfHigh(score,playerName);
 			cout << score << endl;
 			isSaved = true;
 		}
@@ -7142,7 +7157,7 @@ struct DesertroadRush {
 		// Dynamically adjust zombie spawn time
 		if (!playersArr.empty()) {
 
-			float elapsed = gameTimer.getTime();
+			float elapsed = gameTimer.getElapsedTime().asSeconds();
 			float t = min(elapsed / spawnRampDuration, 1.0f);
 			zombieSpawnTime = 3.0f - t * (3.0f - minSpawnTime);
 
@@ -7243,6 +7258,7 @@ struct WoodsRush {
 	int totalzombiekilled = 0;
 	Clock zombieSpawnClock;
 	Sprite backgroundWoods;
+	Clock gameTimer;
 	Clock zombieSpawn;
 	float zombieSpawnTime = 3.0f; // Will decrease over time
 	const float minSpawnTime = 0.5f;
@@ -7281,7 +7297,7 @@ struct WoodsRush {
 	}
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score);
+			addScoreIfHigh(score,playerName);
 			cout << score << endl;
 			isSaved = true;
 		}
@@ -7294,7 +7310,7 @@ struct WoodsRush {
 
 		if (!playersArr.empty()) {
 
-			float elapsed = gameTimer.getTime();
+			float elapsed = gameTimer.getElapsedTime().asSeconds();
 			float t = min(elapsed / spawnRampDuration, 1.0f);
 			zombieSpawnTime = 3.0f - t * (3.0f - minSpawnTime);
 
@@ -7365,10 +7381,6 @@ struct WoodsRush {
 
 	};
 };
-
-
-
-
 struct levelHandler {
 	int id = -1;
 
@@ -7588,18 +7600,12 @@ struct levelHandler {
 		}
 	}
 };
-
-
-
-
-
-
 void showDeath(vector<PLAYER>& playersArr, RenderWindow& window) {
 
 	Sprite beachdead;
 	beachdead.setTexture(beachdeadtexture);
 	beachdead.setOrigin(beachdead.getLocalBounds().width / 2, beachdead.getLocalBounds().height / 2);
-	gameTimer.pause();
+
 	beachdead.setPosition(window.mapPixelToCoords({ 1920 / 2,1080 / 2 }));
 
 	beachdead.setScale(2, 2);
