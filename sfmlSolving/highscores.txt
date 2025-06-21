@@ -1,8 +1,8 @@
-9000
-Player4
-2100
+1100
 Player1
-800
+100
+Player4
+100
 Player3
-600
+100
 Player2

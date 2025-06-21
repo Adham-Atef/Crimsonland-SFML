@@ -7,13 +7,13 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <random>
+
 
 const double PI = 3.14159265f;
 
 using namespace sf;
 using namespace std;
-
-
 
 // Weapon types (IDs)
 int levelIDMenu = -1;
@@ -52,119 +52,213 @@ bool isEndedEndScene = false;
 const int MAX_SCORES = 10;
 const char* const SCORE_FILE = "highscores.txt";
 
-string playerName = "Player1"; // Change it With GUI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+string playerName = "Player7"; // Change it With GUI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
 
 
 struct Scores {
+
 	int scoreCount = 0;
+
 	int scores[MAX_SCORES] = { 0 };
+
 	string playerName[MAX_SCORES] = { "" };
+
 } mainScores;
+int scoreCount = 0;
 
 void loadScores() {
 	ifstream inFile(SCORE_FILE);
+
 	if (!inFile) {
 		cout << "No existing high score file. Starting fresh." << endl;
 		return;
 	}
 
 	mainScores.scoreCount = 0;
+
 	int score;
+
 	string name;
+
 	while (mainScores.scoreCount < MAX_SCORES && inFile >> score) {
-		inFile.ignore(1); 
+
+		inFile.ignore(1);
+
 		getline(inFile, name);
+
 		mainScores.scores[mainScores.scoreCount] = score;
+
 		mainScores.playerName[mainScores.scoreCount] = name;
+
 		mainScores.scoreCount++;
+
 	}
+
+
 
 	vector<pair<int, string>> scorePairs(mainScores.scoreCount);
+
 	for (int i = 0; i < mainScores.scoreCount; i++) {
+
 		scorePairs[i] = { mainScores.scores[i], mainScores.playerName[i] };
-	}
-	sort(scorePairs.begin(), scorePairs.end(), greater<pair<int, string>>());
-	for (int i = 0; i < mainScores.scoreCount; i++) {
-		mainScores.scores[i] = scorePairs[i].first;
-		mainScores.playerName[i] = scorePairs[i].second;
+
 	}
 
+	sort(scorePairs.begin(), scorePairs.end(), greater<pair<int, string>>());
+
+	for (int i = 0; i < mainScores.scoreCount; i++) {
+
+		mainScores.scores[i] = scorePairs[i].first;
+
+		mainScores.playerName[i] = scorePairs[i].second;
+
+	}
 	inFile.close();
 }
 
 void saveScores() {
 	vector<pair<int, string>> scorePairs(mainScores.scoreCount);
+
 	for (int i = 0; i < mainScores.scoreCount; i++) {
+
 		scorePairs[i] = { mainScores.scores[i], mainScores.playerName[i] };
+
 	}
+
 	sort(scorePairs.begin(), scorePairs.end(), greater<pair<int, string>>());
+
 	for (int i = 0; i < mainScores.scoreCount; i++) {
+
 		mainScores.scores[i] = scorePairs[i].first;
+
 		mainScores.playerName[i] = scorePairs[i].second;
+
 	}
 
 	ofstream outFile(SCORE_FILE, ios::trunc);
+
 	if (!outFile) {
+
 		cerr << "Error saving high scores!" << endl;
+
 		return;
+
 	}
 
+
+
 	for (int i = 0; i < mainScores.scoreCount; i++) {
+
 		outFile << mainScores.scores[i] << "\n" << mainScores.playerName[i] << "\n";
+
 	}
+
+
 
 	outFile.close();
+
 	cout << "Scores saved successfully (" << mainScores.scoreCount << " entries)." << endl;
+
 }
+
+
 
 void addScoreIfHigh(int newScore, const string& newName) {
+
 	for (int i = 0; i < mainScores.scoreCount; i++) {
+
 		if (mainScores.playerName[i] == newName) {
+
 			if (newScore > mainScores.scores[i]) {
+
 				mainScores.scores[i] = newScore;
+
 			}
+
 			return;
+
 		}
+
 	}
+
+
 
 	if (mainScores.scoreCount < MAX_SCORES) {
+
 		mainScores.scores[mainScores.scoreCount] = newScore;
+
 		mainScores.playerName[mainScores.scoreCount] = newName;
+
 		mainScores.scoreCount++;
+
 		return;
+
 	}
+
+
 
 	int minIndex = 0;
+
 	for (int i = 1; i < mainScores.scoreCount; i++) {
+
 		if (mainScores.scores[i] < mainScores.scores[minIndex]) {
+
 			minIndex = i;
+
 		}
+
 	}
+
+
 
 	if (newScore > mainScores.scores[minIndex]) {
+
 		mainScores.scores[minIndex] = newScore;
+
 		mainScores.playerName[minIndex] = newName;
+
 	}
+
 }
+
+
 
 void displayScores() {
+
 	vector<pair<int, string>> scorePairs(mainScores.scoreCount);
+
 	for (int i = 0; i < mainScores.scoreCount; i++) {
+
 		scorePairs[i] = { mainScores.scores[i], mainScores.playerName[i] };
+
 	}
+
 	sort(scorePairs.begin(), scorePairs.end(), greater<pair<int, string>>());
 
+
+
 	cout << "\nCurrent High Scores:" << endl;
+
 	if (mainScores.scoreCount == 0) {
+
 		cout << "No scores recorded yet." << endl;
+
 		return;
+
 	}
+
+
 
 	for (int i = 0; i < mainScores.scoreCount; i++) {
-		cout << i + 1 << ". " << scorePairs[i].second << ": " << scorePairs[i].first << endl;
-	}
-}
 
+		cout << i + 1 << ". " << scorePairs[i].second << ": " << scorePairs[i].first << endl;
+
+	}
+
+}
 
 struct gameSound {
 
@@ -219,6 +313,143 @@ struct gameSound {
 };
 const int num_sound = 14;
 gameSound gameSounds[num_sound];
+
+
+void runDesertScene(RenderWindow& window) {
+	Texture bgTexture;
+	if (!bgTexture.loadFromFile("crimsongndd.png")) return;
+	Sprite background(bgTexture);
+
+	Font font;
+	if (!font.loadFromFile("tag.ttf")) return;
+
+	Music music;
+	if (!music.openFromFile("MainSound.wav")) return;
+	music.setLoop(true);
+	music.play();
+
+	Texture talking;
+	if (!talking.loadFromFile("imgs/speechbox.png")) return;
+	Sprite talk(talking);
+
+	Texture desertScene;
+	if (!desertScene.loadFromFile("imgs/desertScene.png")) return;
+	Sprite scene(desertScene);
+	scene.setScale(3.75f, 2.75f);
+	scene.setPosition(70, -30);
+
+
+	Text pressSpace;
+	pressSpace.setFont(font);
+	pressSpace.setString("Press Space to skip...");
+	pressSpace.setCharacterSize(26);
+	pressSpace.setFillColor(Color::White);
+	pressSpace.setPosition(100, 900);
+
+
+	Text framesText[5];
+	for (int i = 0; i < 5; i++) {
+		framesText[i].setFont(font);
+		if (i % 2 == 0 && i != 0)
+			framesText[i].setFillColor(Color::Black);
+		else
+			framesText[i].setFillColor(Color::Blue);
+
+		if (i == 0) {
+			framesText[i].setCharacterSize(26);
+			framesText[i].setPosition(550, 300);
+			framesText[i].setString("You are now so close to your home.");
+		}
+		if (i == 1) {
+			framesText[i].setCharacterSize(20);
+			framesText[i].setPosition(550, 300);
+			framesText[i].setString("I must go where I told you. My family is waiting for me.");
+		}
+		if (i == 2) {
+			framesText[i].setCharacterSize(18);
+			framesText[i].setPosition(620, 470);
+			framesText[i].setString("ohhh! I hope you find them doing well. Thank you a lot for saving my life");
+		}
+		if (i == 3) {
+			framesText[i].setCharacterSize(20);
+			framesText[i].setPosition(550, 300);
+			framesText[i].setString("You are welcome. Take this pistol and take care of yourself.");
+		}
+		if (i == 4) {
+			framesText[i].setCharacterSize(26);
+			framesText[i].setPosition(650, 490);
+			framesText[i].setString("Thank You. Goodbye!");
+		}
+	}
+
+	RectangleShape fade(Vector2f(1920, 1080));
+	fade.setFillColor(Color(0, 0, 0, 255));
+
+	Clock sceneClock;
+	int frame = 0;
+
+	while (window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space) {
+				frame = 7;
+			}
+		}
+
+
+		float time = sceneClock.getElapsedTime().asSeconds();
+		if (frame < 7) {
+			if (time >= 2 && time < 4) frame = 1;
+			if (time >= 4 && time < 6) frame = 2;
+			if (time >= 6 && time < 8) frame = 3;
+			if (time >= 8 && time < 10) frame = 4;
+			if (time >= 10 && time < 12) frame = 5;
+			if (time >= 12 && time < 14) frame = 6;
+			if (time >= 14) frame = 7;
+		}
+
+
+		window.clear();
+		window.draw(background);
+		window.draw(scene);
+		if (frame >= 1 && frame < 6) window.draw(talk);
+		window.draw(pressSpace);
+
+		switch (frame) {
+		case 0: {
+			int alpha = static_cast<int>(255 - (time / 2.0f) * 255);
+			if (alpha < 0) alpha = 0;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 1: { window.draw(framesText[0]); talk.setPosition(430, 170); break; }
+		case 2: { window.draw(framesText[1]); talk.setPosition(430, 170); break; }
+		case 3: { window.draw(framesText[2]); talk.setPosition(540, 340); break; }
+		case 4: { window.draw(framesText[3]); talk.setPosition(430, 170); break; }
+		case 5: { window.draw(framesText[4]); talk.setPosition(540, 340); break; }
+		case 6: {
+			int alpha = static_cast<int>(((time - 12.0f) / 2.0f) * 255);
+			if (alpha > 255) alpha = 255;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 7: {
+			music.stop();
+			window.close();
+			break;
+		}
+		}
+
+		window.display();
+
+	}
+}
+
+
 
 
 
@@ -444,9 +675,9 @@ void runStoryMode(RenderWindow& window) {
 	Text levelTexts[totalLevels];
 
 	int selectedIndex = -1;
-	float startX = 250, startY = 250; // starting position of the first level box    
-	float boxW = 150, boxH = 50;      //size of each level box
-	float horGap = 30, vertGap = 60;  //horizontal and vertical gaps  
+	float startX = 250, startY = 250;
+	float boxW = 150, boxH = 50;
+	float horGap = 30, vertGap = 60;
 
 	for (int i = 0; i < totalLevels; ++i) {
 		levelRects[i].setSize(Vector2f(boxW, boxH));
@@ -583,11 +814,231 @@ void runStoryMode(RenderWindow& window) {
 	}
 }
 
+void rushMaps(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite,
+	Sound& clickSound, int& selectedMap, bool& backToRushMain) {
+	const int MAP_COUNT = 5;
+	const string mapNames[MAP_COUNT] = { "Beach", "Desert Road", "Woods", "City", "Army Camp" };
+
+	Text title("Rush Mode", font, 38);
+	title.setFillColor(Color(160, 155, 155, 240));
+	title.setPosition(150, 100);
+
+	Text choose("Choose a map:", font, 25);
+	choose.setFillColor(Color(74, 8, 8, 240));
+	choose.setPosition(125, 350);
+
+	Text mapOptions[MAP_COUNT];
+	for (int i = 0; i < MAP_COUNT; ++i) {
+		mapOptions[i].setFont(font);
+		mapOptions[i].setString(mapNames[i]);
+		mapOptions[i].setCharacterSize(40);
+		mapOptions[i].setPosition(350, 250 + i * 70);
+		mapOptions[i].setFillColor(Color(150, 150, 150, 240));
+	}
+
+	Text back;
+	back.setFont(font);
+	back.setString("Back");
+	back.setCharacterSize(38);
+	back.setPosition(375, 850);
+	back.setFillColor(Color(150, 150, 150, 240));
+
+	int selected = 0;
+	bool inMapMenu = true;
+
+	while (inMapMenu && window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				saveScores();
+				window.close();
+			}
+			if (event.type == Event::KeyPressed) {
+				if (event.key.code == Keyboard::Up)
+					selected = (selected - 1 + MAP_COUNT + 1) % (MAP_COUNT + 1);
+				else if (event.key.code == Keyboard::Down)
+					selected = (selected + 1) % (MAP_COUNT + 1);
+				else if (event.key.code == Keyboard::Enter) {
+					clickSound.play();
+					if (selected == MAP_COUNT) {
+						backToRushMain = true;
+						inMapMenu = false;
+					}
+					else {
+						selectedMap = selected;
+						levelIDMenu = selected + 12;
+						inMapMenu = false;
+						backToRushMain = false;
+					}
+				}
+				else if (event.key.code == Keyboard::Escape) {
+					clickSound.play();
+					backToRushMain = true;
+					inMapMenu = false;
+				}
+			}
+
+			if (event.type == Event::MouseMoved) {
+				Vector2f mousePos(event.mouseMove.x, event.mouseMove.y);
+				for (int i = 0; i < MAP_COUNT; ++i) {
+					if (mapOptions[i].getGlobalBounds().contains(mousePos)) {
+						selected = i;
+					}
+				}
+				if (back.getGlobalBounds().contains(mousePos)) {
+					selected = MAP_COUNT;
+				}
+			}
+			if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+				Vector2f clickPos(event.mouseButton.x, event.mouseButton.y);
+				for (int i = 0; i < MAP_COUNT; ++i) {
+					if (mapOptions[i].getGlobalBounds().contains(clickPos)) {
+						selectedMap = i;
+						levelIDMenu = selectedMap + 12;
+						clickSound.play();
+						backToRushMain = false;
+						inMapMenu = false;
+						break;
+					}
+				}
+				if (back.getGlobalBounds().contains(clickPos)) {
+					clickSound.play();
+					backToRushMain = true;
+					inMapMenu = false;
+				}
+			}
+		}
+
+		for (int i = 0; i < MAP_COUNT; ++i)
+			mapOptions[i].setFillColor(i == selected ? Color(150, 35, 35, 255) : Color(150, 150, 150, 240));
+		back.setFillColor(selected == MAP_COUNT ? Color(150, 35, 35, 255) : Color(150, 150, 150, 240));
+
+		window.clear(Color::Black);
+		window.draw(backgroundSprite);
+		window.draw(logoSprite);
+		window.draw(title);
+		window.draw(choose);
+		for (int i = 0; i < MAP_COUNT; ++i)
+			window.draw(mapOptions[i]);
+		window.draw(back);
+		window.display();
+	}
+}
+
+
+bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite,
+	Sound& clickSound, int& selectedMap) {
+	const int MENU_OPTION_COUNT = 3;
+	string options[MENU_OPTION_COUNT] = { "Single Player", "Multiplayer", "Back to Main Menu" };
+
+	Text title("Rush Mode", font, 38);
+	title.setFillColor(Color(160, 155, 155, 240));
+	title.setPosition(150, 100);
+
+	Text optionText[MENU_OPTION_COUNT];
+	for (int i = 0; i < MENU_OPTION_COUNT; ++i) {
+		optionText[i].setFont(font);
+		optionText[i].setString(options[i]);
+		optionText[i].setCharacterSize(40);
+		optionText[i].setFillColor(Color(150, 150, 150, 240));
+		optionText[i].setPosition(350, 350 + i * 125);
+	}
+
+	optionText[2].setPosition(350, 850);
+	optionText[2].setCharacterSize(35);
+
+	int selected = 0;
+	bool stayInMenu = true;
+
+	while (stayInMenu && window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				saveScores();
+				window.close();
+			}
+			if (event.type == Event::KeyPressed) {
+				if (event.key.code == Keyboard::Up)
+					selected = (selected - 1 + MENU_OPTION_COUNT) % MENU_OPTION_COUNT;
+				else if (event.key.code == Keyboard::Down)
+					selected = (selected + 1) % MENU_OPTION_COUNT;
+				else if (event.key.code == Keyboard::Enter) {
+					clickSound.play();
+					sleep(milliseconds(150));
+					if (selected == 0) {
+
+						bool goBack = false;
+						rushMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
+						if (!goBack)
+							return false;
+					}
+					else if (selected == 1) {
+						// Multiplayerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr 
+						cout << "Multiplayer not implemented yet.\n";
+					}
+					else {
+						return true;
+					}
+				}
+				else if (event.key.code == Keyboard::Escape) {
+					clickSound.play();
+					sleep(milliseconds(150));
+					return true;
+				}
+			}
+			else if (event.type == Event::MouseMoved) {
+				Vector2f mousePos = window.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y));
+				for (int i = 0; i < MENU_OPTION_COUNT; ++i) {
+					if (optionText[i].getGlobalBounds().contains(mousePos)) {
+						selected = i;
+						break;
+					}
+				}
+			}
+			else if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+				Vector2f clickPos = window.mapPixelToCoords(Vector2i(event.mouseButton.x, event.mouseButton.y));
+				for (int i = 0; i < MENU_OPTION_COUNT; ++i) {
+					if (optionText[i].getGlobalBounds().contains(clickPos)) {
+						clickSound.play();
+						sleep(milliseconds(150));
+						if (i == 0) {
+							bool goBack = false;
+							rushMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
+							if (!goBack)
+								return false;
+						}
+						else if (i == 1) {
+							cout << "Multiplayer not implemented yet.\n";
+						}
+						else {
+							return true;
+						}
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < MENU_OPTION_COUNT; ++i) {
+			optionText[i].setFillColor(i == selected ? Color(150, 35, 35, 255) : Color(150, 150, 150, 240));
+		}
+
+
+		window.clear(Color::Black);
+		window.draw(backgroundSprite);
+		window.draw(logoSprite);
+		window.draw(title);
+		for (int i = 0; i < MENU_OPTION_COUNT; ++i)
+			window.draw(optionText[i]);
+		window.display();
+	}
+
+	return true;
+}
+
+
 void runRushMode(RenderWindow& window) {
 	Font font;
-	if (!font.loadFromFile("tag.ttf")) {
-		cout << "Failed to load font for Rush Mode.\n";
-	}
+	font.loadFromFile("tag.ttf");
 
 	Texture backgroundTexture;
 	backgroundTexture.loadFromFile("crimsonMain.png");
@@ -600,138 +1051,15 @@ void runRushMode(RenderWindow& window) {
 	logoSprite.setPosition(window.mapPixelToCoords({ 1000, -10 }));
 	logoSprite.setScale(0.8f, 0.8f);
 
-	//Music menuMusic;
-	//menuMusic.openFromFile("MainSound.wav");
-	//menuMusic.setLoop(true);
-	//menuMusic.play();
-
 	SoundBuffer clickBuffer;
-	if (!clickBuffer.loadFromFile("Button.wav")) {
-		cout << "Failed to load button click sound.\n";
-	}
+	clickBuffer.loadFromFile("Button.wav");
 	Sound clickSound(clickBuffer);
 
-	const string maps[5] = { "Beach", "Desert Road", "Woods", "City", "Army Camp" };
-	Text mapText;
-	mapText.setFont(font);
-	mapText.setCharacterSize(25);
-	mapText.setFillColor(Color(74, 8, 8, 240));
-	mapText.setString("Choose a map:");
-	mapText.setPosition(window.mapPixelToCoords({ 125, 350 }));
-
-	Text rushText;
-	rushText.setFont(font);
-	rushText.setString("Rush Mode");
-	rushText.setCharacterSize(38);
-	rushText.setFillColor(Color(160, 155, 155, 240));
-	rushText.setPosition(window.mapPixelToCoords({ 150, 100 }));
-
-	Text backToMenuText;
-	backToMenuText.setFont(font);
-	backToMenuText.setCharacterSize(32);
-	backToMenuText.setFillColor(Color(150, 150, 150, 240));
-	backToMenuText.setString("Back to Main Menu");
-	backToMenuText.setPosition(window.mapPixelToCoords({ 300, 850 }));
-	FloatRect backBounds = backToMenuText.getGlobalBounds();
-
-	bool inRushMode = true;
 	int selectedMap = 0;
+	bool returnToMainMenu = rushMainMenu(window, font, backgroundSprite, logoSprite, clickSound, selectedMap);
 
-	while (inRushMode && window.isOpen()) {
-		Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == Event::Closed) {
-				saveScores();
-				window.close();
-			}
+	if (!returnToMainMenu) {
 
-
-			if (event.type == Event::KeyPressed) {
-				if (event.key.code == Keyboard::Up) {
-					selectedMap = (selectedMap - 1 + 5) % 5;
-				}
-				else if (event.key.code == Keyboard::Down) {
-					selectedMap = (selectedMap + 1) % 5;
-				}
-				else if (event.key.code == Keyboard::Enter) {
-					cout << "Selected map: " << maps[selectedMap] << endl;
-					menuMusic.stop();
-
-					clickSound.play();
-					inRushMode = false;
-				}
-				else if (event.key.code == Keyboard::Escape) {
-					clickSound.play();
-					inRushMode = false;
-				}
-			}
-
-
-			if (event.type == Event::MouseMoved) {
-				Vector2f mousePos(event.mouseMove.x, event.mouseMove.y);
-				bool hoveringMap = false;
-
-				for (int i = 0; i < 5; ++i) {
-					FloatRect bounds(350, 250 + i * 70, 300, 40);
-					if (bounds.contains(mousePos)) {
-						selectedMap = i;
-						hoveringMap = true;
-						break;
-					}
-				}
-
-				if (backBounds.contains(mousePos)) {
-					backToMenuText.setFillColor(Color(150, 35, 35, 255));
-				}
-				else {
-					backToMenuText.setFillColor(Color(150, 150, 150, 240));
-				}
-			}
-
-
-			if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
-				Vector2f clickPos(event.mouseButton.x, event.mouseButton.y);
-
-				for (int i = 0; i < 5; ++i) {
-					FloatRect bounds(350, 250 + i * 70, 300, 40);
-					if (bounds.contains(clickPos)) {
-						selectedMap = i;
-						cout << "Selected map: " << maps[selectedMap] << endl;
-						levelIDMenu = selectedMap + 12;
-						menuMusic.stop();
-
-						clickSound.play();
-						inRushMode = false;
-						break;
-					}
-				}
-
-				if (backBounds.contains(clickPos)) {
-					clickSound.play();
-					sleep(milliseconds(150));
-					inRushMode = false;
-				}
-			}
-		}
-
-		window.clear(Color::Black);
-		window.draw(backgroundSprite);
-		window.draw(logoSprite);
-		window.draw(mapText);
-		window.draw(rushText);
-
-		for (int i = 0; i < 5; ++i) {
-			Text mapOption;
-			mapOption.setFont(font);
-			mapOption.setString(maps[i]);
-			mapOption.setCharacterSize(40);
-			mapOption.setFillColor(i == selectedMap ? Color(150, 35, 35, 255) : Color(150, 150, 150, 240));
-			mapOption.setPosition(window.mapPixelToCoords({ 350, 250 + i * 70 }));
-			window.draw(mapOption);
-		}
-
-		window.draw(backToMenuText);
-		window.display();
 	}
 }
 
@@ -789,20 +1117,37 @@ void runLeaderboard(RenderWindow& window) {
 
 
 	vector<pair<int, string>> scorePairs(mainScores.scoreCount);
+
 	for (int i = 0; i < mainScores.scoreCount; i++) {
+
 		scorePairs[i] = { mainScores.scores[i], mainScores.playerName[i] };
+
 	}
+
 	sort(scorePairs.begin(), scorePairs.end(), greater<pair<int, string>>());
 
+
+
 	for (int i = 0; i < mainScores.scoreCount; i++) { //setup the leaderboard
+
 		x_[i].setFont(font);
+
 		x_[i].setCharacterSize(36);
+
 		x_[i].setPosition(150, 200 + i * 70);
+
 		x_[i].setFillColor(Color(200, 200, 200));
+
 		x_[i].setString(scorePairs[i].second + " : " + to_string(scorePairs[i].first));
+
 	}
 
+
+
 	//cout << x[0] << endl;
+
+
+
 
 
 
@@ -852,10 +1197,15 @@ void runLeaderboard(RenderWindow& window) {
 		//window.draw(placeholder);
 		window.draw(backButton);
 		for (int i = 0; i < mainScores.scoreCount; i++)
+
 		{
+
 			window.draw(x_[i]);
+
 		}
+
 		window.display();
+
 	}
 }
 
@@ -1130,6 +1480,7 @@ bool loadTexture(Texture& texture, const string& filePath) {
 	return false;
 }
 
+
 void loadingAssets() {
 
 
@@ -1242,6 +1593,14 @@ void loadingAssets() {
 	}
 }
 
+
+
+
+
+
+
+
+
 void loadSounds() {
 
 	if (!gameSounds[0].loadFromFile("Sound/foot.wav")) {
@@ -1348,6 +1707,14 @@ void loadSounds() {
 
 }
 
+
+
+
+
+
+
+
+
 void foot() {
 
 	gameSounds[0].play();
@@ -1417,6 +1784,8 @@ void PlasmaRifle() {
 	gameSounds[10].play();
 
 }
+
+
 
 void PlasmaShotgun() {
 
@@ -1554,6 +1923,7 @@ struct Trains {
 
 
 };
+
 struct Rail {
 	Sprite railS;
 
@@ -1585,6 +1955,7 @@ struct TrainRails {
 		}
 	}
 };
+
 struct decor {
 	Sprite sprite;
 
@@ -1598,6 +1969,7 @@ struct decor {
 		window.draw(sprite);
 	}
 };
+
 const int NUM_DECOR = 4;
 struct decorations {
 	decor trees[NUM_DECOR];
@@ -1722,6 +2094,9 @@ struct Weapon {
 	}
 
 };
+
+
+
 struct Bullet {
 	Sprite shape;
 	Vector2f velocity;
@@ -1733,13 +2108,18 @@ struct Bullet {
 		damage = localDamage;
 	}
 };
+
 vector<Bullet> bullets;
+
+
 Vector2f getDirection(Vector2f from, Vector2f to) {
 	Vector2f d = to - from;
 	float len = sqrt(d.x * d.x + d.y * d.y);
 
 	return len != 0 ? d / len : Vector2f(0.f, 0.f);
 }
+
+
 Vector2f rotateVector(Vector2f v, float angleDeg) {
 	float rad = angleDeg * (PI / 180.f);
 	float cosA = cos(rad);
@@ -1749,6 +2129,7 @@ Vector2f rotateVector(Vector2f v, float angleDeg) {
 		v.x * sinA + v.y * cosA
 	);
 }
+
 Bullet createBullet(Vector2f playerPos, float playerRotationDeg, Weapon currentWeapon, RenderWindow& window) {
 	Bullet b(currentWeapon.damage);
 
@@ -1785,6 +2166,8 @@ Bullet createBullet(Vector2f playerPos, float playerRotationDeg, Weapon currentW
 
 	return b;
 }
+
+
 void updateBullets(float dt) {
 	for (int i = 0; i < bullets.size();) {
 		bullets[i].shape.move(bullets[i].velocity * dt);
@@ -6923,7 +7306,6 @@ struct BeachRush {
 	float dt;
 	Clock zombieSpawn;
 	float zombieSpawnTime = 3.0f; // Will decrease over time
-	const float minSpawnTime = 0.5f;
 	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
 
 	bool isSaved = false;
@@ -6935,7 +7317,14 @@ struct BeachRush {
 	Texture beach, seatexture;
 	Sprite sand, sea;
 
-	Clock gameTimer;
+
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.2f;
 
 	BeachRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, PISTOL, RIFLE, PLASMA_SHOTGUN, 1, window, 0.35, 0.35, true));
@@ -6972,7 +7361,6 @@ struct BeachRush {
 		);*/
 		sea.setScale(2, 1);
 
-		gameTimer.restart();
 		zombieSpawn.restart();
 
 		//background
@@ -6983,7 +7371,7 @@ struct BeachRush {
 	};
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score , playerName);
+			addScoreIfHigh(score, playerName);
 			cout << score << endl;
 			isSaved = true;
 		}
@@ -7003,31 +7391,54 @@ struct BeachRush {
 		}
 
 		sea.setTextureRect(IntRect(seaindex * 1920, 0, 1920, 750));
-		// Dynamically adjust zombie spawn time
 		if (!playersArr.empty()) {
+			float elapsed = gameTimer.getTime();
 
-			float elapsed = gameTimer.getElapsedTime().asSeconds();
-			float t = min(elapsed / spawnRampDuration, 1.0f);
-			zombieSpawnTime = 3.0f - t * (3.0f - minSpawnTime);
+			float zombie1SpawnTime;
+			if (elapsed <= phase1Duration) {
+				float t = elapsed / phase1Duration;
+				zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+			}
+			else {
+				zombie1SpawnTime = minSpawnTime;
+			}
 
-			if (zombieSpawn.getElapsedTime().asSeconds() >= zombieSpawnTime) {
+			if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
 				float x, y;
 				int side = rand() % 4;
 				switch (side) {
-				case 0: x = rand() % mapWidth; y = 0; break;
-				case 1: x = mapWidth; y = rand() % mapHeight; break;
-				case 2: x = rand() % mapWidth; y = mapHeight; break;
-				case 3: x = 0; y = rand() % mapHeight; break;
+				case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+				case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+				case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+				case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
 				}
-
 				zombiesArr.push_back(ZOMBIE(x, y, 1));
-
-				if (t >= 0.5f) {
-					zombiesArr.push_back(ZOMBIE(x, y, 2));
-				}
-
-				zombieSpawn.restart();
+				zombie1Spawn.reset();
 			}
+
+			float zombie2SpawnTime;
+			if (elapsed > phase1Duration) {
+				float t = (elapsed - phase1Duration) / phase2Duration;
+				zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+				if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 2));
+					zombie2Spawn.reset();
+				}
+			}
+		}
+
+
+
+
 			if (!playersArr.empty()) {
 				//camera view max view and min view to track player
 				Vector2f playerPos = playersArr[0].shape.getPosition();
@@ -7085,7 +7496,7 @@ struct BeachRush {
 				}
 			}
 
-		}
+		
 	};
 	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		window.draw(sand);
@@ -7101,17 +7512,24 @@ struct DesertroadRush {
 	Clock zombieDeathTimer;
 	float dt;
 	Clock zombieSpawn;
-	float zombieSpawnTime = 3.0f; // Will decrease over time
-	const float minSpawnTime = 0.5f;
-	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
-
+	float zombieSpawnTime = 3.0f; 
+	const float spawnRampDuration = 120.0f; 
 	int initialNumZombies = 10;
-	const int mapWidth = 2000;
-	const int mapHeight = 1500;
+	const float mapWidth = 2000;
+	const float mapHeight = 1500;
 	int mission1_zombies_counter = 0;
 	bool isSaved = false;
-	Clock gameTimer;
 	Sprite backgroundDesertRoadSprite;
+
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.2f;
+
+
 
 	DesertroadRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, PISTOL, RIFLE, PLASMA_SHOTGUN, 1, window, 0.35, 0.35, true));
@@ -7127,12 +7545,10 @@ struct DesertroadRush {
 		);
 
 
-		gameTimer.restart();
 		zombieSpawn.restart();
 
 		//background
 
-	 // background Sprite
 		backgroundDesertRoadSprite.setTexture(backgroundDesertRoad);
 		float mapWidth = 2000; // width of background
 		float mapHeight = 1500; // height of background
@@ -7143,8 +7559,10 @@ struct DesertroadRush {
 		// timer and view and point after 2 min
 	};
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+
+
 		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score,playerName);
+			addScoreIfHigh(score, playerName);
 			cout << score << endl;
 			isSaved = true;
 		}
@@ -7154,33 +7572,54 @@ struct DesertroadRush {
 		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
 		updateBullets(dt);
 
-		// Dynamically adjust zombie spawn time
+		
 		if (!playersArr.empty()) {
+			float elapsed = gameTimer.getTime();
 
-			float elapsed = gameTimer.getElapsedTime().asSeconds();
-			float t = min(elapsed / spawnRampDuration, 1.0f);
-			zombieSpawnTime = 3.0f - t * (3.0f - minSpawnTime);
+			float zombie1SpawnTime;
+			if (elapsed <= phase1Duration) {
+				float t = elapsed / phase1Duration;
+				zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+			}
+			else {
+				zombie1SpawnTime = minSpawnTime;
+			}
 
-			if (zombieSpawn.getElapsedTime().asSeconds() >= zombieSpawnTime) {
+			if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
 				float x, y;
 				int side = rand() % 4;
 				switch (side) {
-				case 0: x = rand() % mapWidth; y = 0; break;
-				case 1: x = mapWidth; y = rand() % mapHeight; break;
-				case 2: x = rand() % mapWidth; y = mapHeight; break;
-				case 3: x = 0; y = rand() % mapHeight; break;
+				case 0: x = rand() % (int)mapWidth; y = 1.0f; break;        
+				case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+				case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+				case 3: x = 1.0f; y = rand() % (int)mapHeight; break;         
 				}
-
 				zombiesArr.push_back(ZOMBIE(x, y, 1));
-
-				if (t >= 0.5f) {
-					zombiesArr.push_back(ZOMBIE(x, y, 2));
-				}
-
-				zombieSpawn.restart();
+				zombie1Spawn.reset();
 			}
 
+			float zombie2SpawnTime;
+			if (elapsed > phase1Duration) {
+				float t = (elapsed - phase1Duration) / phase2Duration;
+				zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+				if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;         
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break; 
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;          
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 2));
+					zombie2Spawn.reset();
+				}
+			}
 		}
+		
+
+
 		if (!playersArr.empty()) {
 			//camera view max view and min view to track player
 			Vector2f playerPos = playersArr[0].shape.getPosition();
@@ -7244,6 +7683,371 @@ struct DesertroadRush {
 
 	};
 };
+struct CityRush {
+	Map map;
+	Traffic traffic;
+	Clock deltaClock;
+	Clock zombieDeathTimer;
+	float dt;
+	int mission1_zombies_counter = 0;
+	bool missionComplete = false;
+	Clock Timer;
+	float zombie_respawntime = 5.f;
+	int zombie_perspawn = 2;
+	int totalzombiekilled = 0;
+	Clock zombieSpawnClock;
+	Clock zombieSpawn;
+	float zombieSpawnTime = 3.0f; // Will decrease over time
+	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
+
+	int score = 0;
+	bool isSaved = false;
+	int mapWidth = 1920; // width of background
+	int mapHeight = 1080; // height of background
+
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.2f;
+
+	int getRandomOutsideRange_x() {
+		int left = rand() % 500 - 500;      // -500 to -1
+		int right = rand() % 580 + 1921;    // 1921 to 2500
+
+		if (rand() % 2 == 0)
+			return left;
+		else
+			return right;
+	}
+
+	int getRandomOutsideRange_y() {
+		int up = rand() % 500 - 500;       // -500 to -1
+		int down = rand() % 500 + 1081;     // 1081 to 1580
+
+		if (rand() % 2 == 0)
+			return up;
+		else
+			return down;
+	}
+
+	CityRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, PISTOL, RIFLE, PLASMA_SHOTGUN, 1, window, 0.35, 0.35, true));
+
+		map.init(buildingTexture);
+		traffic.init(cara, carb);
+	}
+	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		if (playersArr.empty() && !isSaved) {
+			addScoreIfHigh(score, playerName);
+			cout << score << endl;
+			isSaved = true;
+		}
+
+		dt = deltaClock.restart().asSeconds();
+		View view(window.getDefaultView());
+
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateBullets(dt);
+
+		if (!playersArr.empty()) {
+
+			if (!playersArr.empty()) {
+				float elapsed = gameTimer.getTime();
+
+				float zombie1SpawnTime;
+				if (elapsed <= phase1Duration) {
+					float t = elapsed / phase1Duration;
+					zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+				}
+				else {
+					zombie1SpawnTime = minSpawnTime;
+				}
+
+				if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 1));
+					zombie1Spawn.reset();
+				}
+
+				float zombie2SpawnTime;
+				if (elapsed > phase1Duration) {
+					float t = (elapsed - phase1Duration) / phase2Duration;
+					zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+					if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+						float x, y;
+						int side = rand() % 4;
+						switch (side) {
+						case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+						case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+						case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+						case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+						}
+						zombiesArr.push_back(ZOMBIE(x, y, 2));
+						zombie2Spawn.reset();
+					}
+				}
+			}
+
+			if (!playersArr.empty()) {
+				//camera view max view and min view to track player
+				Vector2f playerPos = playersArr[0].shape.getPosition();
+				float halfWidth = window.getSize().x / 2.0f;
+				float halfHeight = window.getSize().y / 2.0f;
+				float clampedX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+				float clampedY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+				view.setCenter(clampedX, clampedY);
+				window.setView(view);
+			}
+
+			if (!playersArr.empty())
+			{
+				// Get player position
+				Vector2f pos = playersArr[0].shape.getPosition();
+
+				// Prevent moving out of top border
+				if (pos.y <= 0)
+					playersArr[0].shape.move(0, playersArr[0].speed);
+
+				// Prevent moving out of bottom border
+				if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight + 100)
+					playersArr[0].shape.move(0, -playersArr[0].speed);
+
+				// Prevent moving out of left border
+				if (pos.x <= 0)
+					playersArr[0].shape.move(playersArr[0].speed, 0);
+
+				// Prevent moving out of right border
+				if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
+					playersArr[0].shape.move(-playersArr[0].speed, 0);
+
+			}
+		}
+		for (int i = 0; i < zombiesArr.size(); i++) {
+			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+				score += 100;
+				zombiesArr[i].isDeadCounter = true;
+			}
+		}
+
+		if (zombieSpawnClock.getElapsedTime().asSeconds() >= zombie_respawntime &&
+			!missionComplete)
+		{
+			zombieSpawnClock.restart();
+			for (int i = 0; i < zombie_perspawn; i++) {
+
+				zombiesArr.push_back(ZOMBIE(getRandomOutsideRange_x(), getRandomOutsideRange_y(), 1));
+			}
+		}
+
+		for (int i = 0; i < playersArr.size(); i++) {
+			for (int j = 0; j < NUM_BUILDINGS; j++) {
+				FloatRect playerBounds = playersArr[i].shape.getGlobalBounds();
+				FloatRect buildBounds = map.buildings[j].spriteB.getGlobalBounds();
+
+				if (playerBounds.intersects(buildBounds)) {
+					float overlapX = min(playerBounds.left + playerBounds.width - buildBounds.left,
+						buildBounds.left + buildBounds.width - playerBounds.left);
+					float overlapY = min(playerBounds.top + playerBounds.height - buildBounds.top,
+						buildBounds.top + buildBounds.height - playerBounds.top);
+
+					Vector2f pushDir(0.f, 0.f);
+					Vector2f playerPos = playersArr[i].shape.getPosition();
+
+					if (overlapX < overlapY) {
+						if (playerPos.x < buildBounds.left + buildBounds.width / 2) {
+							pushDir.x = -overlapX;
+						}
+						else {
+							pushDir.x = overlapX;
+						}
+					}
+					else {
+						if (playerPos.y < buildBounds.top + buildBounds.height / 2) {
+							pushDir.y = -overlapY;
+						}
+						else {
+							pushDir.y = overlapY;
+						}
+					}
+
+					playersArr[i].shape.setPosition(playerPos + pushDir);
+					break;
+				}
+			}
+		}
+
+		for (int i = 0; i < zombiesArr.size(); i++) {
+			for (int j = 0; j < NUM_BUILDINGS; j++) {
+				FloatRect playerBounds = zombiesArr[i].shape.getGlobalBounds();
+				FloatRect buildBounds = map.buildings[j].spriteB.getGlobalBounds();
+
+				if (playerBounds.intersects(buildBounds)) {
+					float overlapX = min(playerBounds.left + playerBounds.width - buildBounds.left,
+						buildBounds.left + buildBounds.width - playerBounds.left);
+					float overlapY = min(playerBounds.top + playerBounds.height - buildBounds.top,
+						buildBounds.top + buildBounds.height - playerBounds.top);
+
+					Vector2f pushDir(0.f, 0.f);
+					Vector2f playerPos = zombiesArr[i].shape.getPosition();
+
+					if (overlapX < overlapY) {
+						if (playerPos.x < buildBounds.left + buildBounds.width / 2) {
+							pushDir.x = -overlapX;
+						}
+						else {
+							pushDir.x = overlapX;
+						}
+					}
+					else {
+						if (playerPos.y < buildBounds.top + buildBounds.height / 2) {
+							pushDir.y = -overlapY;
+						}
+						else {
+							pushDir.y = overlapY;
+						}
+					}
+
+					zombiesArr[i].shape.setPosition(playerPos + pushDir);
+					break;
+				}
+			}
+		}
+
+		for (int i = 0; i < playersArr.size(); i++) {
+			for (int j = 0; j < NUM_CARS; j++) {
+				FloatRect playerBounds = playersArr[i].shape.getGlobalBounds();
+				playerBounds.left += playerBounds.width * 0.1f;
+				playerBounds.top += playerBounds.height * 0.1f;
+				playerBounds.width *= 0.8f;
+				playerBounds.height *= 0.8f;
+
+				FloatRect trafficBounds = traffic.cars[j].spriteC.getGlobalBounds();
+				trafficBounds.left += trafficBounds.width * 0.2f;
+				trafficBounds.top += trafficBounds.height * 0.2f;
+				trafficBounds.width *= 0.6f;
+				trafficBounds.height *= 0.6f;
+
+				if (playerBounds.intersects(trafficBounds)) {
+					float overlapX = min(playerBounds.left + playerBounds.width - trafficBounds.left,
+						trafficBounds.left + trafficBounds.width - playerBounds.left);
+					float overlapY = min(playerBounds.top + playerBounds.height - trafficBounds.top,
+						trafficBounds.top + trafficBounds.height - playerBounds.top);
+
+					Vector2f pushDir(0.f, 0.f);
+					Vector2f playerPos = playersArr[i].shape.getPosition();
+
+					if (overlapX < overlapY) {
+						pushDir.x = (playerPos.x < trafficBounds.left + trafficBounds.width / 2) ? -overlapX : overlapX;
+					}
+					else {
+						pushDir.y = (playerPos.y < trafficBounds.top + trafficBounds.height / 2) ? -overlapY : overlapY;
+					}
+
+					playersArr[i].shape.setPosition(playerPos + pushDir);
+					break;
+				}
+			}
+		}
+
+		for (int i = 0; i < zombiesArr.size(); i++) {
+			for (int j = 0; j < NUM_CARS; j++) {
+				FloatRect playerBounds = zombiesArr[i].shape.getGlobalBounds();
+				playerBounds.left += playerBounds.width * 0.1f;
+				playerBounds.top += playerBounds.height * 0.1f;
+				playerBounds.width *= 0.8f;
+				playerBounds.height *= 0.8f;
+
+				FloatRect trafficBounds = traffic.cars[j].spriteC.getGlobalBounds();
+				trafficBounds.left += trafficBounds.width * 0.2f;
+				trafficBounds.top += trafficBounds.height * 0.2f;
+				trafficBounds.width *= 0.6f;
+				trafficBounds.height *= 0.6f;
+
+				if (playerBounds.intersects(trafficBounds)) {
+					float overlapX = min(playerBounds.left + playerBounds.width - trafficBounds.left,
+						trafficBounds.left + trafficBounds.width - playerBounds.left);
+					float overlapY = min(playerBounds.top + playerBounds.height - trafficBounds.top,
+						trafficBounds.top + trafficBounds.height - playerBounds.top);
+
+					Vector2f pushDir(0.f, 0.f);
+					Vector2f playerPos = zombiesArr[i].shape.getPosition();
+
+					if (overlapX < overlapY) {
+						pushDir.x = (playerPos.x < trafficBounds.left + trafficBounds.width / 2) ? -overlapX : overlapX;
+					}
+					else {
+						pushDir.y = (playerPos.y < trafficBounds.top + trafficBounds.height / 2) ? -overlapY : overlapY;
+					}
+
+					zombiesArr[i].shape.setPosition(playerPos + pushDir);
+					break;
+				}
+			}
+		}
+
+
+
+		for (int j = 0; j < NUM_CARS; j++) {
+
+			for (int i = 0; i < bullets.size(); i++) {
+
+			}
+
+			for (int i = 0; i < bullets.size(); i++) {
+				FloatRect bounds = traffic.cars[j].spriteC.getGlobalBounds();
+				bounds.width *= 0.2f;
+				bounds.height *= 0.2f;
+				bounds.left += traffic.cars[j].spriteC.getGlobalBounds().width * 0.4f;
+				bounds.top += traffic.cars[j].spriteC.getGlobalBounds().height * 0.4f;
+
+				if (bullets[i].shape.getGlobalBounds().intersects(bounds)) {
+					bullets.erase(bullets.begin() + i);
+					i--;
+				}
+			}
+		}
+
+		if (!playersArr.empty())
+		{
+			if (playersArr[0].shape.getPosition().y <= 30) // check for top border
+			{
+				playersArr[0].shape.move(0, playersArr[0].speed);
+			}
+			if (playersArr[0].shape.getPosition().y >= 1050) //check for bottom border
+			{
+				playersArr[0].shape.move(0, -playersArr[0].speed);
+			}if (playersArr[0].shape.getPosition().x <= 30) //check for left border
+			{
+				playersArr[0].shape.move(playersArr[0].speed, 0);
+			}
+			if (playersArr[0].shape.getPosition().x >= 1920) //check for right border
+			{
+				playersArr[0].shape.move(-playersArr[0].speed, 0);
+			}
+		}
+
+	}
+	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+
+		draw_background(window, back_ground, 0, 0);
+		draw_background(window, back_ground, 1000, 0);
+		traffic.drawCars(window);
+		map.drawBuildings(window);
+		drawEntities(playersArr, zombiesArr, window, true, true);
+
+	}
+};
 struct WoodsRush {
 	Clock deltaClock;
 	Clock zombieDeathTimer;
@@ -7258,14 +8062,20 @@ struct WoodsRush {
 	int totalzombiekilled = 0;
 	Clock zombieSpawnClock;
 	Sprite backgroundWoods;
-	Clock gameTimer;
 	Clock zombieSpawn;
 	float zombieSpawnTime = 3.0f; // Will decrease over time
-	const float minSpawnTime = 0.5f;
 	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
 	const int mapWidth = 2000;
 	const int mapHeight = 1500;
 	bool isSaved = false;
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.2f;
+
 	int getRandomOutsideRange_x() {
 		int left = rand() % 500 - 500;      // -500 to -1
 		int right = rand() % 580 + 1921;    // 1921 to 2500
@@ -7297,7 +8107,7 @@ struct WoodsRush {
 	}
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score,playerName);
+			addScoreIfHigh(score, playerName);
 			cout << score << endl;
 			isSaved = true;
 		}
@@ -7310,27 +8120,49 @@ struct WoodsRush {
 
 		if (!playersArr.empty()) {
 
-			float elapsed = gameTimer.getElapsedTime().asSeconds();
-			float t = min(elapsed / spawnRampDuration, 1.0f);
-			zombieSpawnTime = 3.0f - t * (3.0f - minSpawnTime);
+			if (!playersArr.empty()) {
+				float elapsed = gameTimer.getTime();
 
-			if (zombieSpawn.getElapsedTime().asSeconds() >= zombieSpawnTime) {
-				float x, y;
-				int side = rand() % 4;
-				switch (side) {
-				case 0: x = rand() % mapWidth; y = 0; break;
-				case 1: x = mapWidth; y = rand() % mapHeight; break;
-				case 2: x = rand() % mapWidth; y = mapHeight; break;
-				case 3: x = 0; y = rand() % mapHeight; break;
+				float zombie1SpawnTime;
+				if (elapsed <= phase1Duration) {
+					float t = elapsed / phase1Duration;
+					zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+				}
+				else {
+					zombie1SpawnTime = minSpawnTime;
 				}
 
-				zombiesArr.push_back(ZOMBIE(x, y, 1));
-
-				if (t >= 0.5f) {
-					zombiesArr.push_back(ZOMBIE(x, y, 2));
+				if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 1));
+					zombie1Spawn.reset();
 				}
 
-				zombieSpawn.restart();
+				float zombie2SpawnTime;
+				if (elapsed > phase1Duration) {
+					float t = (elapsed - phase1Duration) / phase2Duration;
+					zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+					if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+						float x, y;
+						int side = rand() % 4;
+						switch (side) {
+						case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+						case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+						case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+						case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+						}
+						zombiesArr.push_back(ZOMBIE(x, y, 2));
+						zombie2Spawn.reset();
+					}
+				}
 			}
 
 			if (!playersArr.empty()) {
@@ -7381,6 +8213,534 @@ struct WoodsRush {
 
 	};
 };
+struct ArmyRush {
+	Clock deltaClock;
+	Clock zombieDeathTimer;
+	float dt;
+	int mission1_zombies_counter = 0;
+	bool missionComplete = false;
+	int score = 0;
+	bool isSaved = false;
+	float zombieSpawnTime = 3.0f; // Will decrease over time
+	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
+	int getRandomOutsideRange_x() {
+		int left = rand() % 500 - 500;      // -500 to -1
+		int right = rand() % 580 + 1921;    // 1921 to 2500
+
+		// Randomly choose between left and right range
+		if (rand() % 2 == 0)
+			return left;
+		else
+			return right;
+	}
+
+	int getRandomOutsideRange_y() {
+		int up = rand() % 500 - 500;       // -500 to -1
+		int down = rand() % 500 + 1081;     // 1081 to 1580
+
+		// Randomly choose one of the two ranges
+		if (rand() % 2 == 0)
+			return up;
+		else
+			return down;
+	}
+	bool rush = false; // rushMode flag 
+	bool bullet_touched = false;
+	Clock zombieSpawn;
+	const int intial_num = 4;
+
+	int armycampscore = 0;//score
+	Sprite armycampdead;
+	Font font;
+	Text scoreText;
+	Sprite tentSprite;
+	Sprite tankSprite1;
+	Sprite tankSprite2;
+	RectangleShape tankShape;
+	RectangleShape tankShape1;
+	RectangleShape tentshape;
+	Sprite sprite; // background Sprite
+	float mapWidth = 2000; // width of background
+	float mapHeight = 1500; // height of background
+	Clock timer;
+
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.2f;
+	ArmyRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		playersArr.push_back(
+
+			PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, RIFLE, PISTOL, KNIFE, 4, window)
+		);
+
+		armycampdead.setTexture(armycampdeadTexture);
+		armycampdead.setOrigin(armycampdead.getLocalBounds().width / 2, armycampdead.getLocalBounds().height / 2);
+		armycampdead.setPosition(960, 540);
+		armycampdead.setScale(2, 2);
+		font.loadFromFile("img/Caliste.ttf");
+		scoreText.setFont(font);
+		scoreText.setCharacterSize(50);
+
+		for (int i = 0; i < intial_num; i++) {
+			float x, y;
+			int side = rand() % 3;  // 0 -> top , 1 -> right, 2 -> bottom, 3 -> left
+
+			int mapWidth = 2000;
+			int mapHeight = 1500;
+			switch (side) {
+			case 0: // Top
+				x = rand() % mapWidth;
+				y = 0;
+				break;
+			case 1: // Right
+				x = mapWidth;
+				y = rand() % mapHeight;
+				break;
+			case 2: // Bottom
+				x = rand() % mapWidth;
+				y = mapHeight;
+				break;
+			case 3: // Left
+				x = 0;
+				y = rand() % mapHeight;
+				break;
+			}
+
+			zombiesArr.push_back(ZOMBIE(x, y, 1));
+		}
+		tentSprite.setTexture(Tent);
+		tentSprite.setPosition(400, 400);
+		tentSprite.setScale(0.2f, 0.2f);
+
+
+
+		tankSprite1.setTexture(Tank1);
+		tankSprite1.setPosition(800, 600);
+
+
+
+		tankSprite2.setTexture(Tank2);
+		tankSprite2.setPosition(100, 100);
+
+		tankShape.setSize(Vector2f(85, 150));
+		tankShape.setPosition(890, 655);
+
+		tankShape1.setSize(Vector2f(85, 150));
+		tankShape1.setPosition(190, 155);
+
+		tentshape.setSize(Vector2f(160, 160));
+		tentshape.setPosition(422, 420);
+
+		sprite.setTexture(armyBackground);
+		sprite.setScale(
+			mapWidth / armyBackground.getSize().x,
+			mapHeight / armyBackground.getSize().y
+		);
+	}
+
+	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		cout << score << endl;
+		if (playersArr.empty() && !isSaved) {
+			addScoreIfHigh(score, playerName);
+			cout << score << endl;
+			isSaved = true;
+		}
+
+		dt = deltaClock.restart().asSeconds();
+		View view(window.getDefaultView());
+
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateBullets(dt);
+
+		if (!playersArr.empty()) {
+
+			if (!playersArr.empty()) {
+				float elapsed = gameTimer.getTime();
+
+				float zombie1SpawnTime;
+				if (elapsed <= phase1Duration) {
+					float t = elapsed / phase1Duration;
+					zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+				}
+				else {
+					zombie1SpawnTime = minSpawnTime;
+				}
+
+				if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 1));
+					zombie1Spawn.reset();
+				}
+
+				float zombie2SpawnTime;
+				if (elapsed > phase1Duration) {
+					float t = (elapsed - phase1Duration) / phase2Duration;
+					zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+					if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+						float x, y;
+						int side = rand() % 4;
+						switch (side) {
+						case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+						case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+						case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+						case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+						}
+						zombiesArr.push_back(ZOMBIE(x, y, 2));
+						zombie2Spawn.reset();
+					}
+				}
+			}
+
+			if (!playersArr.empty()) {
+				//camera view max view and min view to track player
+				Vector2f playerPos = playersArr[0].shape.getPosition();
+				float halfWidth = window.getSize().x / 2.0f;
+				float halfHeight = window.getSize().y / 2.0f;
+				float clampedX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+				float clampedY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+				view.setCenter(clampedX, clampedY);
+				window.setView(view);
+			}
+
+			if (!playersArr.empty())
+			{
+				// Get player position
+				Vector2f pos = playersArr[0].shape.getPosition();
+
+				// Prevent moving out of top border
+				if (pos.y <= 0)
+					playersArr[0].shape.move(0, playersArr[0].speed);
+
+				// Prevent moving out of bottom border
+				if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight + 100)
+					playersArr[0].shape.move(0, -playersArr[0].speed);
+
+				// Prevent moving out of left border
+				if (pos.x <= 0)
+					playersArr[0].shape.move(playersArr[0].speed, 0);
+
+				// Prevent moving out of right border
+				if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
+					playersArr[0].shape.move(-playersArr[0].speed, 0);
+
+			}
+		}
+		for (int i = 0; i < zombiesArr.size(); i++) {
+			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+				score += 100;
+				zombiesArr[i].isDeadCounter = true;
+			}
+		}
+
+		int zombie_speed = 4;
+		int speed = 5;
+
+		if (!playersArr.empty()) {
+
+			for (int i = 0; i < zombiesArr.size(); i++) //loop for the zombies
+			{
+				FloatRect zombie_bounds = zombiesArr[i].shape.getGlobalBounds(); //player bounding box
+				FloatRect intersection; //intersection area
+				FloatRect Wall_bound = tentshape.getGlobalBounds(); //intersected object(tent)
+				FloatRect Wall_bound1 = tankShape.getGlobalBounds(); //intersected object(tank1)
+				FloatRect Wall_bound2 = tankShape1.getGlobalBounds(); //intersected object(tank2)
+				if (zombie_bounds.intersects(Wall_bound))
+				{
+
+					zombie_bounds.intersects(Wall_bound, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (zombie_bounds.left < Wall_bound.left)
+						{
+							zombiesArr[i].shape.move(-zombie_speed, 0);
+						}
+						//left collision
+						else
+						{
+							zombiesArr[i].shape.move(zombie_speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (zombie_bounds.top < Wall_bound.top)
+						{
+							zombiesArr[i].shape.move(0, -zombie_speed);
+						}
+						//up collision
+						else
+						{
+							zombiesArr[i].shape.move(0, zombie_speed);
+						}
+					}
+				}
+				if (zombie_bounds.intersects(Wall_bound1))
+				{
+
+					zombie_bounds.intersects(Wall_bound1, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (zombie_bounds.left < Wall_bound1.left)
+						{
+							zombiesArr[i].shape.move(-zombie_speed, 0);
+						}
+						//left collision
+						else
+						{
+							zombiesArr[i].shape.move(zombie_speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (zombie_bounds.top < Wall_bound1.top)
+						{
+							zombiesArr[i].shape.move(0, -zombie_speed);
+						}
+						//up collision
+						else
+						{
+							zombiesArr[i].shape.move(0, zombie_speed);
+						}
+					}
+				}
+				if (zombie_bounds.intersects(Wall_bound2))
+				{
+
+					zombie_bounds.intersects(Wall_bound2, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (zombie_bounds.left < Wall_bound2.left)
+						{
+							zombiesArr[i].shape.move(-zombie_speed, 0);
+						}
+						//left collision
+						else
+						{
+							zombiesArr[i].shape.move(zombie_speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (zombie_bounds.top < Wall_bound2.top)
+						{
+							zombiesArr[i].shape.move(0, -zombie_speed);
+						}
+						//up collision
+						else
+						{
+							zombiesArr[i].shape.move(0, zombie_speed);
+						}
+					}
+				}
+			}
+
+
+			if (!bullets.empty())
+			{
+
+
+				for (int i = 0; i < bullets.size();) {
+
+					if (bullets[i].shape.getGlobalBounds().intersects(tankShape.getGlobalBounds()) || bullets[i].shape.getGlobalBounds().intersects(tankShape1.getGlobalBounds()))
+					{
+						bullet_touched = true;
+					}
+
+
+
+					if (bullets[i].age >= bullets[i].lifetime || bullet_touched) {
+						bullets.erase(bullets.begin() + i);
+						bullet_touched = false;
+					}
+
+					else
+
+						i++;
+
+				}
+			}
+
+			if (!playersArr.empty()) {
+				FloatRect Player_Bounds = playersArr[0].shape.getGlobalBounds(); //player bounding box
+				FloatRect intersection; //intersection area
+				FloatRect Wall_bound = tentshape.getGlobalBounds(); //intersected object
+				FloatRect Wall_bound1 = tankShape.getGlobalBounds(); //intersected object
+				FloatRect Wall_bound2 = tankShape1.getGlobalBounds(); //intersected object
+				if (Player_Bounds.intersects(Wall_bound))
+				{
+
+					Player_Bounds.intersects(Wall_bound, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (Player_Bounds.left < Wall_bound.left)
+						{
+							playersArr[0].shape.move(-speed, 0);
+						}
+						//left collision
+						else
+						{
+							playersArr[0].shape.move(speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (Player_Bounds.top < Wall_bound.top)
+						{
+							playersArr[0].shape.move(0, -speed);
+						}
+						//up collision
+						else
+						{
+							playersArr[0].shape.move(0, speed);
+						}
+					}
+				}
+
+				if (Player_Bounds.intersects(Wall_bound1))
+				{
+
+					Player_Bounds.intersects(Wall_bound1, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (Player_Bounds.left < Wall_bound1.left)
+						{
+							playersArr[0].shape.move(-speed, 0);
+						}
+						//left collision
+						else
+						{
+							playersArr[0].shape.move(speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (Player_Bounds.top < Wall_bound1.top)
+						{
+							playersArr[0].shape.move(0, -speed);
+						}
+						//up collision
+						else
+						{
+							playersArr[0].shape.move(0, speed);
+						}
+					}
+				}
+
+				if (Player_Bounds.intersects(Wall_bound2))
+				{
+
+					Player_Bounds.intersects(Wall_bound2, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (Player_Bounds.left < Wall_bound2.left)
+						{
+							playersArr[0].shape.move(-speed, 0);
+						}
+						//left collision
+						else
+						{
+							playersArr[0].shape.move(speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (Player_Bounds.top < Wall_bound2.top)
+						{
+							playersArr[0].shape.move(0, -speed);
+						}
+						//up collision
+						else
+						{
+							playersArr[0].shape.move(0, speed);
+						}
+					}
+				}
+			}
+
+			//border collision
+			int speed = 5;
+			int zombie_speed = 4;
+			if (!playersArr.empty())
+			{
+				if (playersArr[0].shape.getPosition().y <= 30) // check for top border
+				{
+					playersArr[0].shape.move(0, speed);
+				}
+				if (playersArr[0].shape.getPosition().y >= 1450) //check for bottom border
+				{
+					playersArr[0].shape.move(0, -speed);
+				}if (playersArr[0].shape.getPosition().x <= 30) //check for left border
+				{
+					playersArr[0].shape.move(speed, 0);
+				}
+				if (playersArr[0].shape.getPosition().x >= 1930) //check for right border
+				{
+					playersArr[0].shape.move(-speed, 0);
+				}
+			}
+
+
+			//camera view --- player_Tracking
+			Vector2f playerPos = playersArr[0].shape.getPosition();
+			float halfWidth = window.getSize().x / 2.0f;
+			float halfHeight = window.getSize().y / 2.0f;
+
+			float vX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+			float vY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+
+			view.setCenter(vX, vY);
+			window.setView(view);
+		}
+	}
+
+
+	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		window.draw(sprite);
+		window.draw(tentSprite);
+		window.draw(tankSprite1);
+		window.draw(tankSprite2);
+		drawEntities(playersArr, zombiesArr, window, true, true);
+
+	}
+};
+
+
+
 struct levelHandler {
 	int id = -1;
 
@@ -7435,6 +8795,12 @@ struct levelHandler {
 		case 14:
 			currentLevel = new WoodsRush(playersArr, zombiesArr, window);
 			break;
+		case 15:
+			currentLevel = new CityRush(playersArr, zombiesArr, window);
+			break;
+		case 16:
+			currentLevel = new ArmyRush(playersArr, zombiesArr, window);
+			break;
 		}
 
 	}
@@ -7486,6 +8852,12 @@ struct levelHandler {
 		case 14:
 			((WoodsRush*)currentLevel)->update(playersArr, zombiesArr, window);
 			break;
+		case 15:
+			((CityRush*)currentLevel)->update(playersArr, zombiesArr, window);
+			break;
+		case 16:
+			((ArmyRush*)currentLevel)->update(playersArr, zombiesArr, window);
+			break;
 		}
 
 	}
@@ -7507,6 +8879,8 @@ struct levelHandler {
 		case 12: return ((BeachRush*)currentLevel)->missionComplete;
 		case 13: return ((DesertroadRush*)currentLevel)->missionComplete;
 		case 14: return ((WoodsRush*)currentLevel)->missionComplete;
+		case 15: return ((CityRush*)currentLevel)->missionComplete;
+		case 16: return ((ArmyRush*)currentLevel)->missionComplete;
 		default: return false;
 		}
 	}
@@ -7558,6 +8932,12 @@ struct levelHandler {
 		case 14:
 			((WoodsRush*)currentLevel)->draw(playersArr, zombiesArr, window);
 			break;
+		case 15:
+			((CityRush*)currentLevel)->draw(playersArr, zombiesArr, window);
+			break;
+		case 16:
+			((ArmyRush*)currentLevel)->draw(playersArr, zombiesArr, window);
+			break;
 		}
 	}
 
@@ -7578,6 +8958,8 @@ struct levelHandler {
 		case 12: delete (BeachRush*)currentLevel; break;
 		case 13: delete (DesertroadRush*)currentLevel; break;
 		case 14: delete (WoodsRush*)currentLevel; break;
+		case 15: delete (CityRush*)currentLevel; break;
+		case 16: delete (ArmyRush*)currentLevel; break;
 		}
 		//currentLevel = nullptr;
 	}
@@ -7597,26 +8979,64 @@ struct levelHandler {
 		case 12: delete (BeachRush*)currentLevel; break;
 		case 13: delete (DesertroadRush*)currentLevel; break;
 		case 14: delete (WoodsRush*)currentLevel; break;
+		case 15: delete (CityRush*)currentLevel; break;
+		case 16: delete (ArmyRush*)currentLevel; break;
 		}
 	}
 };
+
+
+
+
+
 void showDeath(vector<PLAYER>& playersArr, RenderWindow& window) {
 
+
+
 	Sprite beachdead;
+
 	beachdead.setTexture(beachdeadtexture);
+
 	beachdead.setOrigin(beachdead.getLocalBounds().width / 2, beachdead.getLocalBounds().height / 2);
+
+
 
 	beachdead.setPosition(window.mapPixelToCoords({ 1920 / 2,1080 / 2 }));
 
+
+
 	beachdead.setScale(2, 2);
+
 	if (playersArr.empty())
+
+
 
 	{
 
+
+
 		window.draw(beachdead);
 
+
+
 	}
+
 }
+
+
+
+void showDeath(RenderWindow& window) {
+	Sprite beachdead;
+	beachdead.setTexture(beachdeadtexture);
+	beachdead.setOrigin(beachdead.getLocalBounds().width / 2, beachdead.getLocalBounds().height / 2);
+	beachdead.setPosition(window.mapPixelToCoords({ 1920 / 2, 1080 / 2 - 150 }));
+	beachdead.setScale(2, 2);
+
+	window.draw(beachdead);
+}
+
+
+
 
 bool showInstructionsBool = false;
 bool isMainmenuTriggerdByPause = false;
@@ -7695,7 +9115,227 @@ void showInstructions(RenderWindow& window, Event& event, Font& font, levelHandl
 bool running = true;
 bool levelStarted = false;
 
+//you dead menu
 
+String youdead(RenderWindow& window, Event& event, Font& font, int currentLevelId)
+{
+	Texture backgroundTexture;
+	if (!backgroundTexture.loadFromFile("imgs/pause/main3.jpg")) {
+		return "error";
+	}
+	Sprite backgroundSprite(backgroundTexture);
+	backgroundSprite.setScale(4.25f, 4.25f);
+
+	Text tryAgainText("Try Again", font, 48);
+	tryAgainText.setFillColor(Color::Black);
+	FloatRect tryBounds = tryAgainText.getLocalBounds();
+	RectangleShape tryAgainBox(Vector2f(tryBounds.width + 60, tryBounds.height + 30));
+	tryAgainBox.setFillColor(Color(139, 0, 0, 200));
+	tryAgainBox.setOrigin(tryAgainBox.getSize() / 2.f);
+	tryAgainText.setOrigin(tryBounds.left + tryBounds.width / 2.f, tryBounds.top + tryBounds.height / 2.f);
+
+	Text backText("Back to Main Menu", font, 48);
+	backText.setFillColor(Color::Black);
+	FloatRect backBounds = backText.getLocalBounds();
+	float backExtraPaddingX = 85;
+	RectangleShape backBox(Vector2f(backBounds.width + 60 + backExtraPaddingX, backBounds.height + 35));
+	backBox.setFillColor(Color(139, 0, 0, 200));
+	backBox.setOrigin(backBox.getSize() / 2.f);
+	backText.setOrigin(backBounds.left + backBounds.width / 2.f, backBounds.top + backBounds.height / 2.f);
+
+	float centerX = window.getSize().x / 2.f;
+	float centerY = window.getSize().y / 2.f;
+	float spacingBetweenButtons = 90.f;
+
+	float totalWidth = tryAgainBox.getSize().x + backBox.getSize().x + spacingBetweenButtons;
+
+	float buttonsYPosition = (1080 / 2 - 150) + 250;
+
+	tryAgainBox.setPosition(centerX - (totalWidth / 2.f) + (tryAgainBox.getSize().x / 2.f), buttonsYPosition);
+	tryAgainText.setPosition(tryAgainBox.getPosition());
+
+	backBox.setPosition(tryAgainBox.getPosition().x + (tryAgainBox.getSize().x / 2.f) + spacingBetweenButtons + (backBox.getSize().x / 2.f), buttonsYPosition);
+	backText.setPosition(backBox.getPosition());
+
+	FloatRect tryAgainBounds = tryAgainBox.getGlobalBounds();
+	FloatRect backBoundsGlobal = backBox.getGlobalBounds();
+
+	int selectedIndex = -1;
+	bool usingMouse = false;
+
+	window.setMouseCursorVisible(true);
+
+	while (window.isOpen()) {
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				window.close();
+				return "quit";
+			}
+
+			if (event.type == Event::MouseMoved) {
+				if (!usingMouse) {
+					window.setMouseCursorVisible(true);
+					usingMouse = true;
+				}
+				Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
+				if (tryAgainBounds.contains(mousePos)) selectedIndex = 0;
+				else if (backBoundsGlobal.contains(mousePos)) selectedIndex = 1;
+				else selectedIndex = -1;
+			}
+			else if (event.type == Event::KeyPressed) {
+				if (usingMouse) {
+					window.setMouseCursorVisible(false);
+					usingMouse = false;
+				}
+				if (event.key.code == Keyboard::Left) selectedIndex = (selectedIndex - 1 + 2) % 2;
+				else if (event.key.code == Keyboard::Right) selectedIndex = (selectedIndex + 1) % 2;
+				else if (event.key.code == Keyboard::Enter) {
+					if (selectedIndex == 0) return "try_again";
+					if (selectedIndex == 1) return "back_to_main_menu";
+				}
+			}
+			else if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+				if (!usingMouse) {
+					window.setMouseCursorVisible(true);
+					usingMouse = true;
+				}
+				Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
+				if (tryAgainBounds.contains(mousePos)) return "try_again";
+				if (backBoundsGlobal.contains(mousePos)) return "back_to_main_menu";
+			}
+		}
+
+		tryAgainText.setFillColor(Color::Black);
+		backText.setFillColor(Color::Black);
+
+		if (selectedIndex == 0)
+			tryAgainText.setFillColor(Color::White);
+		else if (selectedIndex == 1)
+			backText.setFillColor(Color::White);
+
+		window.clear(Color::Black);
+		window.draw(backgroundSprite);
+		showDeath(window);
+		window.draw(tryAgainBox);
+		window.draw(tryAgainText);
+		window.draw(backBox);
+		window.draw(backText);
+		window.display();
+	}
+
+	window.setMouseCursorVisible(false);
+	return "";
+}
+
+
+
+
+//you win menu
+String youwin(RenderWindow& window, Event& event, Font& font, int currentLevelId)
+{
+
+	Texture backgroundTexture;
+	if (!backgroundTexture.loadFromFile("imgs/pause/main3.jpg")) {
+		return "error";
+	}
+	Sprite backgroundSprite(backgroundTexture);
+	backgroundSprite.setScale(4.25f, 4.25f);
+
+	Text nextlevelText("Next Level", font, 48);
+	nextlevelText.setFillColor(Color::Black);
+	FloatRect tryBounds = nextlevelText.getLocalBounds();
+	RectangleShape nextlevelBox(Vector2f(tryBounds.width + 60, tryBounds.height + 33));
+	nextlevelBox.setFillColor(Color(139, 0, 0, 200));
+	nextlevelBox.setOrigin(nextlevelBox.getSize() / 2.f);
+	nextlevelText.setOrigin(tryBounds.left + tryBounds.width / 2.f, tryBounds.top + tryBounds.height / 2.f);
+
+	Text backText("Back to Main Menu", font, 48);
+	backText.setFillColor(Color::Black);
+	FloatRect backBounds = backText.getLocalBounds();
+	float backExtraPaddingX = 80;
+	RectangleShape backBox(Vector2f(backBounds.width + 60 + backExtraPaddingX, backBounds.height + 35));
+	backBox.setFillColor(Color(139, 0, 0, 200));
+	backBox.setOrigin(backBox.getSize() / 2.f);
+	backText.setOrigin(backBounds.left + backBounds.width / 2.f, backBounds.top + backBounds.height / 2.f);
+
+	float centerX = window.getSize().x / 2.f;
+	float centerY = window.getSize().y / 2.f;
+	float spacingBetweenButtons = 90.f;
+
+	float totalWidth = nextlevelBox.getSize().x + backBox.getSize().x + spacingBetweenButtons;
+
+	nextlevelBox.setPosition(centerX - (totalWidth / 2.f) + (nextlevelBox.getSize().x / 2.f), centerY);
+	nextlevelText.setPosition(nextlevelBox.getPosition());
+
+	backBox.setPosition(nextlevelBox.getPosition().x + (nextlevelBox.getSize().x / 2.f) + (spacingBetweenButtons)+(backBox.getSize().x / 2.f), centerY);
+	backText.setPosition(backBox.getPosition());
+
+	FloatRect tryAgainBounds = nextlevelBox.getGlobalBounds();
+	FloatRect backBoundsGlobal = backBox.getGlobalBounds();
+
+	int selectedIndex = -1;
+	bool usingMouse = false;
+
+	window.setMouseCursorVisible(true);
+
+	while (window.isOpen()) {
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				window.close();
+				return "quit";
+			}
+
+			if (event.type == Event::MouseMoved) {
+				if (!usingMouse) {
+					window.setMouseCursorVisible(true);
+					usingMouse = true;
+				}
+				Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
+				if (tryAgainBounds.contains(mousePos)) selectedIndex = 0;
+				else if (backBoundsGlobal.contains(mousePos)) selectedIndex = 1;
+				else selectedIndex = -1;
+			}
+			else if (event.type == Event::KeyPressed) {
+				if (usingMouse) {
+					window.setMouseCursorVisible(false);
+					usingMouse = false;
+				}
+				if (event.key.code == Keyboard::Left) selectedIndex = (selectedIndex - 1 + 2) % 2;
+				else if (event.key.code == Keyboard::Right) selectedIndex = (selectedIndex + 1) % 2;
+				else if (event.key.code == Keyboard::Enter) {
+					if (selectedIndex == 0) return "next_level";
+					if (selectedIndex == 1) return "back_to_main_menu";
+				}
+			}
+			else if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+				if (!usingMouse) {
+					window.setMouseCursorVisible(true);
+					usingMouse = true;
+				}
+				Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
+				if (tryAgainBounds.contains(mousePos)) return "next_level";
+				if (backBoundsGlobal.contains(mousePos)) return "back_to_main_menu";
+			}
+		}
+
+		nextlevelText.setFillColor(Color::Black);
+		backText.setFillColor(Color::Black);
+
+		if (selectedIndex == 0) nextlevelText.setFillColor(Color::White);
+		else if (selectedIndex == 1) backText.setFillColor(Color::White);
+
+		window.clear(Color::Black);
+		window.draw(backgroundSprite);
+		window.draw(nextlevelBox);
+		window.draw(nextlevelText);
+		window.draw(backBox);
+		window.draw(backText);
+		window.display();
+	}
+
+	window.setMouseCursorVisible(false);
+	return "";
+}
 
 void pause_menu(RenderWindow& window, Event& event, Font& font, levelHandler& currentLevel, vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr) {
 	window.setMouseCursorVisible(true);
@@ -7705,9 +9345,6 @@ void pause_menu(RenderWindow& window, Event& event, Font& font, levelHandler& cu
 	Sprite pauseBackgroundSprite;
 	pauseBackgroundSprite.setTexture(pauseBackgroundTexture);
 	pauseBackgroundSprite.setScale(4.25, 4.25);
-
-	//Font fonts;
-	//fonts.loadFromFile("imgs/pause/tag.ttf");
 
 	Text resume, back, instructions, exit;
 
@@ -7725,13 +9362,6 @@ void pause_menu(RenderWindow& window, Event& event, Font& font, levelHandler& cu
 	back.setOrigin(back.getLocalBounds().width / 2, back.getLocalBounds().height / 2);
 	back.setPosition(window.mapPixelToCoords({ 1920 / 2, 1080 / 2 - 20 }));
 
-	//instructions.setFont(font);
-	//instructions.setString("Instructions");
-	//instructions.setCharacterSize(40);
-	//instructions.setFillColor(Color::White);
-	//instructions.setOrigin(instructions.getLocalBounds().width / 2, instructions.getLocalBounds().height / 2);
-	//instructions.setPosition(1920 / 2, 1080 / 2 + 60);
-
 	exit.setFont(font);
 	exit.setString("Quit");
 	exit.setCharacterSize(40);
@@ -7740,17 +9370,22 @@ void pause_menu(RenderWindow& window, Event& event, Font& font, levelHandler& cu
 	exit.setPosition(window.mapPixelToCoords({ 1920 / 2, 1080 / 2 + 60 }));
 
 	int PmenuSelection = 0;
-	bool usingMouse = false;  // Variable to track if mouse is used
+	bool usingMouse = false;
 
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
-			// Detect if mouse or keyboard is used
+			// Mouse moved
 			if (event.type == Event::MouseMoved) {
-				usingMouse = true;  // Mouse is being used
+				if (!usingMouse) {
+					usingMouse = true;
+					window.setMouseCursorVisible(true);  // Show mouse when mouse is used
+				}
 			}
 			else if (event.type == Event::KeyPressed) {
-				usingMouse = false; // Keyboard is being used
-				// To move in choices
+				if (usingMouse) {
+					usingMouse = false;
+					window.setMouseCursorVisible(false); // Hide mouse when keyboard is used
+				}
 				if (event.key.code == Keyboard::Up)
 					PmenuSelection = (PmenuSelection - 1 + 3) % 3;
 				else if (event.key.code == Keyboard::Down)
@@ -7760,95 +9395,60 @@ void pause_menu(RenderWindow& window, Event& event, Font& font, levelHandler& cu
 						return;
 					else if (PmenuSelection == 1) {
 						isMainmenuTriggerdByPause = true;
-						return;  // add function menu instead of return
+						return;
 					}
-					/*	else if (PmenuSelection == 2 && showInstructionsBool) {
-							return;
-						}*/
-
 					else if (PmenuSelection == 2) {
 						saveScores();
-
 						window.close();
 					}
 				}
 			}
 
-			// Mouse button pressed logic
+			// Mouse click
 			Vector2i mousePos = Mouse::getPosition(window);
 			Vector2f mouseWorldPos = window.mapPixelToCoords(mousePos);
 			if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
-				if (resume.getGlobalBounds().contains(mouseWorldPos))
-					return;
-				if (back.getGlobalBounds().contains(mouseWorldPos))
+				if (!usingMouse) {
+					usingMouse = true;
+					window.setMouseCursorVisible(true);  // Show mouse on mouse click
+				}
+				if (resume.getGlobalBounds().contains(mouseWorldPos)) return;
+				if (back.getGlobalBounds().contains(mouseWorldPos)) {
 					isMainmenuTriggerdByPause = true;
-
-
-				if (exit.getGlobalBounds().contains(mouseWorldPos))
-
-				{
-
+					return;
+				}
+				if (exit.getGlobalBounds().contains(mouseWorldPos)) {
 					saveScores();
 					window.close();
 				}
-				return;
 			}
 		}
 
 		Vector2i mousePos = Mouse::getPosition(window);
 		Vector2f mouseWorldPos = window.mapPixelToCoords(mousePos);
 
-		// Hover effect logic based on input method
+		// Hover effect
 		if (usingMouse) {
-			// Mouse hover effect
-			if (resume.getGlobalBounds().contains(mouseWorldPos))
-				resume.setFillColor(Color::Red);
-			else
-				resume.setFillColor(Color::White);
-
-			if (back.getGlobalBounds().contains(mouseWorldPos))
-				back.setFillColor(Color::Red);
-			else
-				back.setFillColor(Color::White);
-
-			if (instructions.getGlobalBounds().contains(mouseWorldPos))
-				instructions.setFillColor(Color::Red);
-			else
-				instructions.setFillColor(Color::White);
-
-			if (exit.getGlobalBounds().contains(mouseWorldPos))
-				exit.setFillColor(Color::Red);
-			else
-				exit.setFillColor(Color::White);
+			resume.setFillColor(resume.getGlobalBounds().contains(mouseWorldPos) ? Color::Red : Color::White);
+			back.setFillColor(back.getGlobalBounds().contains(mouseWorldPos) ? Color::Red : Color::White);
+			exit.setFillColor(exit.getGlobalBounds().contains(mouseWorldPos) ? Color::Red : Color::White);
 		}
 		else {
-			// Keyboard hover effect
-			if (PmenuSelection == 0)
-				resume.setFillColor(Color::Red);
-			else
-				resume.setFillColor(Color::White);
-
-			if (PmenuSelection == 1)
-				back.setFillColor(Color::Red);
-			else
-				back.setFillColor(Color::White);
-
-			if (PmenuSelection == 2)
-				exit.setFillColor(Color::Red);
-			else
-				exit.setFillColor(Color::White);
+			resume.setFillColor(PmenuSelection == 0 ? Color::Red : Color::White);
+			back.setFillColor(PmenuSelection == 1 ? Color::Red : Color::White);
+			exit.setFillColor(PmenuSelection == 2 ? Color::Red : Color::White);
 		}
 
+		window.clear();
+		window.draw(pauseBackgroundSprite);
 		window.draw(resume);
 		window.draw(back);
-		window.draw(instructions);
 		window.draw(exit);
 		window.display();
 	}
 
 	window.setMouseCursorVisible(false);
 }
-
 
 int main() {
 
@@ -8078,19 +9678,67 @@ int main() {
 				levelStarted = true;
 			}
 
+			Event event;
+
 			window.setMouseCursorVisible(false);
 
+
+
+			//you win menu
+
 			if (currentLevel.getMissionComplete()) {
+
 				if (currentLevel.id == 11 && !endScene && !isEndedEndScene) {
 
 					runEndScene(window);
+
 					isEndedEndScene = true;
-					///////////////////////////////////////////////////////////////////////////////Add returnToMainMenu after the scene ends
 
 				}
+
+				else {
+
+					string winChoice = youwin(window, event, font, currentLevel.id);
+
+
+
+					if (winChoice == "next_level") {
+
+						levelIDMenu = currentLevel.id + 1;
+
+						levelStarted = false;
+
+						playersArr.clear();
+
+						zombiesArr.clear();
+
+						bullets.clear();
+
+					}
+
+					else if (winChoice == "back_to_main_menu") {
+
+						isMainmenuTriggerdByPause = true;
+
+						levelIDMenu = -1;
+
+					}
+
+					else if (winChoice == "quit") {
+
+						saveScores();
+
+						window.close();
+
+					}
+
+				}
+
 			}
 
-			Event event;
+
+
+			//Event event;
 			while (window.pollEvent(event)) {
 				if (event.type == Event::Closed) {
 					saveScores();
@@ -8132,10 +9780,52 @@ int main() {
 			if (levelStarted) {
 				currentLevel.draw(playersArr, zombiesArr, window);
 			}
-			if (isGameEntered && !currentLevel.getMissionComplete())
+			if (isGameEntered && !currentLevel.getMissionComplete()) {
 				if (playersArr.empty())showDeath(playersArr, window);
+			}
+			/*
+				if (playersArr.empty())
+
+				{
 
 
+
+					//you dead menu
+
+					string deathChoice = youdead(window, event, font, currentLevel.id);
+
+
+
+					if (deathChoice == "try_again") {
+
+						levelIDMenu = currentLevel.id;
+
+						levelStarted = false;
+
+						playersArr.clear();
+
+						zombiesArr.clear();
+
+						bullets.clear();
+
+
+
+					}
+
+					else if (deathChoice == "back_to_main_menu") {
+
+						isMainmenuTriggerdByPause = true;
+
+						levelIDMenu = -1;
+
+					}
+
+
+
+
+
+				}
+			}*/
 			if ((currentLevel.getMissionComplete() && ((currentLevel.id != 11) || ((currentLevel.id == 11) && !endScene && isEndedEndScene))) || kk || isMainmenuTriggerdByPause) {
 
 				window.setView(window.getDefaultView());
