@@ -6,3 +6,5 @@ Player4
 Player3
 100
 Player2
+10
+Player7

@@ -1403,18 +1403,6 @@ void runCredits(RenderWindow& window) {
 
 
 
-enum WeaponID {
-	KNIFE = 0,
-	PISTOL = 1,
-	RIFLE = 2,
-	BURST_RIFLE = 3,
-	SINGLE_RIFLE = 4,
-	SHOTGUN = 5,
-	PLASMA_PISTOL = 6,
-	PLASMA_RIFLE = 7,
-	PLASMA_SHOTGUN = 8
-};
-
 
 
 Texture crosshairTexture;
@@ -1479,6 +1467,22 @@ bool loadTexture(Texture& texture, const string& filePath) {
 	cout << "Failed to load texture: " << filePath << endl;
 	return false;
 }
+
+Texture perksTexture[12];
+
+
+
+enum WeaponID {
+	KNIFE = 0,
+	PISTOL = 1,
+	RIFLE = 2,
+	BURST_RIFLE = 3,
+	SINGLE_RIFLE = 4,
+	SHOTGUN = 5,
+	PLASMA_PISTOL = 6,
+	PLASMA_RIFLE = 7,
+	PLASMA_SHOTGUN = 8
+};
 
 
 void loadingAssets() {
@@ -1591,6 +1595,45 @@ void loadingAssets() {
 	if (!loadTexture(beachdeadtexture, "imgs/beach/beachdead.png")) {
 		cout << "Error loading carb texture" << endl;
 	}
+
+	//perks
+	if (!loadTexture(perksTexture[0], "imgs/perks/pistol.jpg")) {
+		cout << "Error loading knife texture" << endl;
+	}
+	if (!loadTexture(perksTexture[1], "imgs/perks/rifle.jpg")) {
+		cout << "Error loading handgun texture" << endl;
+	}
+	if (!loadTexture(perksTexture[2], "imgs/perks/burst_rifle.jpg")) {
+		cout << "Error loading rifle texture" << endl;
+	}
+	if (!loadTexture(perksTexture[3], "imgs/perks/single_rifle.jpg")) {
+		cout << "Error loading shotgun texture" << endl;
+	}
+	if (!loadTexture(perksTexture[4], "imgs/perks/shotgun.jpg")) {
+		cout << "Error loading knife texture" << endl;
+	}
+	if (!loadTexture(perksTexture[5], "imgs/perks/plasma_pistol.jpg")) {
+		cout << "Error loading handgun texture" << endl;
+	}
+	if (!loadTexture(perksTexture[6], "imgs/perks/plasma_rifle.jpg")) {
+		cout << "Error loading rifle texture" << endl;
+	}
+	if (!loadTexture(perksTexture[7], "imgs/perks/plasma_shotgun.jpg")) {
+		cout << "Error loading shotgun texture" << endl;
+	}
+	if (!loadTexture(perksTexture[8], "imgs/perks/health.jpg")) {
+		cout << "Error loading knife texture" << endl;
+	}
+	if (!loadTexture(perksTexture[9], "imgs/perks/shield.jpg")) {
+		cout << "Error loading handgun texture" << endl;
+	}
+	if (!loadTexture(perksTexture[10], "imgs/perks/double.jpg")) {
+		cout << "Error loading rifle texture" << endl;
+	}
+	if (!loadTexture(perksTexture[11], "imgs/perks/slow.jpg")) {
+		cout << "Error loading shotgun texture" << endl;
+	}
+
 }
 
 
@@ -2243,6 +2286,7 @@ void gui_main() {
 }
 
 
+
 struct PLAYER {
 
 	float  FRAME_WIDTH = 280.0f;
@@ -2250,6 +2294,7 @@ struct PLAYER {
 
 
 	float health = 150.0f; // Starting With The full Health (100%)
+	CircleShape shieldVisual;
 
 
 	CROSSHAIR crosshair;
@@ -2298,7 +2343,6 @@ struct PLAYER {
 		2 means reloading
 		3 means meleeattck
 	*/
-
 	int movingIndex = 0;
 	int idleIndex = 0;
 
@@ -2311,6 +2355,15 @@ struct PLAYER {
 	int maxWeapons = 4;
 	bool isRushPlayer = false;
 	bool isDead = false;
+
+	bool hasShield = false;
+	
+	bool slowSpeed = false;
+
+	Clock shieldClock;
+	Clock speedClock;
+
+
 	PLAYER(float x, float y, WeaponID weaponIndex1, WeaponID weaponIndex2, WeaponID weaponIndex3, WeaponID weaponIndex4, int maxWeaponsLocal, RenderWindow& window, float localscaleX = 0.35, float localscaleY = 0.35, bool isRushPlayerLocal = false) : crosshair(crosshairTexture, window) {
 		gui_main();
 		gameTimer.reset();
@@ -2321,6 +2374,7 @@ struct PLAYER {
 		currentWeapon[2].weaponAdd(weaponIndex3);
 		currentWeapon[3].weaponAdd(weaponIndex4);
 		StartOfGame();
+		
 
 		isRushPlayer = isRushPlayerLocal;
 
@@ -2340,7 +2394,13 @@ struct PLAYER {
 		shape.setTexture(SpriteTextures[currentWeapon[currentWeaponindex].currentSprite]);
 		shape.setPosition(x, y);
 		shape.setTextureRect(IntRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
-		shape.setOrigin(shape.getLocalBounds().width / 2, shape.getLocalBounds().height / 2); // make the origin in the center of the shape
+		shape.setOrigin(shape.getLocalBounds().width / 2, shape.getLocalBounds().height / 2);
+		shieldVisual.setRadius(std::max(FRAME_WIDTH, FRAME_HEIGHT) / 2);
+		shieldVisual.setOrigin(shieldVisual.getRadius(), shieldVisual.getRadius());
+		shieldVisual.setFillColor(Color(0, 0, 255, 65));
+		shieldVisual.setOutlineThickness(2);
+		shieldVisual.setOutlineColor(Color(0, 100, 255, 180));
+		shieldVisual.setScale(scaleX/1.5, scaleY/1.5);
 	}
 
 	void changingFrames() {
@@ -2426,6 +2486,11 @@ struct PLAYER {
 		changingFrames();
 	}
 
+
+	void toggleShield() {
+		hasShield = true;
+		shieldClock.restart();
+	}
 
 
 
@@ -2600,8 +2665,7 @@ struct PLAYER {
 					currentWeapon[currentWeaponindex].currentClipSize--;
 
 				}
-				else if (currentWeapon[currentWeaponindex].id == BURST_RIFLE || (currentWeapon[currentWeaponindex].id == SINGLE_RIFLE)) {
-
+				else if (currentWeapon[currentWeaponindex].id == BURST_RIFLE) {
 
 					if (!isBursting && currentWeapon[currentWeaponindex].currentClipSize >= 3) {
 						isBursting = true;
@@ -2609,10 +2673,21 @@ struct PLAYER {
 						nextBurstTime = now;
 						PlasmaShotgun();
 
-
 						currentWeapon[currentWeaponindex].currentClipSize -= 3;
 					}
+
 				}
+				else if (currentWeapon[currentWeaponindex].id == SINGLE_RIFLE) {
+
+					if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
+						PlasmaShotgun(); // or SingleShot(); if you have a separate function
+						bullets.push_back(createBullet(playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window));
+						currentWeapon[currentWeaponindex].currentClipSize--;
+
+					}
+
+				}
+
 				else {
 					bullets.push_back(createBullet(playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window));
 					currentWeapon[currentWeaponindex].currentClipSize--;
@@ -2681,6 +2756,13 @@ struct PLAYER {
 		shootBullets(window);
 		playerMove();
 		changingFrames();
+		if (hasShield && shieldClock.getElapsedTime().asSeconds() >= 10.f) {
+			hasShield = false;
+		}
+
+
+
+		
 		endState();
 		Vector2f MouseGlobalPos = window.mapPixelToCoords(Mouse::getPosition(window));
 		crosshair.mousePosSetter(MouseGlobalPos);
@@ -2700,6 +2782,7 @@ struct PLAYER {
 				isBursting = false;
 			}
 		}
+
 	}
 
 
@@ -2850,6 +2933,10 @@ void gui_draw(bool mission_is_on, bool isRush, RenderWindow& window, vector<PLAY
 }
 
 
+bool slowEffectActive = false;
+Clock slowEffectClock;
+bool doubleScore = false;
+Clock doubleScoreClock;
 
 struct ZOMBIE {
 
@@ -2860,9 +2947,10 @@ struct ZOMBIE {
 	float maxHealth;
 	float speed = 3.0f;
 	float diagonalSpeed = abs(speed) / sqrt(2);
-
+	Vector2f position;
+	float normalSpeed = 100.f;
 	float damage = 20.0f;
-
+	int ScoreShouldBe;
 	bool isDeadCounter = false;
 
 	Sprite shape;
@@ -2933,6 +3021,8 @@ struct ZOMBIE {
 			scaleX = localscaleX;
 			scaleY = localscaleY;
 			attackIndexMax = 8;
+			ScoreShouldBe = 10;
+
 		}
 		else if (index == 2) {
 			FRAME_WIDTH = 196.0f;
@@ -2946,6 +3036,8 @@ struct ZOMBIE {
 			health = 250.0f;
 			speed = 5.5f;
 			diagonalSpeed = abs(speed) / sqrt(2);
+			ScoreShouldBe = 20;
+
 		}
 		shape.setScale(Vector2f(scaleX, -scaleY));
 
@@ -3074,6 +3166,8 @@ struct ZOMBIE {
 		changingFrames();
 	}
 
+
+
 	void zombieMoveTowards(Vector2f targetPosition, float distance) {
 		if ((distance < zombieAttackDistance) || (currentState == 3)) {
 			return;
@@ -3094,7 +3188,8 @@ struct ZOMBIE {
 			direction /= length;
 		}
 
-		shape.move(direction.x * speed, direction.y * speed);
+		float moveSpeed = slowEffectActive ? speed / 2.0f : speed;
+		shape.move(direction.x * moveSpeed, direction.y * moveSpeed);
 		shape.setRotation(atan2(direction.y, direction.x) * 180 / PI);
 		changeState(0);
 	}
@@ -3158,9 +3253,12 @@ struct ZOMBIE {
 				if (distance < zombieAttackDistance + 20.0f) {
 					isPlayerInRange = true;
 					if (!hasDealtDamage) {
-						player.health -= damage;
-						Damage();
-						hasDealtDamage = true;
+						if (!player.hasShield)
+						{
+							player.health -= damage;
+							Damage();
+							hasDealtDamage = true;
+						}
 					}
 					break;
 				}
@@ -3244,6 +3342,7 @@ struct ZOMBIE {
 			}
 		}
 
+
 		avoidOtherZombies(zombies);
 		changingFrames();
 	}
@@ -3252,6 +3351,58 @@ struct ZOMBIE {
 
 };
 
+
+
+struct DeathCircle {
+	CircleShape circle;
+	int perkID;
+	Clock timePerk;
+	DeathCircle(float x, float y, int id) {
+		perkID = id;
+		circle.setTexture(&perksTexture[id]);
+		circle.setRadius(25.0f);
+		circle.setPosition(x, y - 30.0f);
+		//circle.setFillColor(sf::Color(0,0,0));
+	}
+};
+
+vector<DeathCircle> deathArr;
+
+
+void deathCircleEnter(vector<PLAYER>& playersArr) {
+	for (int i = 0; i < playersArr.size(); i++) {
+		for (int j = 0; j < deathArr.size(); j++) {
+			if (playersArr[i].shape.getGlobalBounds().intersects(deathArr[j].circle.getGlobalBounds())) {
+				if (deathArr[j].perkID < 8) {
+					Weapon newWeapon;
+					newWeapon.weaponAdd(static_cast<WeaponID>(deathArr[j].perkID + PISTOL));
+					playersArr[i].currentWeapon[0] = newWeapon;
+					playersArr[i].shape.setTexture(SpriteTextures[newWeapon.currentSprite]);
+
+				}
+				else if (deathArr[j].perkID == 8) {
+					playersArr[i].health += 50.0f;
+					if (playersArr[i].health > 150.0f) {
+						playersArr[i].health = 150.0f;
+					}
+				}
+				else if (deathArr[j].perkID == 9) {
+					playersArr[i].toggleShield();
+				}
+				else if (deathArr[j].perkID == 10) {
+					doubleScore = true;
+					doubleScoreClock.restart();
+				}
+				else if (deathArr[j].perkID == 11) {
+					slowEffectActive = true;
+					slowEffectClock.restart();
+				}
+				deathArr.erase(deathArr.begin() + j);
+				--j;
+			}
+		}
+	}
+}
 
 struct planes
 {
@@ -3345,6 +3496,13 @@ void meleeAttack(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr) {
 }
 
 void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vector<Bullet>& bullets, Clock zombieDeathTimer, RenderWindow& window, int mission1_zombies_counter, bool mission_is_on = false, bool isRush = false) {
+	if (doubleScore	 && doubleScoreClock.getElapsedTime().asSeconds() >= 10.f) {
+		doubleScore = false;
+	}
+	if (slowEffectActive && slowEffectClock.getElapsedTime().asSeconds() >= 10.f) {
+		slowEffectActive = false;
+	}
+
 
 	for (int i = 0; i < playersArr.size(); i++) playersArr[i].update(window);
 	for (int i = 0; i < zombiesArr.size(); i++) zombiesArr[i].update(playersArr, zombiesArr);
@@ -3367,7 +3525,13 @@ void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vect
 		}
 	}
 
-
+	for (int i = 0; i < deathArr.size(); i++) {
+		if (deathArr[i].timePerk.getElapsedTime().asSeconds() >= 10.25f) {
+			deathArr.erase(deathArr.begin() + i);
+			--i;
+		}
+	}
+	deathCircleEnter(playersArr);
 }
 
 void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window, bool mission_is_on = false, bool isRush = false) {
@@ -3377,7 +3541,9 @@ void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, Render
 		if (zombiesArr[i].isDead)
 			window.draw(zombiesArr[i].shape);
 	}
-
+	for (int i = 0; i < deathArr.size(); i++) {
+		window.draw(deathArr[i].circle);
+	}
 	for (int i = 0; i < bullets.size(); i++) {
 		window.draw(bullets[i].shape);
 	}
@@ -3389,11 +3555,16 @@ void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, Render
 
 	for (int i = 0; i < playersArr.size(); i++) {
 		window.draw(playersArr[i].shape);
+		if (playersArr[i].hasShield) {
+			playersArr[i].shieldVisual.setPosition(playersArr[i].shape.getPosition());
+			window.draw(playersArr[i].shieldVisual);
+		}
 
 	}
 	for (int i = 0; i < zombiesArr.size(); ++i) {
 		zombiesArr[i].drawHealthBar(window);
 	}
+	
 	gui_draw(mission_is_on, isRush, window, playersArr);
 	for (int i = 0; i < playersArr.size(); i++) {
 		window.draw(playersArr[i].crosshair.shape);
@@ -3405,6 +3576,7 @@ const int MAX_LINES = 5;
 const int MAX_PARTS = 5;
 
 const float gameTimerConst = 120.0f;
+
 
 
 struct Beachlevel {
@@ -7327,7 +7499,7 @@ struct BeachRush {
 	const float minSpawnTime = 0.2f;
 
 	BeachRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, PISTOL, RIFLE, PLASMA_SHOTGUN, 1, window, 0.35, 0.35, true));
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
 
 		// Spawn initial zombies randomly on the edges
 
@@ -7490,8 +7662,17 @@ struct BeachRush {
 
 				for (int i = 0; i < zombiesArr.size(); i++) {
 					if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-						score += 100;
+						if (doubleScore){
+						score += (2 * zombiesArr[i].ScoreShouldBe);
+						}
+						else {
+							score += zombiesArr[i].ScoreShouldBe;
+						}
 						zombiesArr[i].isDeadCounter = true;
+						if ((rand() % 100) + 1 <= 25) {
+							deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+						}
+
 					}
 				}
 			}
@@ -7532,7 +7713,7 @@ struct DesertroadRush {
 
 
 	DesertroadRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, PISTOL, RIFLE, PLASMA_SHOTGUN, 1, window, 0.35, 0.35, true));
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
 
 		// Spawn initial zombies randomly on the edges
 
@@ -7670,8 +7851,17 @@ struct DesertroadRush {
 				playersArr[0].shape.move(-playersArr[0].speed, 0);
 			for (int i = 0; i < zombiesArr.size(); i++) {
 				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-					score += 100;
-					zombiesArr[i].isDeadCounter = true;;
+					if (doubleScore) {
+						score += (2 * zombiesArr[i].ScoreShouldBe);
+					}
+					else {
+						score += zombiesArr[i].ScoreShouldBe;
+					}
+					zombiesArr[i].isDeadCounter = true;
+					if ((rand() % 100) + 1 <= 25) {
+						deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+					}
+
 				}
 			}
 		}
@@ -7734,7 +7924,7 @@ struct CityRush {
 	}
 
 	CityRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, PISTOL, RIFLE, PLASMA_SHOTGUN, 1, window, 0.35, 0.35, true));
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
 
 		map.init(buildingTexture);
 		traffic.init(cara, carb);
@@ -7835,8 +8025,17 @@ struct CityRush {
 		}
 		for (int i = 0; i < zombiesArr.size(); i++) {
 			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-				score += 100;
+				if (doubleScore) {
+					score += (2 * zombiesArr[i].ScoreShouldBe);
+				}
+				else {
+					score += zombiesArr[i].ScoreShouldBe;
+				}
 				zombiesArr[i].isDeadCounter = true;
+				if ((rand() % 100) + 1 <= 25) {
+					deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+				}
+
 			}
 		}
 
@@ -8097,7 +8296,7 @@ struct WoodsRush {
 	}
 
 	WoodsRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, PISTOL, RIFLE, PLASMA_SHOTGUN, 1, window, 0.35, 0.35, true));
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
 		backgroundWoods.setTexture(woodsBackgroundTexture);
 		backgroundWoods.setScale(
 			(float)mapWidth / woodsBackgroundTexture.getSize().x,
@@ -8201,8 +8400,17 @@ struct WoodsRush {
 		}
 		for (int i = 0; i < zombiesArr.size(); i++) {
 			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-				score += 100;
+				if (doubleScore) {
+					score += (2 * zombiesArr[i].ScoreShouldBe);
+				}
+				else {
+					score += zombiesArr[i].ScoreShouldBe;
+				}
 				zombiesArr[i].isDeadCounter = true;
+				if ((rand() % 100) + 1 <= 25) {
+					deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+				}
+
 			}
 		}
 
@@ -8272,10 +8480,8 @@ struct ArmyRush {
 	const float initialSpawnTime = 3.0f;
 	const float minSpawnTime = 0.2f;
 	ArmyRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		playersArr.push_back(
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
 
-			PLAYER(1920 / 2, 1080 / 2, PLASMA_RIFLE, RIFLE, PISTOL, KNIFE, 4, window)
-		);
 
 		armycampdead.setTexture(armycampdeadTexture);
 		armycampdead.setOrigin(armycampdead.getLocalBounds().width / 2, armycampdead.getLocalBounds().height / 2);
@@ -8439,8 +8645,17 @@ struct ArmyRush {
 		}
 		for (int i = 0; i < zombiesArr.size(); i++) {
 			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-				score += 100;
+				if (doubleScore) {
+					score += (2 * zombiesArr[i].ScoreShouldBe);
+				}
+				else {
+					score += zombiesArr[i].ScoreShouldBe;
+				}
 				zombiesArr[i].isDeadCounter = true;
+				if ((rand() % 100) + 1 <= 25) {
+					deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+				}
+
 			}
 		}
 
@@ -9783,7 +9998,7 @@ int main() {
 			if (isGameEntered && !currentLevel.getMissionComplete()) {
 				if (playersArr.empty())showDeath(playersArr, window);
 			}
-			/*
+			
 				if (playersArr.empty())
 
 				{
@@ -9825,7 +10040,7 @@ int main() {
 
 
 				}
-			}*/
+			}
 			if ((currentLevel.getMissionComplete() && ((currentLevel.id != 11) || ((currentLevel.id == 11) && !endScene && isEndedEndScene))) || kk || isMainmenuTriggerdByPause) {
 
 				window.setView(window.getDefaultView());
