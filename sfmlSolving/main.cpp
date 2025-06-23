@@ -9997,78 +9997,84 @@ int main() {
 			}
 			if (isGameEntered && !currentLevel.getMissionComplete()) {
 				if (playersArr.empty())showDeath(playersArr, window);
-			}
 			
-				if (playersArr.empty())
 
-				{
+			if (playersArr.empty())
 
-
-
-					//you dead menu
-
-					string deathChoice = youdead(window, event, font, currentLevel.id);
+			{
 
 
 
-					if (deathChoice == "try_again") {
+				//you dead menu
 
-						levelIDMenu = currentLevel.id;
-
-						levelStarted = false;
-
-						playersArr.clear();
-
-						zombiesArr.clear();
-
-						bullets.clear();
+				string deathChoice = youdead(window, event, font, currentLevel.id);
 
 
 
-					}
+				if (deathChoice == "try_again") {
 
-					else if (deathChoice == "back_to_main_menu") {
+					levelIDMenu = currentLevel.id;
 
-						isMainmenuTriggerdByPause = true;
+					levelStarted = false;
 
-						levelIDMenu = -1;
+					playersArr.clear();
 
-					}
+					zombiesArr.clear();
 
+					deathArr.clear();
+					doubleScore = false;
+					slowEffectActive = false;
 
+					bullets.clear();
 
 
 
 				}
-			}
-			if ((currentLevel.getMissionComplete() && ((currentLevel.id != 11) || ((currentLevel.id == 11) && !endScene && isEndedEndScene))) || kk || isMainmenuTriggerdByPause) {
 
-				window.setView(window.getDefaultView());
+				else if (deathChoice == "back_to_main_menu") {
 
-				running = true;
-				menuMusic.play();
+					isMainmenuTriggerdByPause = true;
 
-				currentLevel.deleteCurrentLevel();
-				levelStarted = false;
-				levelIDMenu = -1;
-				playersArr.clear();
-				zombiesArr.clear();
-				bullets.clear();
-				kk = false;
-				isMainmenuTriggerdByPause = false;
-				isGameEntered = false;
-				gameSounds[1].stop();
-				gameSounds[5].stop();
+					levelIDMenu = -1;
+
+				}
+
+
+
+
 
 			}
+		}
+		if ((currentLevel.getMissionComplete() && ((currentLevel.id != 11) || ((currentLevel.id == 11) && !endScene && isEndedEndScene))) || kk || isMainmenuTriggerdByPause) {
 
+			window.setView(window.getDefaultView());
 
-			window.display();
+			running = true;
+			menuMusic.play();
 
-
+			currentLevel.deleteCurrentLevel();
+			levelStarted = false;
+			levelIDMenu = -1;
+			playersArr.clear();
+			zombiesArr.clear();
+			bullets.clear();
+			kk = false;
+			isMainmenuTriggerdByPause = false;
+			isGameEntered = false;
+			gameSounds[1].stop();
+			gameSounds[5].stop();
+			deathArr.clear();
+			doubleScore = false;
+			slowEffectActive = false;
 		}
 
+
+		window.display();
+
+
 	}
+
+}
 
 	saveScores();
 
