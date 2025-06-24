@@ -1,10 +1,2 @@
 1100
-Player1
-100
-Player4
-100
-Player3
-100
-Player2
-10
-Player7
+

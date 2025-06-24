@@ -2357,7 +2357,7 @@ struct PLAYER {
 	bool isDead = false;
 
 	bool hasShield = false;
-	
+
 	bool slowSpeed = false;
 
 	Clock shieldClock;
@@ -2374,7 +2374,7 @@ struct PLAYER {
 		currentWeapon[2].weaponAdd(weaponIndex3);
 		currentWeapon[3].weaponAdd(weaponIndex4);
 		StartOfGame();
-		
+
 
 		isRushPlayer = isRushPlayerLocal;
 
@@ -2400,7 +2400,7 @@ struct PLAYER {
 		shieldVisual.setFillColor(Color(0, 0, 255, 65));
 		shieldVisual.setOutlineThickness(2);
 		shieldVisual.setOutlineColor(Color(0, 100, 255, 180));
-		shieldVisual.setScale(scaleX/1.5, scaleY/1.5);
+		shieldVisual.setScale(scaleX / 1.5, scaleY / 1.5);
 	}
 
 	void changingFrames() {
@@ -2762,7 +2762,7 @@ struct PLAYER {
 
 
 
-		
+
 		endState();
 		Vector2f MouseGlobalPos = window.mapPixelToCoords(Mouse::getPosition(window));
 		crosshair.mousePosSetter(MouseGlobalPos);
@@ -3496,7 +3496,7 @@ void meleeAttack(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr) {
 }
 
 void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vector<Bullet>& bullets, Clock zombieDeathTimer, RenderWindow& window, int mission1_zombies_counter, bool mission_is_on = false, bool isRush = false) {
-	if (doubleScore	 && doubleScoreClock.getElapsedTime().asSeconds() >= 10.f) {
+	if (doubleScore && doubleScoreClock.getElapsedTime().asSeconds() >= 10.f) {
 		doubleScore = false;
 	}
 	if (slowEffectActive && slowEffectClock.getElapsedTime().asSeconds() >= 10.f) {
@@ -3564,7 +3564,7 @@ void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, Render
 	for (int i = 0; i < zombiesArr.size(); ++i) {
 		zombiesArr[i].drawHealthBar(window);
 	}
-	
+
 	gui_draw(mission_is_on, isRush, window, playersArr);
 	for (int i = 0; i < playersArr.size(); i++) {
 		window.draw(playersArr[i].crosshair.shape);
@@ -7611,73 +7611,73 @@ struct BeachRush {
 
 
 
-			if (!playersArr.empty()) {
-				//camera view max view and min view to track player
-				Vector2f playerPos = playersArr[0].shape.getPosition();
-				float halfWidth = window.getSize().x / 2.0f;
-				float halfHeight = window.getSize().y / 2.0f;
-				float clampedX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
-				float clampedY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
-				view.setCenter(clampedX, clampedY);
-				window.setView(view);
-			}
+		if (!playersArr.empty()) {
+			//camera view max view and min view to track player
+			Vector2f playerPos = playersArr[0].shape.getPosition();
+			float halfWidth = window.getSize().x / 2.0f;
+			float halfHeight = window.getSize().y / 2.0f;
+			float clampedX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+			float clampedY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+			view.setCenter(clampedX, clampedY);
+			window.setView(view);
+		}
 
-			for (int i = 0; i < playersArr.size(); i++) {
-				Vector2f playerPos = playersArr[i].shape.getPosition();
+		for (int i = 0; i < playersArr.size(); i++) {
+			Vector2f playerPos = playersArr[i].shape.getPosition();
 
-				const float mapWidth = 2000.0f;
-				const float mapHeight = 1500.0f;
+			const float mapWidth = 2000.0f;
+			const float mapHeight = 1500.0f;
 
-				FloatRect playerBounds = playersArr[i].shape.getGlobalBounds();
-				float halfWidth = playerBounds.width / 2.0f;
-				float halfHeight = playerBounds.height / 2.0f;
+			FloatRect playerBounds = playersArr[i].shape.getGlobalBounds();
+			float halfWidth = playerBounds.width / 2.0f;
+			float halfHeight = playerBounds.height / 2.0f;
 
-				if (playerPos.x < halfWidth) playerPos.x = halfWidth;
-				if (playerPos.x > mapWidth - halfWidth) playerPos.x = mapWidth - halfWidth;
-				if (playerPos.y < halfHeight) playerPos.y = halfHeight;
-				if (playerPos.y > mapHeight - halfHeight) playerPos.y = mapHeight - halfHeight;
+			if (playerPos.x < halfWidth) playerPos.x = halfWidth;
+			if (playerPos.x > mapWidth - halfWidth) playerPos.x = mapWidth - halfWidth;
+			if (playerPos.y < halfHeight) playerPos.y = halfHeight;
+			if (playerPos.y > mapHeight - halfHeight) playerPos.y = mapHeight - halfHeight;
 
-				playersArr[i].shape.setPosition(playerPos);
-			}
-			if (!playersArr.empty())
-			{
-				// Get player position
-				Vector2f pos = playersArr[0].shape.getPosition();
+			playersArr[i].shape.setPosition(playerPos);
+		}
+		if (!playersArr.empty())
+		{
+			// Get player position
+			Vector2f pos = playersArr[0].shape.getPosition();
 
-				// Prevent moving out of top border
-				if (pos.y <= 0)
-					playersArr[0].shape.move(0, playersArr[0].speed);
+			// Prevent moving out of top border
+			if (pos.y <= 0)
+				playersArr[0].shape.move(0, playersArr[0].speed);
 
-				// Prevent moving out of bottom border
-				if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight - 250)
-					playersArr[0].shape.move(0, -playersArr[0].speed);
+			// Prevent moving out of bottom border
+			if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight - 250)
+				playersArr[0].shape.move(0, -playersArr[0].speed);
 
-				// Prevent moving out of left border
-				if (pos.x <= 0)
-					playersArr[0].shape.move(playersArr[0].speed, 0);
+			// Prevent moving out of left border
+			if (pos.x <= 0)
+				playersArr[0].shape.move(playersArr[0].speed, 0);
 
-				// Prevent moving out of right border
-				if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
-					playersArr[0].shape.move(-playersArr[0].speed, 0);
+			// Prevent moving out of right border
+			if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
+				playersArr[0].shape.move(-playersArr[0].speed, 0);
 
-				for (int i = 0; i < zombiesArr.size(); i++) {
-					if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-						if (doubleScore){
+			for (int i = 0; i < zombiesArr.size(); i++) {
+				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+					if (doubleScore) {
 						score += (2 * zombiesArr[i].ScoreShouldBe);
-						}
-						else {
-							score += zombiesArr[i].ScoreShouldBe;
-						}
-						zombiesArr[i].isDeadCounter = true;
-						if ((rand() % 100) + 1 <= 25) {
-							deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
-						}
-
 					}
+					else {
+						score += zombiesArr[i].ScoreShouldBe;
+					}
+					zombiesArr[i].isDeadCounter = true;
+					if ((rand() % 100) + 1 <= 25) {
+						deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+					}
+
 				}
 			}
+		}
 
-		
+
 	};
 	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		window.draw(sand);
@@ -7693,8 +7693,8 @@ struct DesertroadRush {
 	Clock zombieDeathTimer;
 	float dt;
 	Clock zombieSpawn;
-	float zombieSpawnTime = 3.0f; 
-	const float spawnRampDuration = 120.0f; 
+	float zombieSpawnTime = 3.0f;
+	const float spawnRampDuration = 120.0f;
 	int initialNumZombies = 10;
 	const float mapWidth = 2000;
 	const float mapHeight = 1500;
@@ -7753,7 +7753,7 @@ struct DesertroadRush {
 		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
 		updateBullets(dt);
 
-		
+
 		if (!playersArr.empty()) {
 			float elapsed = gameTimer.getTime();
 
@@ -7770,10 +7770,10 @@ struct DesertroadRush {
 				float x, y;
 				int side = rand() % 4;
 				switch (side) {
-				case 0: x = rand() % (int)mapWidth; y = 1.0f; break;        
+				case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
 				case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
 				case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
-				case 3: x = 1.0f; y = rand() % (int)mapHeight; break;         
+				case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
 				}
 				zombiesArr.push_back(ZOMBIE(x, y, 1));
 				zombie1Spawn.reset();
@@ -7788,17 +7788,17 @@ struct DesertroadRush {
 					float x, y;
 					int side = rand() % 4;
 					switch (side) {
-					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;         
-					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break; 
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
 					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
-					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;          
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
 					}
 					zombiesArr.push_back(ZOMBIE(x, y, 2));
 					zombie2Spawn.reset();
 				}
 			}
 		}
-		
+
 
 
 		if (!playersArr.empty()) {
@@ -9334,6 +9334,10 @@ bool levelStarted = false;
 
 String youdead(RenderWindow& window, Event& event, Font& font, int currentLevelId)
 {
+	View currentView = window.getView();
+	Vector2f viewCenter = currentView.getCenter();
+	Vector2f viewSize = currentView.getSize();
+
 	Texture backgroundTexture;
 	if (!backgroundTexture.loadFromFile("imgs/pause/main3.jpg")) {
 		return "error";
@@ -9364,9 +9368,9 @@ String youdead(RenderWindow& window, Event& event, Font& font, int currentLevelI
 
 	float totalWidth = tryAgainBox.getSize().x + backBox.getSize().x + spacingBetweenButtons;
 
-	float buttonsYPosition = (1080 / 2 - 150) + 250;
+	float buttonsYPosition = viewCenter.y - viewSize.y / 2 + (1080 / 2 - 150) + 250;
 
-	tryAgainBox.setPosition(centerX - (totalWidth / 2.f) + (tryAgainBox.getSize().x / 2.f), buttonsYPosition);
+	tryAgainBox.setPosition(viewCenter.x - viewSize.x / 2 + centerX - (totalWidth / 2.f) + (tryAgainBox.getSize().x / 2.f), buttonsYPosition);
 	tryAgainText.setPosition(tryAgainBox.getPosition());
 
 	backBox.setPosition(tryAgainBox.getPosition().x + (tryAgainBox.getSize().x / 2.f) + spacingBetweenButtons + (backBox.getSize().x / 2.f), buttonsYPosition);
@@ -9448,6 +9452,9 @@ String youdead(RenderWindow& window, Event& event, Font& font, int currentLevelI
 //you win menu
 String youwin(RenderWindow& window, Event& event, Font& font, int currentLevelId)
 {
+	View currentView = window.getView();
+	Vector2f viewCenter = currentView.getCenter();
+	Vector2f viewSize = currentView.getSize();
 
 	Texture backgroundTexture;
 	if (!backgroundTexture.loadFromFile("imgs/pause/main3.jpg")) {
@@ -9479,10 +9486,10 @@ String youwin(RenderWindow& window, Event& event, Font& font, int currentLevelId
 
 	float totalWidth = nextlevelBox.getSize().x + backBox.getSize().x + spacingBetweenButtons;
 
-	nextlevelBox.setPosition(centerX - (totalWidth / 2.f) + (nextlevelBox.getSize().x / 2.f), centerY);
+	nextlevelBox.setPosition(viewCenter.x - viewSize.x / 2 + centerX - (totalWidth / 2.f) + (nextlevelBox.getSize().x / 2.f), viewCenter.y - viewSize.y / 2 + centerY);
 	nextlevelText.setPosition(nextlevelBox.getPosition());
 
-	backBox.setPosition(nextlevelBox.getPosition().x + (nextlevelBox.getSize().x / 2.f) + (spacingBetweenButtons)+(backBox.getSize().x / 2.f), centerY);
+	backBox.setPosition(nextlevelBox.getPosition().x + (nextlevelBox.getSize().x / 2.f) + (spacingBetweenButtons)+(backBox.getSize().x / 2.f), viewCenter.y - viewSize.y / 2 + centerY);
 	backText.setPosition(backBox.getPosition());
 
 	FloatRect tryAgainBounds = nextlevelBox.getGlobalBounds();
@@ -9997,87 +10004,87 @@ int main() {
 			}
 			if (isGameEntered && !currentLevel.getMissionComplete()) {
 				if (playersArr.empty())showDeath(playersArr, window);
-			
 
-			if (playersArr.empty())
+				
 
-			{
+				if (playersArr.empty())
 
-
-
-				//you dead menu
-
-				string deathChoice = youdead(window, event, font, currentLevel.id);
+				{
 
 
 
-				if (deathChoice == "try_again") {
+					//you dead menu
 
-					levelIDMenu = currentLevel.id;
+					string deathChoice = youdead(window, event, font, currentLevel.id);
 
-					levelStarted = false;
 
-					playersArr.clear();
 
-					zombiesArr.clear();
+					if (deathChoice == "try_again") {
 
-					deathArr.clear();
-					doubleScore = false;
-					slowEffectActive = false;
+						levelIDMenu = currentLevel.id;
 
-					bullets.clear();
+						levelStarted = false;
+
+						playersArr.clear();
+
+						zombiesArr.clear();
+
+						deathArr.clear();
+						doubleScore = false;
+						slowEffectActive = false;
+
+						bullets.clear();
+
+
+
+					}
+
+					else if (deathChoice == "back_to_main_menu") {
+
+						isMainmenuTriggerdByPause = true;
+
+						levelIDMenu = -1;
+
+					}
+
+
 
 
 
 				}
-
-				else if (deathChoice == "back_to_main_menu") {
-
-					isMainmenuTriggerdByPause = true;
-
-					levelIDMenu = -1;
-
-				}
-
-
-
-
-
 			}
+			if ((currentLevel.getMissionComplete() && ((currentLevel.id != 11) || ((currentLevel.id == 11) && !endScene && isEndedEndScene))) || kk || isMainmenuTriggerdByPause) {
+
+				window.setView(window.getDefaultView());
+
+				running = true;
+				menuMusic.play();
+
+				currentLevel.deleteCurrentLevel();
+				levelStarted = false;
+				levelIDMenu = -1;
+				playersArr.clear();
+				zombiesArr.clear();
+				bullets.clear();
+				kk = false;
+				isMainmenuTriggerdByPause = false;
+				isGameEntered = false;
+				gameSounds[1].stop();
+				gameSounds[5].stop();
+				deathArr.clear();
+				doubleScore = false;
+				slowEffectActive = false;
+			}
+
+
+			window.display();
+
+
 		}
-		if ((currentLevel.getMissionComplete() && ((currentLevel.id != 11) || ((currentLevel.id == 11) && !endScene && isEndedEndScene))) || kk || isMainmenuTriggerdByPause) {
-
-			window.setView(window.getDefaultView());
-
-			running = true;
-			menuMusic.play();
-
-			currentLevel.deleteCurrentLevel();
-			levelStarted = false;
-			levelIDMenu = -1;
-			playersArr.clear();
-			zombiesArr.clear();
-			bullets.clear();
-			kk = false;
-			isMainmenuTriggerdByPause = false;
-			isGameEntered = false;
-			gameSounds[1].stop();
-			gameSounds[5].stop();
-			deathArr.clear();
-			doubleScore = false;
-			slowEffectActive = false;
-		}
-
-
-		window.display();
-
 
 	}
-
-}
 
 	saveScores();
 
 	return 0;
 }
-
