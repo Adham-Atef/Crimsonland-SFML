@@ -2467,7 +2467,7 @@ struct PLAYER {
 		shieldVisual.setFillColor(Color(0, 0, 255, 65));
 		shieldVisual.setOutlineThickness(2);
 		shieldVisual.setOutlineColor(Color(0, 100, 255, 180));
-		shieldVisual.setScale(scaleX / 1.5, scaleY / 1.5);
+		shieldVisual.setScale(scaleX / 1.25, scaleY / 1.25);
 	}
 
 	void changingFrames() {
@@ -7737,7 +7737,7 @@ struct BeachRush {
 						score += zombiesArr[i].ScoreShouldBe;
 					}
 					zombiesArr[i].isDeadCounter = true;
-					if ((rand() % 100) + 1 <= 25) {
+					if ((rand() % 100) + 1 <= 20) {
 						deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
 					}
 
@@ -7926,7 +7926,7 @@ struct DesertroadRush {
 						score += zombiesArr[i].ScoreShouldBe;
 					}
 					zombiesArr[i].isDeadCounter = true;
-					if ((rand() % 100) + 1 <= 25) {
+					if ((rand() % 100) + 1 <= 20) {
 						deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
 					}
 
@@ -8100,7 +8100,7 @@ struct CityRush {
 					score += zombiesArr[i].ScoreShouldBe;
 				}
 				zombiesArr[i].isDeadCounter = true;
-				if ((rand() % 100) + 1 <= 25) {
+				if ((rand() % 100) + 1 <= 20) {
 					deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
 				}
 
@@ -8475,7 +8475,7 @@ struct WoodsRush {
 					score += zombiesArr[i].ScoreShouldBe;
 				}
 				zombiesArr[i].isDeadCounter = true;
-				if ((rand() % 100) + 1 <= 25) {
+				if ((rand() % 100) + 1 <= 20) {
 					deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
 				}
 
@@ -8720,7 +8720,7 @@ struct ArmyRush {
 					score += zombiesArr[i].ScoreShouldBe;
 				}
 				zombiesArr[i].isDeadCounter = true;
-				if ((rand() % 100) + 1 <= 25) {
+				if ((rand() % 100) + 1 <= 20) {
 					deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
 				}
 
