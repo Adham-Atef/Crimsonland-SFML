@@ -814,6 +814,66 @@ void runStoryMode(RenderWindow& window) {
 	}
 }
 
+bool getPlayerName(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite, Sound& clickSound) {
+	Text ask("Enter Your Name:", font, 35);
+	ask.setFillColor(Color(160, 160, 160));
+	ask.setPosition(200, 300);
+
+	Text nameText("", font, 40);
+	nameText.setFillColor(Color(200, 50, 50));
+	nameText.setPosition(200, 400);
+
+	Text instructions("\t\t\t\t\t\t\t\t\t\t\tPress\n\n Enter to confirm\t  Backspace to delete\t  Esc to cancel.", font, 25);
+	instructions.setFillColor(Color(150, 150, 150, 240));
+	instructions.setPosition(100, 750);
+
+	string input = "";
+	bool enteringName = true;
+
+	while (enteringName && window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				saveScores();
+				window.close();
+			}
+			else if (event.type == Event::TextEntered) {
+				if (event.text.unicode < 128 && isprint(event.text.unicode)) {
+					if (input.length() < 20) input += static_cast<char>(event.text.unicode);
+				}
+				else if (event.text.unicode == 8) {
+					if (!input.empty()) input.pop_back();
+				}
+			}
+			else if (event.type == Event::KeyPressed) {
+				if (event.key.code == Keyboard::Enter && !input.empty()) {
+					clickSound.play();
+					playerName = input;
+					return true;
+				}
+				else if (event.key.code == Keyboard::Escape) {
+					clickSound.play();
+					return false;
+				}
+			}
+		}
+
+		nameText.setString(input);
+
+		window.clear(Color::Black);
+		window.draw(backgroundSprite);
+		window.draw(logoSprite);
+		window.draw(ask);
+		window.draw(nameText);
+		window.draw(instructions);
+		window.display();
+	}
+
+	return false;
+}
+
+
+
 void rushMaps(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite,
 	Sound& clickSound, int& selectedMap, bool& backToRushMain) {
 	const int MAP_COUNT = 5;
@@ -896,6 +956,7 @@ void rushMaps(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite
 						selectedMap = i;
 						levelIDMenu = selectedMap + 12;
 						clickSound.play();
+						menuMusic.stop();
 						backToRushMain = false;
 						inMapMenu = false;
 						break;
@@ -928,6 +989,7 @@ void rushMaps(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite
 
 bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite,
 	Sound& clickSound, int& selectedMap) {
+
 	const int MENU_OPTION_COUNT = 3;
 	string options[MENU_OPTION_COUNT] = { "Single Player", "Multiplayer", "Back to Main Menu" };
 
@@ -943,7 +1005,6 @@ bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sp
 		optionText[i].setFillColor(Color(150, 150, 150, 240));
 		optionText[i].setPosition(350, 350 + i * 125);
 	}
-
 	optionText[2].setPosition(350, 850);
 	optionText[2].setCharacterSize(35);
 
@@ -957,7 +1018,7 @@ bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sp
 				saveScores();
 				window.close();
 			}
-			if (event.type == Event::KeyPressed) {
+			else if (event.type == Event::KeyPressed) {
 				if (event.key.code == Keyboard::Up)
 					selected = (selected - 1 + MENU_OPTION_COUNT) % MENU_OPTION_COUNT;
 				else if (event.key.code == Keyboard::Down)
@@ -965,15 +1026,17 @@ bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sp
 				else if (event.key.code == Keyboard::Enter) {
 					clickSound.play();
 					sleep(milliseconds(150));
-					if (selected == 0) {
 
-						bool goBack = false;
-						rushMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
-						if (!goBack)
-							return false;
+					if (selected == 0) {
+						bool gotName = getPlayerName(window, font, backgroundSprite, logoSprite, clickSound);
+						if (gotName) {
+							bool goBack = false;
+							rushMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
+							if (!goBack)
+								return false;
+						}
 					}
 					else if (selected == 1) {
-						// Multiplayerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr 
 						cout << "Multiplayer not implemented yet.\n";
 					}
 					else {
@@ -1001,11 +1064,15 @@ bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sp
 					if (optionText[i].getGlobalBounds().contains(clickPos)) {
 						clickSound.play();
 						sleep(milliseconds(150));
+
 						if (i == 0) {
-							bool goBack = false;
-							rushMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
-							if (!goBack)
-								return false;
+							bool gotName = getPlayerName(window, font, backgroundSprite, logoSprite, clickSound);
+							if (gotName) {
+								bool goBack = false;
+								rushMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
+								if (!goBack)
+									return false;
+							}
 						}
 						else if (i == 1) {
 							cout << "Multiplayer not implemented yet.\n";
@@ -1022,7 +1089,6 @@ bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sp
 			optionText[i].setFillColor(i == selected ? Color(150, 35, 35, 255) : Color(150, 150, 150, 240));
 		}
 
-
 		window.clear(Color::Black);
 		window.draw(backgroundSprite);
 		window.draw(logoSprite);
@@ -1034,6 +1100,7 @@ bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sp
 
 	return true;
 }
+
 
 
 void runRushMode(RenderWindow& window) {
@@ -2692,38 +2759,39 @@ struct PLAYER {
 					bullets.push_back(createBullet(playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window));
 					currentWeapon[currentWeaponindex].currentClipSize--;
 				}
+
+
+				if (currentWeapon[currentWeaponindex].id == RIFLE) {
+
+					AutoRifle();
+
+				}
+
+				if (currentWeapon[currentWeaponindex].id == PISTOL) {
+
+					Fire();
+
+				}
+
+
+
+				if (currentWeapon[currentWeaponindex].id == PLASMA_PISTOL) {
+
+					PlasmaShotgun();
+
+				}
+
+				if (currentWeapon[currentWeaponindex].id == PLASMA_RIFLE) {
+
+					PlasmaRifle();
+
+				}
+
+
+
+				lastFireTime = now;
+
 			}
-
-			if (currentWeapon[currentWeaponindex].id == RIFLE) {
-
-				AutoRifle();
-
-			}
-
-			if (currentWeapon[currentWeaponindex].id == PISTOL) {
-
-				Fire();
-
-			}
-
-
-
-			if (currentWeapon[currentWeaponindex].id == PLASMA_PISTOL) {
-
-				PlasmaShotgun();
-
-			}
-
-			if (currentWeapon[currentWeaponindex].id == PLASMA_RIFLE) {
-
-				PlasmaRifle();
-
-			}
-
-
-
-			lastFireTime = now;
-
 		}
 	}
 
@@ -10005,7 +10073,7 @@ int main() {
 			if (isGameEntered && !currentLevel.getMissionComplete()) {
 				if (playersArr.empty())showDeath(playersArr, window);
 
-				
+
 
 				if (playersArr.empty())
 
