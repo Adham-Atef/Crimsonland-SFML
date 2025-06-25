@@ -9168,6 +9168,29 @@ struct levelHandler {
 		}
 	}
 
+	void setMissionComplete(bool value) {
+		switch (id) {
+		case 0: ((Beachlevel*)currentLevel)->missionComplete = value; break;
+		case 1: ((Desertroad*)currentLevel)->missionComplete = value; break;
+		case 2: ((City*)currentLevel)->missionComplete = value; break;
+		case 3: ((Safezone1*)currentLevel)->missionComplete = value; break;
+		case 4: ((Safezone2*)currentLevel)->missionComplete = value; break;
+		case 5: ((Woods*)currentLevel)->missionComplete = value; break;
+		case 6: ((Safezone3*)currentLevel)->missionComplete = value; break;
+		case 7: ((Army*)currentLevel)->missionComplete = value; break;
+		case 8: ((Mission1*)currentLevel)->missionComplete = value; break;
+		case 9: ((Mission2*)currentLevel)->missionComplete = value; break;
+		case 10: ((Mission3*)currentLevel)->missionComplete = value; break;
+		case 11: ((Mission4*)currentLevel)->missionComplete = value; break;
+		case 12: ((BeachRush*)currentLevel)->missionComplete = value; break;
+		case 13: ((DesertroadRush*)currentLevel)->missionComplete = value; break;
+		case 14: ((WoodsRush*)currentLevel)->missionComplete = value; break;
+		case 15: ((CityRush*)currentLevel)->missionComplete = value; break;
+		case 16: ((ArmyRush*)currentLevel)->missionComplete = value; break;
+		}
+	}
+
+
 	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		switch (id) {
 		case 0:
@@ -9412,6 +9435,7 @@ String youdead(RenderWindow& window, Event& event, Font& font, int currentLevelI
 	}
 	Sprite backgroundSprite(backgroundTexture);
 	backgroundSprite.setScale(4.25f, 4.25f);
+	backgroundSprite.setPosition(viewCenter.x - viewSize.x / 2.f, viewCenter.y - viewSize.y / 2.f);
 
 	Text tryAgainText("Try Again", font, 48);
 	tryAgainText.setFillColor(Color::Black);
@@ -9530,7 +9554,7 @@ String youwin(RenderWindow& window, Event& event, Font& font, int currentLevelId
 	}
 	Sprite backgroundSprite(backgroundTexture);
 	backgroundSprite.setScale(4.25f, 4.25f);
-
+	backgroundSprite.setPosition(viewCenter.x - viewSize.x / 2.f, viewCenter.y - viewSize.y / 2.f);
 	Text nextlevelText("Next Level", font, 48);
 	nextlevelText.setFillColor(Color::Black);
 	FloatRect tryBounds = nextlevelText.getLocalBounds();
@@ -9740,6 +9764,7 @@ void pause_menu(RenderWindow& window, Event& event, Font& font, levelHandler& cu
 	window.setMouseCursorVisible(false);
 }
 
+bool tryAgain = false;
 int main() {
 
 
@@ -9966,6 +9991,7 @@ int main() {
 				endScene = false;
 				isEndedEndScene = false;
 				levelStarted = true;
+				tryAgain = false;
 			}
 
 			Event event;
@@ -9987,6 +10013,12 @@ int main() {
 				}
 
 				else {
+					currentLevel.update(playersArr, zombiesArr, window);
+
+					for (auto& sound : gameSounds)
+					{
+						sound.stop();
+					}
 
 					string winChoice = youwin(window, event, font, currentLevel.id);
 
@@ -9995,12 +10027,21 @@ int main() {
 					if (winChoice == "next_level") {
 
 						levelIDMenu = currentLevel.id + 1;
-
+						tryAgain = true;
+						currentLevel.deleteCurrentLevel();
+						isGameEntered = false;
+						gameSounds[1].stop();
+						gameSounds[5].stop();
 						levelStarted = false;
+						isGameEntered = false;
 
 						playersArr.clear();
 
 						zombiesArr.clear();
+
+						deathArr.clear();
+						doubleScore = false;
+						slowEffectActive = false;
 
 						bullets.clear();
 
@@ -10010,7 +10051,6 @@ int main() {
 
 						isMainmenuTriggerdByPause = true;
 
-						levelIDMenu = -1;
 
 					}
 
@@ -10039,6 +10079,7 @@ int main() {
 				}
 				if (event.type == Event::KeyPressed && event.key.code == Keyboard::T) {
 					kk = true;
+					currentLevel.setMissionComplete(true);
 				}
 				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
 				{
@@ -10078,20 +10119,29 @@ int main() {
 				if (playersArr.empty())
 
 				{
+					currentLevel.update(playersArr, zombiesArr, window);
 
 
+					for (auto& sound : gameSounds)
+					{
+						sound.stop();
+					}
 
 					//you dead menu
 
 					string deathChoice = youdead(window, event, font, currentLevel.id);
 
 
-
 					if (deathChoice == "try_again") {
 
 						levelIDMenu = currentLevel.id;
-
+						tryAgain = true;
+						currentLevel.deleteCurrentLevel();
+						isGameEntered = false;
+						gameSounds[1].stop();
+						gameSounds[5].stop();
 						levelStarted = false;
+						isGameEntered = false;
 
 						playersArr.clear();
 
@@ -10104,46 +10154,43 @@ int main() {
 						bullets.clear();
 
 
-
 					}
 
 					else if (deathChoice == "back_to_main_menu") {
 
 						isMainmenuTriggerdByPause = true;
-
-						levelIDMenu = -1;
-
 					}
 
 
 
-
+					saveScores();
 
 				}
 			}
-			if ((currentLevel.getMissionComplete() && ((currentLevel.id != 11) || ((currentLevel.id == 11) && !endScene && isEndedEndScene))) || kk || isMainmenuTriggerdByPause) {
+			if (!tryAgain) {
+				if ( ((currentLevel.id == 11) && !endScene && isEndedEndScene) || isMainmenuTriggerdByPause) {
+					window.setView(window.getDefaultView());
 
-				window.setView(window.getDefaultView());
+					running = true;
+					menuMusic.play();
 
-				running = true;
-				menuMusic.play();
+					currentLevel.deleteCurrentLevel();
+					levelStarted = false;
+					levelIDMenu = -1;
+					playersArr.clear();
+					zombiesArr.clear();
+					bullets.clear();
+					kk = false;
+					isMainmenuTriggerdByPause = false;
+					isGameEntered = false;
+					gameSounds[1].stop();
+					gameSounds[5].stop();
+					deathArr.clear();
+					doubleScore = false;
+					slowEffectActive = false;
+				}
 
-				currentLevel.deleteCurrentLevel();
-				levelStarted = false;
-				levelIDMenu = -1;
-				playersArr.clear();
-				zombiesArr.clear();
-				bullets.clear();
-				kk = false;
-				isMainmenuTriggerdByPause = false;
-				isGameEntered = false;
-				gameSounds[1].stop();
-				gameSounds[5].stop();
-				deathArr.clear();
-				doubleScore = false;
-				slowEffectActive = false;
 			}
-
 
 			window.display();
 
