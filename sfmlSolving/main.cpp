@@ -1704,13 +1704,6 @@ void loadingAssets() {
 }
 
 
-
-
-
-
-
-
-
 void loadSounds() {
 
 	if (!gameSounds[0].loadFromFile("Sound/foot.wav")) {
@@ -1816,13 +1809,6 @@ void loadSounds() {
 	}
 
 }
-
-
-
-
-
-
-
 
 
 void foot() {
@@ -7564,7 +7550,7 @@ struct BeachRush {
 	const float phase1Duration = 90.0f;
 	const float phase2Duration = 90.0f;
 	const float initialSpawnTime = 3.0f;
-	const float minSpawnTime = 0.2f;
+	const float minSpawnTime = 0.5f;
 
 	BeachRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
@@ -7763,7 +7749,7 @@ struct DesertroadRush {
 	Clock zombieSpawn;
 	float zombieSpawnTime = 3.0f;
 	const float spawnRampDuration = 120.0f;
-	int initialNumZombies = 10;
+	//int initialNumZombies = 10;
 	const float mapWidth = 2000;
 	const float mapHeight = 1500;
 	int mission1_zombies_counter = 0;
@@ -7776,17 +7762,15 @@ struct DesertroadRush {
 	const float phase1Duration = 90.0f;
 	const float phase2Duration = 90.0f;
 	const float initialSpawnTime = 3.0f;
-	const float minSpawnTime = 0.2f;
+	const float minSpawnTime = 0.5f;
 
 
 
 	DesertroadRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
 
-		// Spawn initial zombies randomly on the edges
 
 
-		// Set background scaling
 		backgroundDesertRoadSprite.setTexture(backgroundDesertRoad);
 		backgroundDesertRoadSprite.setScale(
 			(float)mapWidth / backgroundDesertRoad.getSize().x,
@@ -7796,7 +7780,6 @@ struct DesertroadRush {
 
 		zombieSpawn.restart();
 
-		//background
 
 		backgroundDesertRoadSprite.setTexture(backgroundDesertRoad);
 		float mapWidth = 2000; // width of background
@@ -7805,7 +7788,6 @@ struct DesertroadRush {
 			mapWidth / backgroundDesertRoad.getSize().x,
 			mapHeight / backgroundDesertRoad.getSize().y
 		);
-		// timer and view and point after 2 min
 	};
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 
@@ -7969,7 +7951,7 @@ struct CityRush {
 	const float phase1Duration = 90.0f;
 	const float phase2Duration = 90.0f;
 	const float initialSpawnTime = 3.0f;
-	const float minSpawnTime = 0.2f;
+	const float minSpawnTime = 0.5f;
 
 	int getRandomOutsideRange_x() {
 		int left = rand() % 500 - 500;      // -500 to -1
@@ -8341,7 +8323,7 @@ struct WoodsRush {
 	const float phase1Duration = 90.0f;
 	const float phase2Duration = 90.0f;
 	const float initialSpawnTime = 3.0f;
-	const float minSpawnTime = 0.2f;
+	const float minSpawnTime = 0.5f;
 
 	int getRandomOutsideRange_x() {
 		int left = rand() % 500 - 500;      // -500 to -1
@@ -8546,7 +8528,7 @@ struct ArmyRush {
 	const float phase1Duration = 90.0f;
 	const float phase2Duration = 90.0f;
 	const float initialSpawnTime = 3.0f;
-	const float minSpawnTime = 0.2f;
+	const float minSpawnTime = 0.5f;
 	ArmyRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
 
@@ -9248,6 +9230,9 @@ struct levelHandler {
 	}
 
 	void deleteCurrentLevel() {
+		if (currentLevel == nullptr)
+			return;
+
 		switch (id) {
 		case 0: delete (Beachlevel*)currentLevel; break;
 		case 1: delete (Desertroad*)currentLevel; break;
@@ -9266,30 +9251,17 @@ struct levelHandler {
 		case 14: delete (WoodsRush*)currentLevel; break;
 		case 15: delete (CityRush*)currentLevel; break;
 		case 16: delete (ArmyRush*)currentLevel; break;
+		default: break;
 		}
-		//currentLevel = nullptr;
+
+		currentLevel = nullptr;
+		id = -1;
 	}
 	~levelHandler() {
-		switch (id) {
-		case 0: delete (Beachlevel*)currentLevel; break;
-		case 1: delete (Desertroad*)currentLevel; break;
-		case 2: delete (City*)currentLevel; break;
-		case 3: delete (Safezone1*)currentLevel; break;
-		case 4: delete (Safezone2*)currentLevel; break;
-		case 5: delete (Woods*)currentLevel; break;
-		case 6: delete (Safezone3*)currentLevel; break;
-		case 7: delete (Army*)currentLevel; break;
-		case 8: delete (Mission1*)currentLevel; break;
-		case 9: delete (Mission2*)currentLevel; break;
-		case 10: delete (Mission3*)currentLevel; break;
-		case 12: delete (BeachRush*)currentLevel; break;
-		case 13: delete (DesertroadRush*)currentLevel; break;
-		case 14: delete (WoodsRush*)currentLevel; break;
-		case 15: delete (CityRush*)currentLevel; break;
-		case 16: delete (ArmyRush*)currentLevel; break;
-		}
+		deleteCurrentLevel(); // already sets currentLevel = nullptr
 	}
 };
+
 
 
 
