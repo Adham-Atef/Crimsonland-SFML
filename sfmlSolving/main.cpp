@@ -17,6 +17,7 @@ using namespace std;
 
 // Weapon types (IDs)
 int levelIDMenu = -1;
+bool tryAgain = false;
 
 Texture gui[7];
 Sprite pistol_gui;
@@ -26,8 +27,27 @@ Sprite hp_gui;
 Sprite ammo_gui;
 Sprite knife_gui;
 Sprite hud_gui[3];
+Sprite hp_gui_p2;
+Sprite hud_gui_p2[3];
+
+Texture gui_multi[7];
+Sprite pistol_gui_multi[2];
+Sprite shotgun_gui_multi[2];
+Sprite rifle_gui_multi[2];
+Sprite hp_gui_multi;
+Sprite ammo_gui_multi[2];
+Sprite knife_gui_multi[2];
+Sprite hud_gui_multi[3];
+
+
+Text ammo_in_clip_multi[2];
+Text weapon_name_multi[2];
+
 Text score;
+Text colon_text;
+Text score_p2;
 Text health_percentage;
+Text health_percentage_p2;
 Text zombies;
 Text timeleft;
 Text ammo_in_clip;
@@ -35,6 +55,7 @@ Text weapon_name;
 Clock time_left;
 Font font;
 int score_ = 0;
+int score_2 = 0;
 bool rush = false;
 Music menuMusic;
 bool isGameEntered = false;;
@@ -2194,13 +2215,15 @@ struct Weapon {
 
 
 struct Bullet {
+	int playerID = 0;
 	Sprite shape;
 	Vector2f velocity;
 	float age = 0.0f;
 	float lifetime = 2.0f;
 	float damage;
 
-	Bullet(float localDamage) {
+	Bullet(int id ,float localDamage) {
+		playerID = id;
 		damage = localDamage;
 	}
 };
@@ -2226,8 +2249,8 @@ Vector2f rotateVector(Vector2f v, float angleDeg) {
 	);
 }
 
-Bullet createBullet(Vector2f playerPos, float playerRotationDeg, Weapon currentWeapon, RenderWindow& window) {
-	Bullet b(currentWeapon.damage);
+Bullet createBullet(int playerID,Vector2f playerPos, float playerRotationDeg, Weapon currentWeapon, RenderWindow& window, Vector2f mouseWorld) {
+	Bullet b(playerID,currentWeapon.damage);
 
 	int shellID;
 	if (currentWeapon.id == PISTOL || currentWeapon.id == SHOTGUN)
@@ -2248,8 +2271,6 @@ Bullet createBullet(Vector2f playerPos, float playerRotationDeg, Weapon currentW
 	Vector2f rotatedOffset = rotateVector(localOffset, playerRotationDeg);
 	Vector2f bulletPos = playerPos + rotatedOffset;
 	b.shape.setPosition(bulletPos);
-
-	Vector2f mouseWorld = window.mapPixelToCoords(Mouse::getPosition(window));
 
 	Vector2f dir = getDirection(bulletPos, mouseWorld);
 
@@ -2337,10 +2358,105 @@ void gui_main() {
 
 
 }
+void gui_main_multiplayer() {
+	// Your existing texture loading code...
+	gui_multi[0].loadFromFile("imgs/gui/pistol.png");
+	gui_multi[1].loadFromFile("imgs/gui/shotgun.png");
+	gui_multi[2].loadFromFile("imgs/gui/rifle.png");
+	gui_multi[3].loadFromFile("imgs/gui/hp.png");
+	gui_multi[4].loadFromFile("imgs/gui/ammo.png");
+	gui_multi[5].loadFromFile("imgs/gui/hud.png");
+	gui_multi[6].loadFromFile("imgs/gui/knife.png");
 
+	// Original GUI elements initialization
+	for (int i = 0; i < 2; i++) {
+		pistol_gui_multi[i].setTexture(gui_multi[0]);
+		shotgun_gui_multi[i].setTexture(gui_multi[1]);
+		rifle_gui_multi[i].setTexture(gui_multi[2]);
+		ammo_gui_multi[i].setTexture(gui_multi[4]);
+		knife_gui_multi[i].setTexture(gui_multi[6]);
+	}
+
+	// Initialize second player's GUI elements
+	hp_gui_p2.setTexture(gui_multi[3]);
+	hp_gui_multi.setTexture(gui_multi[3]);
+
+
+	hp_gui_p2.setScale(2, 2);
+	hud_gui_p2[0].setScale(2, 1);
+	hud_gui_p2[1].setScale(4.4, 2.1);
+
+	// Original HUD initialization
+	for (int i = 0; i < 3; i++) {
+		hud_gui_multi[i].setTexture(gui_multi[5]);
+
+	}
+	for (int i = 0; i < 3; i++) {
+		hud_gui_p2[i].setTexture(gui_multi[5]);
+	}
+	// Set scales (match player 1's scale)
+	hud_gui_multi[0].setScale(2, 1);
+	hud_gui_multi[1].setScale(4.4, 2.1);
+	hud_gui_multi[2].setScale(4.4, 2.1);
+	hp_gui_multi.setScale(2, 2);
+	hp_gui_p2.setScale(2, 2);
+	hud_gui_p2[2].setScale(2, 1);
+
+
+	for (int i = 0; i < 2; i++) {
+		rifle_gui_multi[i].setScale(2, 2);
+		shotgun_gui_multi[i].setScale(2, 2);
+		pistol_gui_multi[i].setScale(2, 2);
+		ammo_gui_multi[i].setScale(2.2, 2.2);
+		knife_gui_multi[i].setScale(0.3, 0.3);
+		knife_gui_multi[i].setOrigin(knife_gui_multi[i].getLocalBounds().width / 2, knife_gui_multi[i].getLocalBounds().height / 2);
+		knife_gui_multi[i].setRotation(25);
+		knife_gui_multi[i].setColor(Color(89, 76, 41)); // Red
+	}
+
+	time_left.restart();
+
+	// Font initialization
+	font.loadFromFile("ModernDOS8x14.ttf");
+	score.setFont(font);
+	score_p2.setFont(font);
+	colon_text.setFont(font);
+	zombies.setFont(font);
+	health_percentage.setFont(font);
+	health_percentage_p2.setFont(font);
+	for (int i = 0; i < 2; i++) {
+		ammo_in_clip_multi[i].setFont(font);
+		weapon_name_multi[i].setFont(font);
+	}
+	timeleft.setFont(font);
+
+	// Character sizes
+	score.setCharacterSize(30);
+	score_p2.setCharacterSize(30);
+	colon_text.setCharacterSize(30);
+	colon_text.setFillColor(Color::White);
+	health_percentage.setCharacterSize(30);
+	health_percentage_p2.setCharacterSize(30);
+	zombies.setCharacterSize(17);
+	timeleft.setCharacterSize(23);
+	colon_text.setString(":");
+	for (int i = 0; i < 2; i++) {
+		weapon_name_multi[i].setCharacterSize(24);
+
+	}
+}
+
+
+int playerIndex = 0;
 
 
 struct PLAYER {
+
+	int id;
+
+	bool secondplayer = false;
+	Vector2f lastAimDir = Vector2f(1.f, 0.f); ;
+
 
 	float  FRAME_WIDTH = 280.0f;
 	float  FRAME_HEIGHT = 220.0f;
@@ -2413,11 +2529,14 @@ struct PLAYER {
 
 	bool slowSpeed = false;
 
+	int score = 0;
+
 	Clock shieldClock;
 	Clock speedClock;
 
 
 	PLAYER(float x, float y, WeaponID weaponIndex1, WeaponID weaponIndex2, WeaponID weaponIndex3, WeaponID weaponIndex4, int maxWeaponsLocal, RenderWindow& window, float localscaleX = 0.35, float localscaleY = 0.35, bool isRushPlayerLocal = false) : crosshair(crosshairTexture, window) {
+		id = playerIndex++;
 		gui_main();
 		gameTimer.reset();
 		isGameEntered = true;
@@ -2558,54 +2677,73 @@ struct PLAYER {
 
 		Vector2f moveDir(0.f, 0.f);
 		float rotation = shape.getRotation();
+		if (secondplayer)
+		{
+			float x = Joystick::getAxisPosition(0, Joystick::X);
+			float y = Joystick::getAxisPosition(0, Joystick::Y);
+			const float deadzone = 15.0f;
+			if (abs(x) < deadzone) x = 0;
+			if (abs(y) < deadzone) y = 0;
 
-		if (Keyboard::isKeyPressed(Keyboard::W) && Keyboard::isKeyPressed(Keyboard::D)) {
-			if (!(currentState == 2 || currentState == 3)) { changeState(0); }
-			moveDir += {1, -1};
-			rotation = -45;
-			isMoving = true;
+			if (x != 0 || y != 0) {
+				// Use joystick
+				moveDir = Vector2f(x, y);
+				float length = sqrt(moveDir.x * moveDir.x + moveDir.y * moveDir.y);
+				moveDir /= length;
+				rotation = atan2(moveDir.y, moveDir.x) * 180 / PI;
+				isMoving = true;
+			}
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::W) && Keyboard::isKeyPressed(Keyboard::A)) {
-			if (!(currentState == 2 || currentState == 3)) { changeState(0); }
-			moveDir += {-1, -1};
-			rotation = -135;
-			isMoving = true;
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::S) && Keyboard::isKeyPressed(Keyboard::D)) {
-			if (!(currentState == 2 || currentState == 3)) { changeState(0); }
-			moveDir += {1, 1};
-			rotation = 45;
-			isMoving = true;
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::S) && Keyboard::isKeyPressed(Keyboard::A)) {
-			if (!(currentState == 2 || currentState == 3)) { changeState(0); }
-			moveDir += {-1, 1};
-			rotation = 135;
-			isMoving = true;
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::W)) {
-			if (!(currentState == 2 || currentState == 3)) { changeState(0); }
-			moveDir += {0, -1};
-			rotation = -90;
-			isMoving = true;
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::S)) {
-			if (!(currentState == 2 || currentState == 3)) { changeState(0); }
-			moveDir += {0, 1};
-			rotation = 90;
-			isMoving = true;
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::A)) {
-			if (!(currentState == 2 || currentState == 3)) { changeState(0); }
-			moveDir += {-1, 0};
-			rotation = 180;
-			isMoving = true;
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::D)) {
-			if (!(currentState == 2 || currentState == 3)) { changeState(0); }
-			moveDir += {1, 0};
-			rotation = 0;
-			isMoving = true;
+		else
+		{
+			if (Keyboard::isKeyPressed(Keyboard::W) && Keyboard::isKeyPressed(Keyboard::D)) {
+				if (!(currentState == 2 || currentState == 3)) { changeState(0); }
+				moveDir += {1, -1};
+				rotation = -45;
+				isMoving = true;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::W) && Keyboard::isKeyPressed(Keyboard::A)) {
+				if (!(currentState == 2 || currentState == 3)) { changeState(0); }
+				moveDir += {-1, -1};
+				rotation = -135;
+				isMoving = true;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::S) && Keyboard::isKeyPressed(Keyboard::D)) {
+				if (!(currentState == 2 || currentState == 3)) { changeState(0); }
+				moveDir += {1, 1};
+				rotation = 45;
+				isMoving = true;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::S) && Keyboard::isKeyPressed(Keyboard::A)) {
+				if (!(currentState == 2 || currentState == 3)) { changeState(0); }
+				moveDir += {-1, 1};
+				rotation = 135;
+				isMoving = true;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::W)) {
+				if (!(currentState == 2 || currentState == 3)) { changeState(0); }
+				moveDir += {0, -1};
+				rotation = -90;
+				isMoving = true;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::S)) {
+				if (!(currentState == 2 || currentState == 3)) { changeState(0); }
+				moveDir += {0, 1};
+				rotation = 90;
+				isMoving = true;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::A)) {
+				if (!(currentState == 2 || currentState == 3)) { changeState(0); }
+				moveDir += {-1, 0};
+				rotation = 180;
+				isMoving = true;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::D)) {
+				if (!(currentState == 2 || currentState == 3)) { changeState(0); }
+				moveDir += {1, 0};
+				rotation = 0;
+				isMoving = true;
+			}
 		}
 
 		if (moveDir != Vector2f(0.f, 0.f)) {
@@ -2656,25 +2794,50 @@ struct PLAYER {
 	}
 
 	void emotesStarter(Event event) {
-		if (event.type == Event::KeyPressed && event.key.code == Keyboard::R) {
-			if (!(currentState == 2 || currentState == 3) && (currentWeapon[currentWeaponindex].currentSprite != 0) && currentWeapon[currentWeaponindex].reloadClipSize != 0) {
-				ReloadShotgun();
-				changeState(2);
+		if (secondplayer)
+		{
+			if (Joystick::isButtonPressed(0, 7)) {
+				if (!(currentState == 2 || currentState == 3) && (currentWeapon[currentWeaponindex].currentSprite != 0) && currentWeapon[currentWeaponindex].reloadClipSize != 0) {
+					ReloadShotgun();
+					changeState(2);
+				}
+			}
+			if (Joystick::isButtonPressed(0, 4)) {
+				if (!(currentState == 2 || currentState == 3)) {
+					changeState(3);
+				}
+				if (currentWeapon[currentWeaponindex].id == KNIFE) {
+
+					Knife();
+
+				}
+			}
+
+			if (Joystick::isButtonPressed(0, 6)) {
+				switchWeapons();
 			}
 		}
-		if ((event.type == Event::KeyPressed && event.key.code == Keyboard::F) || (currentWeapon[currentWeaponindex].id == KNIFE && (event.type == Event::MouseButtonPressed && event.key.code == Mouse::Left))) {
-			if (!(currentState == 2 || currentState == 3)) {
-				changeState(3);
+		else {
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::R) {
+				if (!(currentState == 2 || currentState == 3) && (currentWeapon[currentWeaponindex].currentSprite != 0) && currentWeapon[currentWeaponindex].reloadClipSize != 0) {
+					ReloadShotgun();
+					changeState(2);
+				}
 			}
-			if (currentWeapon[currentWeaponindex].id == KNIFE) {
+			if ((event.type == Event::KeyPressed && event.key.code == Keyboard::F) || (currentWeapon[currentWeaponindex].id == KNIFE && (event.type == Event::MouseButtonPressed && event.key.code == Mouse::Left))) {
+				if (!(currentState == 2 || currentState == 3)) {
+					changeState(3);
+				}
+				if (currentWeapon[currentWeaponindex].id == KNIFE) {
 
-				Knife();
+					Knife();
 
+				}
 			}
-		}
 
-		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Q) {
-			switchWeapons();
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Q) {
+				switchWeapons();
+			}
 		}
 	}
 
@@ -2687,89 +2850,194 @@ struct PLAYER {
 
 	void shootBullets(RenderWindow& window) {
 		if (currentState == 2 || currentState == 3) {
-			return; // Prevent shooting if in reload or melee state
+			return;
 		}
 
 
 		now = fireClock.getElapsedTime().asSeconds();
 
 
+		if (secondplayer) {
+			if (Joystick::isButtonPressed(0, 5) && ((currentWeapon[currentWeaponindex].clipSize == currentWeapon[currentWeaponindex].currentClipSize) || ((now - lastFireTime) >= currentWeapon[currentWeaponindex].bulletDelay))) {
 
-		if (Mouse::isButtonPressed(Mouse::Left) && ((currentWeapon[currentWeaponindex].clipSize == currentWeapon[currentWeaponindex].currentClipSize) || ((now - lastFireTime) >= currentWeapon[currentWeaponindex].bulletDelay))) {
-
-			if (gameTimer.getTime() <= 1.0f) {
-				return;
-			}
-
-			Vector2f playerPos = shape.getPosition();
-			Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
-			Vector2f dir = getDirection(playerPos, mousePos);
-
-			if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
-				if (currentWeapon[currentWeaponindex].id == SHOTGUN || currentWeapon[currentWeaponindex].id == PLASMA_SHOTGUN) { // Shotgun
-					for (int i = -2; i <= 2; ++i) {
-						float spread = i * 9.5f;
-						Bullet b = createBullet(playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window);
-						b.shape.rotate(spread);
-						b.velocity = rotateVector(b.velocity, spread);
-						bullets.push_back(b);
-					}
-					Shotgun();
-					currentWeapon[currentWeaponindex].currentClipSize--;
-
+				if (gameTimer.getTime() <= 1.0f) {
+					return;
 				}
-				else if (currentWeapon[currentWeaponindex].id == BURST_RIFLE) {
 
-					if (!isBursting && currentWeapon[currentWeaponindex].currentClipSize >= 3) {
-						isBursting = true;
-						burstShotsFired = 0;
-						nextBurstTime = now;
-						PlasmaShotgun();
+				Vector2f playerPos = shape.getPosition();
+				Vector2f crosshairPos;
 
-						currentWeapon[currentWeaponindex].currentClipSize -= 3;
+				float stickX = Joystick::getAxisPosition(0, Joystick::R);
+				float stickY = Joystick::getAxisPosition(0, Joystick::Z);
+				const float deadzone = 15.0f;
+
+				float maxDistance = 300.0f;
+				float normX = stickX / 100.0f;
+				float normY = stickY / 100.0f;
+
+				if (abs(stickX) > deadzone || abs(stickY) > deadzone) {
+					float length = sqrt(normX * normX + normY * normY);
+					if (length > 1.0f) {
+						normX /= length;
+						normY /= length;
 					}
-
+					lastAimDir = Vector2f(normX, normY);
 				}
-				else if (currentWeapon[currentWeaponindex].id == SINGLE_RIFLE) {
+				float angle = atan2f(lastAimDir.y, lastAimDir.x) * 180.f / PI;
+				Vector2f offset(lastAimDir.x * maxDistance, lastAimDir.y * maxDistance);
+				crosshairPos = shape.getPosition() + offset;
 
-					if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
-						PlasmaShotgun(); // or SingleShot(); if you have a separate function
-						bullets.push_back(createBullet(playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window));
+				if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
+					if (currentWeapon[currentWeaponindex].id == SHOTGUN || currentWeapon[currentWeaponindex].id == PLASMA_SHOTGUN) { // Shotgun
+						for (int i = -2; i <= 2; ++i) {
+							float spread = i * 9.5f;
+							Bullet b = createBullet(id,playerPos, angle, currentWeapon[currentWeaponindex], window, crosshairPos);
+							b.shape.rotate(spread);
+							b.velocity = rotateVector(b.velocity, spread);
+							bullets.push_back(b);
+						}
+						Shotgun();
 						currentWeapon[currentWeaponindex].currentClipSize--;
 
 					}
+					else if (currentWeapon[currentWeaponindex].id == BURST_RIFLE) {
 
+						if (!isBursting && currentWeapon[currentWeaponindex].currentClipSize >= 3) {
+							isBursting = true;
+							burstShotsFired = 0;
+							nextBurstTime = now;
+							PlasmaShotgun();
+
+							currentWeapon[currentWeaponindex].currentClipSize -= 3;
+						}
+
+					}
+					else if (currentWeapon[currentWeaponindex].id == SINGLE_RIFLE) {
+
+						if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
+							PlasmaShotgun(); // or SingleShot(); if you have a separate function
+							bullets.push_back(createBullet(id,playerPos, angle, currentWeapon[currentWeaponindex], window, crosshairPos));
+							currentWeapon[currentWeaponindex].currentClipSize--;
+
+						}
+
+					}
+
+					else {
+						bullets.push_back(createBullet(id,playerPos, angle, currentWeapon[currentWeaponindex], window, crosshairPos));
+						currentWeapon[currentWeaponindex].currentClipSize--;
+					}
 				}
-
-				else {
-					bullets.push_back(createBullet(playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window));
-					currentWeapon[currentWeaponindex].currentClipSize--;
-				}
-
 
 				if (currentWeapon[currentWeaponindex].id == RIFLE) {
-
-					AutoRifle();
+					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
+						AutoRifle();
 
 				}
 
 				if (currentWeapon[currentWeaponindex].id == PISTOL) {
-
-					Fire();
+					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
+						Fire();
 
 				}
 
 
 
 				if (currentWeapon[currentWeaponindex].id == PLASMA_PISTOL) {
-
-					PlasmaShotgun();
+					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
+						PlasmaShotgun();
 
 				}
 
 				if (currentWeapon[currentWeaponindex].id == PLASMA_RIFLE) {
+					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
+						PlasmaRifle();
 
-					PlasmaRifle();
+				}
+
+
+
+				lastFireTime = now;
+
+			}
+		}
+		else
+		{
+			if (Mouse::isButtonPressed(Mouse::Left) && ((currentWeapon[currentWeaponindex].clipSize == currentWeapon[currentWeaponindex].currentClipSize) || ((now - lastFireTime) >= currentWeapon[currentWeaponindex].bulletDelay))) {
+
+				if (gameTimer.getTime() <= 1.0f) {
+					return;
+				}
+
+				Vector2f playerPos = shape.getPosition();
+				Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
+				Vector2f dir = getDirection(playerPos, mousePos);
+
+				if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
+					if (currentWeapon[currentWeaponindex].id == SHOTGUN || currentWeapon[currentWeaponindex].id == PLASMA_SHOTGUN) { // Shotgun
+						for (int i = -2; i <= 2; ++i) {
+							float spread = i * 9.5f;
+							Bullet b = createBullet(id,playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window, mousePos);
+							b.shape.rotate(spread);
+							b.velocity = rotateVector(b.velocity, spread);
+							bullets.push_back(b);
+						}
+						Shotgun();
+						currentWeapon[currentWeaponindex].currentClipSize--;
+
+					}
+					else if (currentWeapon[currentWeaponindex].id == BURST_RIFLE) {
+
+						if (!isBursting && currentWeapon[currentWeaponindex].currentClipSize >= 3) {
+							isBursting = true;
+							burstShotsFired = 0;
+							nextBurstTime = now;
+							PlasmaShotgun();
+
+							currentWeapon[currentWeaponindex].currentClipSize -= 3;
+						}
+
+					}
+					else if (currentWeapon[currentWeaponindex].id == SINGLE_RIFLE) {
+
+						if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
+							PlasmaShotgun(); // or SingleShot(); if you have a separate function
+							bullets.push_back(createBullet(id,playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window, mousePos));
+							currentWeapon[currentWeaponindex].currentClipSize--;
+
+						}
+
+					}
+
+					else {
+						bullets.push_back(createBullet(id,playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window, mousePos));
+						currentWeapon[currentWeaponindex].currentClipSize--;
+					}
+				}
+
+				if (currentWeapon[currentWeaponindex].id == RIFLE) {
+					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
+						AutoRifle();
+
+				}
+
+				if (currentWeapon[currentWeaponindex].id == PISTOL) {
+					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
+						Fire();
+
+				}
+
+
+
+				if (currentWeapon[currentWeaponindex].id == PLASMA_PISTOL) {
+					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
+						PlasmaShotgun();
+
+				}
+
+				if (currentWeapon[currentWeaponindex].id == PLASMA_RIFLE) {
+					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
+						PlasmaRifle();
 
 				}
 
@@ -2818,22 +3086,64 @@ struct PLAYER {
 
 
 		endState();
-		Vector2f MouseGlobalPos = window.mapPixelToCoords(Mouse::getPosition(window));
-		crosshair.mousePosSetter(MouseGlobalPos);
-		playerMouse(MouseGlobalPos);
 
+		if (secondplayer)
+		{
 
-		if (isBursting) {
-			float now = fireClock.getElapsedTime().asSeconds();
+			Vector2f crosshairPos;
+			float stickX = Joystick::getAxisPosition(0, Joystick::R);
+			float stickY = Joystick::getAxisPosition(0, Joystick::Z);
+			const float deadzone = 15.0f;
 
-			if (now >= nextBurstTime && burstShotsFired < 3) {
-				Bullet b = createBullet(shape.getPosition(), shape.getRotation(), currentWeapon[currentWeaponindex], window);
-				bullets.push_back(b);
-				burstShotsFired++;
-				nextBurstTime = now + burstDelay;
+			if (abs(stickX) > deadzone || abs(stickY) > deadzone) {
+				float maxDistance = 250.0f;
+				float normX = stickX / 100.0f;
+				float normY = stickY / 100.0f;
+				float length = sqrt(normX * normX + normY * normY);
+				if (length > 1.0f) {
+					normX /= length;
+					normY /= length;
+				}
+				Vector2f offset(normX * maxDistance, normY * maxDistance);
+				crosshairPos = shape.getPosition() + offset;
+				crosshair.mousePosSetter(crosshairPos);
+				playerMouse(crosshairPos);
 			}
-			if (burstShotsFired >= 3) {
-				isBursting = false;
+
+
+			if (isBursting) {
+				float now = fireClock.getElapsedTime().asSeconds();
+
+				if (now >= nextBurstTime && burstShotsFired < 3) {
+					Bullet b = createBullet(id,shape.getPosition(), shape.getRotation(), currentWeapon[currentWeaponindex], window, crosshairPos);
+					bullets.push_back(b);
+					burstShotsFired++;
+					nextBurstTime = now + burstDelay;
+				}
+				if (burstShotsFired >= 3) {
+					isBursting = false;
+				}
+			}
+		}
+		else
+		{
+			Vector2f MouseGlobalPos = window.mapPixelToCoords(Mouse::getPosition(window));
+			crosshair.mousePosSetter(MouseGlobalPos);
+			playerMouse(MouseGlobalPos);
+
+
+			if (isBursting) {
+				float now = fireClock.getElapsedTime().asSeconds();
+
+				if (now >= nextBurstTime && burstShotsFired < 3) {
+					Bullet b = createBullet(id,shape.getPosition(), shape.getRotation(), currentWeapon[currentWeaponindex], window, MouseGlobalPos);
+					bullets.push_back(b);
+					burstShotsFired++;
+					nextBurstTime = now + burstDelay;
+				}
+				if (burstShotsFired >= 3) {
+					isBursting = false;
+				}
 			}
 		}
 
@@ -2985,6 +3295,245 @@ void gui_draw(bool mission_is_on, bool isRush, RenderWindow& window, vector<PLAY
 
 
 }
+void gui_game_loop_multiplayer(vector<PLAYER>& playersArr, RenderWindow& window, bool mission_is_on, bool isRush, int mission1_zombies_counter) {
+	score.setString("Score: " + to_string(score_));
+
+	score_p2.setString("Score: " + to_string(score_2));
+
+	if (!playersArr.empty())
+	{
+		if (isRush && mission_is_on)
+		{
+			ammo_in_clip_multi[0].setString(to_string(playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].currentClipSize) + " / ∞");
+			if (playersArr.size() > 1) {
+				ammo_in_clip_multi[1].setString(to_string(playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].currentClipSize) + " / ∞");
+			}
+		}
+		else {
+			ammo_in_clip_multi[0].setString(to_string(playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].currentClipSize) + " / " + to_string(playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].reloadClipSize));
+			if (playersArr.size() > 1) {
+				ammo_in_clip_multi[1].setString(to_string(playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].currentClipSize) + " / " + to_string(playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].reloadClipSize));
+			}
+		}
+	}
+	if (!playersArr.empty())
+	{
+		health_percentage.setString(to_string((int)(playersArr[0].health * 100) / 150) + " %");
+	}
+	else
+	{
+		health_percentage.setString(to_string(0) + " %");
+
+	}
+
+	if (isRush && mission_is_on) {
+		zombies.setString("Score: " + to_string(mission1_zombies_counter));
+	}
+	else {
+		zombies.setString("Zombies left: " + to_string(mission1_zombies_counter));
+	}
+
+	timeleft.setString("Time Left:" + to_string(120 - (int)time_left.getElapsedTime().asSeconds()));
+
+	if (!playersArr.empty())
+	{
+		weapon_name_multi[0].setString(playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].name);
+		if (playersArr.size() > 1) {
+			weapon_name_multi[1].setString(playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].name);
+		}
+	}
+	View currentView = window.getView();
+	Vector2f viewCenter = currentView.getCenter();
+	Vector2f viewSize = currentView.getSize();
+	hud_gui_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 800 - 20, viewCenter.y - viewSize.y / 2 + 980 - 985); //score for player 2
+
+	// Player 1 GUI (left side)
+	hud_gui_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 10, viewCenter.y - viewSize.y / 2 + 10);
+	hp_gui_multi.setPosition(viewCenter.x - viewSize.x / 2 + 30, viewCenter.y - viewSize.y / 2 + 20);
+
+	health_percentage.setString(playersArr.empty() ? "0 %" :
+		to_string((int)playersArr[0].health) + " %");
+	health_percentage.setPosition(viewCenter.x - viewSize.x / 2 + 70, viewCenter.y - viewSize.y / 2 + 13);
+
+	// Player 2 GUI (right side)
+	if (playersArr.size() > 1) {
+		hud_gui_p2[0].setPosition(viewCenter.x + viewSize.x / 2 - 180, viewCenter.y - viewSize.y / 2 + 10);
+		hp_gui_p2.setPosition(viewCenter.x + viewSize.x / 2 - 155, viewCenter.y - viewSize.y / 2 + 20);
+		health_percentage_p2.setString(to_string((int)playersArr[1].health) + " %");
+		health_percentage_p2.setPosition(viewCenter.x + viewSize.x / 2 - 115, viewCenter.y - viewSize.y / 2 + 13);
+	}
+	else {
+		health_percentage_p2.setString(""); // Clear if no player 2
+	}
+
+	// Original score positioning
+	score.setPosition(viewCenter.x - viewSize.x / 2 + 850, viewCenter.y - viewSize.y / 2 + 5); //score for player 1
+	score_p2.setPosition(viewCenter.x - viewSize.x / 2 + 850, viewCenter.y - viewSize.y / 2 + 50);//score for player 2
+	colon_text.setPosition(viewCenter.x - viewSize.x / 2 + 900, viewCenter.y - viewSize.y / 2 + 27);
+	hud_gui_multi[2].setPosition(viewCenter.x - viewSize.x / 2 + 200, viewCenter.y - viewSize.y / 2 + 980 - 980);  //weapons hud
+	hud_gui_p2[1].setPosition(viewCenter.x - viewSize.x / 2 + 1350, viewCenter.y - viewSize.y / 2 + 980 - 980);
+
+	rifle_gui_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 220, viewCenter.y - viewSize.y / 2 + 0);  //Rifle for player 1
+	rifle_gui_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 1540, viewCenter.y - viewSize.y / 2 + 0);  //Rifle player 2
+
+	shotgun_gui_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 220, viewCenter.y - viewSize.y / 2 + 0);  //Shotgun
+	shotgun_gui_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 1550, viewCenter.y - viewSize.y / 2 + 0);  //Shotgun player 2
+
+	pistol_gui_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 220, viewCenter.y - viewSize.y / 2 + 0);  //Pistol
+	pistol_gui_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 1550, viewCenter.y - viewSize.y / 2 + 0);  //Pistol player 2
+
+	ammo_in_clip_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 420, viewCenter.y - viewSize.y / 2 + 57);  //ammo left
+	ammo_in_clip_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 1420, viewCenter.y - viewSize.y / 2 + 57);  //ammo left player 2
+
+	ammo_gui_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 380, viewCenter.y - viewSize.y / 2 + 70);  //ammo 
+	ammo_gui_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 1380, viewCenter.y - viewSize.y / 2 + 70);  //ammo player2
+
+	knife_gui_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 335, viewCenter.y - viewSize.y / 2 + 50);  //knife 
+	knife_gui_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 335, viewCenter.y - viewSize.y / 2 + 50);  //knife player 2
+
+	weapon_name_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 390, viewCenter.y - viewSize.y / 2 + 10);  //weapon name
+	weapon_name_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 1380, viewCenter.y - viewSize.y / 2 + 10);  //weapon name player 2
+	// Zombies and time displays
+	zombies.setString("Zombies left: " + to_string(mission1_zombies_counter));
+	zombies.setPosition(viewCenter.x - viewSize.x / 2 + 1708, viewCenter.y - viewSize.y / 2 + 23);
+
+	timeleft.setString("Time Left:" + to_string(120 - (int)time_left.getElapsedTime().asSeconds()));
+	timeleft.setPosition(viewCenter.x - viewSize.x / 2 + 1705, viewCenter.y - viewSize.y / 2 + 21);
+
+	// Update rush mode flag
+	rush = isRush;  // Make sure you have this global variable declared
+}
+void gui_draw_multiplayer(bool mission_is_on, RenderWindow& window, const vector<PLAYER>& playersArr) {
+
+
+	// Draw player 1 GUI
+
+	for (int i = 0; i < 3; i++)
+	{
+		window.draw(hud_gui_multi[i]);
+
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		window.draw(hud_gui_p2[i]);
+
+	}
+	if (!playersArr.empty()) {
+		window.draw(hp_gui_multi);
+		window.draw(health_percentage);
+	}
+
+	// Draw player 2 GUI if exists
+	if (isGameEntered && playersArr.size() > 1) {
+
+		window.draw(hp_gui_p2);
+		window.draw(health_percentage_p2);
+	}
+
+	// Draw mission-specific elements
+	if (rush) {
+		window.draw(score);
+		window.draw(colon_text);
+		window.draw(score_p2);
+	}
+	else if (mission_is_on) {
+		window.draw(zombies);
+	}
+	else {
+		window.draw(timeleft);
+	}
+	if (!playersArr.empty())
+	{
+
+
+		if ((playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 2 ||
+			playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 3 ||
+			playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 4 ||
+			playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 7))   //////RIFLE
+		{
+
+			window.draw(rifle_gui_multi[0]);
+			window.draw(ammo_in_clip_multi[0]);
+			window.draw(ammo_gui_multi[0]);
+			window.draw(weapon_name_multi[0]);
+
+		}
+		else if ((playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 5 ||
+			playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 8))
+			//////SHOTGUN
+		{
+
+			window.draw(shotgun_gui_multi[0]);
+			window.draw(ammo_in_clip_multi[0]);
+			window.draw(ammo_gui_multi[0]);
+			window.draw(weapon_name_multi[0]);
+
+		}
+
+		else if ((playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 1 ||
+			playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 6))
+			////// Pistol
+		{
+
+			window.draw(pistol_gui_multi[0]);
+			window.draw(ammo_in_clip_multi[0]);
+			window.draw(ammo_gui_multi[0]);
+			window.draw(weapon_name_multi[0]);
+
+		}
+		else  //////KNIFE
+		{
+
+			window.draw(knife_gui_multi[0]);
+
+		}
+		if (playersArr.size() > 1) {
+			if (playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 2 ||
+				playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 3 ||
+				playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 4 ||
+				playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 7)  //////RIFLE
+			{
+
+				window.draw(rifle_gui_multi[1]);
+				window.draw(ammo_in_clip_multi[1]);
+				window.draw(ammo_gui_multi[1]);
+				window.draw(weapon_name_multi[1]);
+
+			}
+
+			else if (playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 5 ||
+				playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 8)  //////SHOTGUN
+			{
+
+				window.draw(shotgun_gui_multi[1]);
+				window.draw(ammo_in_clip_multi[1]);
+				window.draw(ammo_gui_multi[1]);
+				window.draw(weapon_name_multi[1]);
+
+			}
+
+
+			else if (playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 1 ||
+				playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 6)   ////// Pistol
+			{
+
+				window.draw(pistol_gui_multi[1]);
+				window.draw(ammo_in_clip_multi[1]);
+				window.draw(ammo_gui_multi[1]);
+				window.draw(weapon_name_multi[1]);
+
+			}
+			else  //////KNIFE
+			{
+
+				window.draw(knife_gui_multi[1]);
+
+			}
+		}
+	}
+
+}
+
 
 
 bool slowEffectActive = false;
@@ -3549,7 +4098,7 @@ void meleeAttack(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr) {
 
 }
 
-void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vector<Bullet>& bullets, Clock zombieDeathTimer, RenderWindow& window, int mission1_zombies_counter, bool mission_is_on = false, bool isRush = false) {
+void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vector<Bullet>& bullets, Clock zombieDeathTimer, RenderWindow& window, int mission1_zombies_counter, bool mission_is_on = false, bool isRush = false, bool isMulti = false) {
 	if (doubleScore && doubleScoreClock.getElapsedTime().asSeconds() >= 10.f) {
 		doubleScore = false;
 	}
@@ -3563,7 +4112,12 @@ void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vect
 	playersAvoidOtherZombies(playersArr, zombiesArr);
 	bulletIntersection(bullets, playersArr, zombiesArr);
 	meleeAttack(playersArr, zombiesArr);
-	gui_game_loop(playersArr, window, mission_is_on, isRush, mission1_zombies_counter);
+	if (!isMulti) {
+		gui_game_loop(playersArr, window, mission_is_on, isRush, mission1_zombies_counter);
+	}
+	else {
+		gui_game_loop_multiplayer(playersArr, window, mission_is_on, isRush, mission1_zombies_counter);
+	}
 	//cout << "size is " << zombiesArr.size() << endl;
 
 	for (int i = 0; i < zombiesArr.size(); i++) {
@@ -3588,7 +4142,7 @@ void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vect
 	deathCircleEnter(playersArr);
 }
 
-void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window, bool mission_is_on = false, bool isRush = false) {
+void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window, bool mission_is_on = false, bool isRush = false,bool isMulti = false) {
 
 
 	for (int i = 0; i < zombiesArr.size(); ++i) {
@@ -3618,8 +4172,13 @@ void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, Render
 	for (int i = 0; i < zombiesArr.size(); ++i) {
 		zombiesArr[i].drawHealthBar(window);
 	}
+	if (!isMulti) {
+		gui_draw(mission_is_on, isRush, window, playersArr);
 
-	gui_draw(mission_is_on, isRush, window, playersArr);
+	}
+	else {
+		gui_draw_multiplayer(mission_is_on, window, playersArr);
+	}
 	for (int i = 0; i < playersArr.size(); i++) {
 		window.draw(playersArr[i].crosshair.shape);
 	}
@@ -3647,7 +4206,7 @@ struct Beachlevel {
 	float charTimer = 0, holdTimer = 0;
 	int currentPart = 0, currentChar = 0;
 	bool typing = true, holding = false, fadingOut = false, fadingIn = true, sceneSkipped = false;
-
+	bool isTryingAgain = false;
 
 	string storyParts[MAX_PARTS][MAX_LINES] = {
 	{
@@ -3688,7 +4247,7 @@ struct Beachlevel {
 	float dt;
 	bool missionComplete = false;
 
-	CircleShape brokenumbrella, playercollider;
+	CircleShape brokenumbrella, playercollider[2];
 
 	Clock zombieSpawn;
 
@@ -3754,6 +4313,7 @@ struct Beachlevel {
 	Beachlevel(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window)
 
 	{
+		isTryingAgain = tryAgain;
 
 		if (!font.loadFromFile("tag.ttf")) {
 			cout << "Failed to load font.\n";
@@ -3816,7 +4376,8 @@ struct Beachlevel {
 
 		brokenumbrella.setRadius(70);
 
-		playercollider.setRadius(40);
+		playercollider[0].setRadius(40);
+		playercollider[1].setRadius(40);
 
 		for (int i = 0; i < 5; i++)
 
@@ -3973,7 +4534,7 @@ struct Beachlevel {
 
 		{
 
-			playercollider.setPosition(playersArr[i].shape.getPosition().x - 40, playersArr[i].shape.getPosition().y - 37);
+			playercollider[i].setPosition(playersArr[i].shape.getPosition().x - 40, playersArr[i].shape.getPosition().y - 37);
 
 		}
 
@@ -4141,12 +4702,90 @@ struct Beachlevel {
 			for (int i = 0; i < 9; i++) //////////////////////////////////////////////////////////loop for the player
 
 			{
+				for (int j = 0; j < playersArr.size(); j++) {
 
-				FloatRect Player_Bounds = playercollider.getGlobalBounds(); //player bounding box
+					FloatRect Player_Bounds = playercollider[j].getGlobalBounds(); //player bounding box
+
+					FloatRect intersection; //intersection area
+
+					FloatRect Wall_bound = shapes[i].getGlobalBounds(); //intersected object
+
+					if (Player_Bounds.intersects(Wall_bound))
+
+					{
+
+
+
+						Player_Bounds.intersects(Wall_bound, intersection);
+
+						// left/right
+
+						if (intersection.width < intersection.height)
+
+						{
+
+							//right collision
+
+							if (Player_Bounds.left < Wall_bound.left)
+
+							{
+
+								playersArr[j].shape.move(-playersArr[j].speed, 0);
+
+							}
+
+							//left collision
+
+							else
+
+							{
+
+								playersArr[j].shape.move(playersArr[j].speed, 0);
+
+							}
+
+						}
+
+						// up/down
+
+						else
+
+						{
+
+							//down collision
+
+							if (Player_Bounds.top < Wall_bound.top)
+
+							{
+
+								playersArr[j].shape.move(0, -playersArr[j].speed);
+
+							}
+
+							//up collision
+
+							else
+
+							{
+
+								playersArr[j].shape.move(0, playersArr[j].speed);
+
+							}
+
+						}
+
+					}
+				}
+
+			}
+
+
+			for (int k = 0; k < playersArr.size(); k++) {
+				FloatRect Player_Bounds = playercollider[k].getGlobalBounds(); //player bounding box
 
 				FloatRect intersection; //intersection area
 
-				FloatRect Wall_bound = shapes[i].getGlobalBounds(); //intersected object
+				FloatRect Wall_bound = brokenumbrella.getGlobalBounds(); //intersected object
 
 				if (Player_Bounds.intersects(Wall_bound))
 
@@ -4168,7 +4807,7 @@ struct Beachlevel {
 
 						{
 
-							playersArr[0].shape.move(-playersArr[0].speed, 0);
+							playersArr[k].shape.move(-playersArr[k].speed, 0);
 
 						}
 
@@ -4178,7 +4817,7 @@ struct Beachlevel {
 
 						{
 
-							playersArr[0].shape.move(playersArr[0].speed, 0);
+							playersArr[k].shape.move(playersArr[k].speed, 0);
 
 						}
 
@@ -4196,7 +4835,7 @@ struct Beachlevel {
 
 						{
 
-							playersArr[0].shape.move(0, -playersArr[0].speed);
+							playersArr[k].shape.move(0, -playersArr[k].speed);
 
 						}
 
@@ -4206,88 +4845,13 @@ struct Beachlevel {
 
 						{
 
-							playersArr[0].shape.move(0, playersArr[0].speed);
+							playersArr[k].shape.move(0, playersArr[k].speed);
 
 						}
 
 					}
 
 				}
-
-			}
-
-
-
-			FloatRect Player_Bounds = playercollider.getGlobalBounds(); //player bounding box
-
-			FloatRect intersection; //intersection area
-
-			FloatRect Wall_bound = brokenumbrella.getGlobalBounds(); //intersected object
-
-			if (Player_Bounds.intersects(Wall_bound))
-
-			{
-
-
-
-				Player_Bounds.intersects(Wall_bound, intersection);
-
-				// left/right
-
-				if (intersection.width < intersection.height)
-
-				{
-
-					//right collision
-
-					if (Player_Bounds.left < Wall_bound.left)
-
-					{
-
-						playersArr[0].shape.move(-playersArr[0].speed, 0);
-
-					}
-
-					//left collision
-
-					else
-
-					{
-
-						playersArr[0].shape.move(playersArr[0].speed, 0);
-
-					}
-
-				}
-
-				// up/down
-
-				else
-
-				{
-
-					//down collision
-
-					if (Player_Bounds.top < Wall_bound.top)
-
-					{
-
-						playersArr[0].shape.move(0, -playersArr[0].speed);
-
-					}
-
-					//up collision
-
-					else
-
-					{
-
-						playersArr[0].shape.move(0, playersArr[0].speed);
-
-					}
-
-				}
-
 			}
 
 		}
@@ -4302,13 +4866,22 @@ struct Beachlevel {
 		totalTimer = gameTimer.getTime();
 		dt = deltaClock.restart().asSeconds();
 
+		if (isTryingAgain) {
+			sceneSkipped = true;
+			fadingOut = true;
+			music.stop();
+			for (int i = 0; i < MAX_LINES; ++i) {
+				lines[i].setString("");
+			}
+			isStoryOn = false;
+		}
+
 		if (isStoryOn) {
 
 			if (Keyboard::isKeyPressed(Keyboard::Space) && !sceneSkipped && !pauseGame) {
 				sceneSkipped = true;
 				fadingOut = true;
 				music.stop();
-				// Clear all text immediately when skipped
 				for (int i = 0; i < MAX_LINES; ++i) {
 					lines[i].setString("");
 				}
@@ -7491,20 +8064,22 @@ struct Mission4 {
 		int zombie_speed = 4;
 		if (!playersArr.empty())
 		{
-			if (playersArr[0].shape.getPosition().y <= 30) // check for top border
-			{
-				playersArr[0].shape.move(0, speed);
-			}
-			if (playersArr[0].shape.getPosition().y >= 1450) //check for bottom border
-			{
-				playersArr[0].shape.move(0, -speed);
-			}if (playersArr[0].shape.getPosition().x <= 30) //check for left border
-			{
-				playersArr[0].shape.move(speed, 0);
-			}
-			if (playersArr[0].shape.getPosition().x >= 1930) //check for right border
-			{
-				playersArr[0].shape.move(-speed, 0);
+			for (int i = 0; i < playersArr.size(); i++) {
+				if (playersArr[0].shape.getPosition().y <= 30) // check for top border
+				{
+					playersArr[0].shape.move(0, speed);
+				}
+				if (playersArr[0].shape.getPosition().y >= 1050) //check for bottom border
+				{
+					playersArr[0].shape.move(0, -speed);
+				}if (playersArr[0].shape.getPosition().x <= 30) //check for left border
+				{
+					playersArr[0].shape.move(speed, 0);
+				}
+				if (playersArr[0].shape.getPosition().x >= 1900) //check for right border
+				{
+					playersArr[0].shape.move(-speed, 0);
+				}
 			}
 		}
 	}
@@ -7525,7 +8100,6 @@ int globalScore = 0;
 
 struct BeachRush {
 	int frameCounter = 0, frameDelay = 20, seaindex = 0;
-	int score = 0;
 	bool missionComplete = false;
 	Clock deltaClock;
 	Clock zombieDeathTimer;
@@ -7597,14 +8171,14 @@ struct BeachRush {
 	};
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score, playerName);
-			cout << score << endl;
+			addScoreIfHigh(playersArr[0].score, playerName);
+			cout << playersArr[0].score << endl;
 			isSaved = true;
 		}
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, playersArr[0].score, true, true);
 		updateBullets(dt);
 		frameCounter++;
 
@@ -7717,10 +8291,10 @@ struct BeachRush {
 			for (int i = 0; i < zombiesArr.size(); i++) {
 				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
 					if (doubleScore) {
-						score += (2 * zombiesArr[i].ScoreShouldBe);
+						playersArr[0].score += (2 * zombiesArr[i].ScoreShouldBe);
 					}
 					else {
-						score += zombiesArr[i].ScoreShouldBe;
+						playersArr[0].score += zombiesArr[i].ScoreShouldBe;
 					}
 					zombiesArr[i].isDeadCounter = true;
 					if ((rand() % 100) + 1 <= 20) {
@@ -9004,6 +9578,1486 @@ struct ArmyRush {
 	}
 };
 
+struct BeachRushMulti {
+	int frameCounter = 0, frameDelay = 20, seaindex = 0;
+	int score0 = 0;
+	int score1 = 0;
+	bool missionComplete = false;
+	Clock deltaClock;
+	Clock zombieDeathTimer;
+	float dt;
+	Clock zombieSpawn;
+	float zombieSpawnTime = 3.0f; // Will decrease over time
+	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
+
+	bool isSaved = false;
+	int initialNumZombies = 10;
+	int maxZombies = 100;
+	const int mapWidth = 2000;
+	const int mapHeight = 1500;
+	int mission1_zombies_counter = 0;
+	Texture beach, seatexture;
+	Sprite sand, sea;
+
+
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.5f;
+
+	BeachRushMulti(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		playersArr.push_back(PLAYER(1920 / 4, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr.push_back(PLAYER(1920 / 6, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr[1].secondplayer = true;
+
+		// Spawn initial zombies randomly on the edges
+
+
+		// Set background scaling
+		seatexture.loadFromFile("imgs/beach/sea.png");
+
+		beach.loadFromFile("imgs/beach/sand.png");
+
+		sand.setTexture(beach);
+
+		sea.setTexture(seatexture);
+
+		sand.setOrigin(0, 0);
+		sea.setOrigin(0, 0);
+
+		// Set position to top-left of map
+		sand.setPosition(0, 0);
+		//sea.setPosition(0, 0);
+		sea.setPosition(0, 970);
+
+		// Scale to match map dimensions
+		sand.setScale(
+			(float)mapWidth / beach.getSize().x,
+			(float)mapHeight / beach.getSize().y
+		);
+
+		/*sea.setScale(
+			(float)mapWidth / seatexture.getSize().x,
+			1
+		);*/
+		sea.setScale(2, 1);
+
+		zombieSpawn.restart();
+
+		//background
+
+	 // background Sprite
+
+		// timer and view and point after 2 min
+	};
+	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		
+		dt = deltaClock.restart().asSeconds();
+		View view(window.getDefaultView());
+
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score0, true, true,true);
+		updateBullets(dt);
+		frameCounter++;
+
+		if (frameCounter >= frameDelay) {
+
+			seaindex = (seaindex + 1) % 7;
+
+			frameCounter = 0;  // Reset counter after updating
+
+		}
+
+		sea.setTextureRect(IntRect(seaindex * 1920, 0, 1920, 750));
+		if (!playersArr.empty()) {
+			float elapsed = gameTimer.getTime();
+
+			float zombie1SpawnTime;
+			if (elapsed <= phase1Duration) {
+				float t = elapsed / phase1Duration;
+				zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+			}
+			else {
+				zombie1SpawnTime = minSpawnTime;
+			}
+
+			if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
+				float x, y;
+				int side = rand() % 4;
+				switch (side) {
+				case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+				case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+				case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+				case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+				}
+				zombiesArr.push_back(ZOMBIE(x, y, 1));
+				zombie1Spawn.reset();
+			}
+
+			float zombie2SpawnTime;
+			if (elapsed > phase1Duration) {
+				float t = (elapsed - phase1Duration) / phase2Duration;
+				zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+				if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 2));
+					zombie2Spawn.reset();
+				}
+			}
+		}
+
+
+
+
+		if (!playersArr.empty()) {
+			//camera view max view and min view to track player
+			Vector2f playerPos = playersArr[0].shape.getPosition();
+			float halfWidth = window.getSize().x / 2.0f;
+			float halfHeight = window.getSize().y / 2.0f;
+			float clampedX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+			float clampedY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+			view.setCenter(clampedX, clampedY);
+			window.setView(view);
+		}
+
+		for (int i = 0; i < playersArr.size(); i++) {
+			Vector2f playerPos = playersArr[i].shape.getPosition();
+
+			const float mapWidth = 2000.0f;
+			const float mapHeight = 1500.0f;
+
+			FloatRect playerBounds = playersArr[i].shape.getGlobalBounds();
+			float halfWidth = playerBounds.width / 2.0f;
+			float halfHeight = playerBounds.height / 2.0f;
+
+			if (playerPos.x < halfWidth) playerPos.x = halfWidth;
+			if (playerPos.x > mapWidth - halfWidth) playerPos.x = mapWidth - halfWidth;
+			if (playerPos.y < halfHeight) playerPos.y = halfHeight;
+			if (playerPos.y > mapHeight - halfHeight) playerPos.y = mapHeight - halfHeight;
+
+			playersArr[i].shape.setPosition(playerPos);
+		}
+		if (!playersArr.empty())
+		{
+			// Get player position
+			Vector2f pos = playersArr[0].shape.getPosition();
+
+			// Prevent moving out of top border
+			if (pos.y <= 0)
+				playersArr[0].shape.move(0, playersArr[0].speed);
+
+			// Prevent moving out of bottom border
+			if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight - 250)
+				playersArr[0].shape.move(0, -playersArr[0].speed);
+
+			// Prevent moving out of left border
+			if (pos.x <= 0)
+				playersArr[0].shape.move(playersArr[0].speed, 0);
+
+			// Prevent moving out of right border
+			if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
+				playersArr[0].shape.move(-playersArr[0].speed, 0);
+
+			for (int i = 0; i < zombiesArr.size(); i++) {
+				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+					if (doubleScore) {
+						score0 += (2 * zombiesArr[i].ScoreShouldBe);
+					}
+					else {
+						score0 += zombiesArr[i].ScoreShouldBe;
+					}
+					zombiesArr[i].isDeadCounter = true;
+					if ((rand() % 100) + 1 <= 20) {
+						deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+					}
+
+				}
+			}
+		}
+
+
+	};
+	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		window.draw(sand);
+		window.draw(sea);
+		drawEntities(playersArr, zombiesArr, window, true, true,true);
+
+	};
+};
+struct DesertroadRushMulti {
+	int score = 0;
+	bool missionComplete = false;
+	Clock deltaClock;
+	Clock zombieDeathTimer;
+	float dt;
+	Clock zombieSpawn;
+	float zombieSpawnTime = 3.0f;
+	const float spawnRampDuration = 120.0f;
+	//int initialNumZombies = 10;
+	const float mapWidth = 2000;
+	const float mapHeight = 1500;
+	int mission1_zombies_counter = 0;
+	bool isSaved = false;
+	Sprite backgroundDesertRoadSprite;
+
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.5f;
+
+
+
+	DesertroadRushMulti(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+
+
+
+		backgroundDesertRoadSprite.setTexture(backgroundDesertRoad);
+		backgroundDesertRoadSprite.setScale(
+			(float)mapWidth / backgroundDesertRoad.getSize().x,
+			(float)mapHeight / backgroundDesertRoad.getSize().y
+		);
+
+
+		zombieSpawn.restart();
+
+
+		backgroundDesertRoadSprite.setTexture(backgroundDesertRoad);
+		float mapWidth = 2000; // width of background
+		float mapHeight = 1500; // height of background
+		backgroundDesertRoadSprite.setScale(
+			mapWidth / backgroundDesertRoad.getSize().x,
+			mapHeight / backgroundDesertRoad.getSize().y
+		);
+	};
+	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+
+
+		if (playersArr.empty() && !isSaved) {
+			addScoreIfHigh(score, playerName);
+			cout << score << endl;
+			isSaved = true;
+		}
+		dt = deltaClock.restart().asSeconds();
+		View view(window.getDefaultView());
+
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateBullets(dt);
+
+
+		if (!playersArr.empty()) {
+			float elapsed = gameTimer.getTime();
+
+			float zombie1SpawnTime;
+			if (elapsed <= phase1Duration) {
+				float t = elapsed / phase1Duration;
+				zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+			}
+			else {
+				zombie1SpawnTime = minSpawnTime;
+			}
+
+			if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
+				float x, y;
+				int side = rand() % 4;
+				switch (side) {
+				case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+				case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+				case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+				case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+				}
+				zombiesArr.push_back(ZOMBIE(x, y, 1));
+				zombie1Spawn.reset();
+			}
+
+			float zombie2SpawnTime;
+			if (elapsed > phase1Duration) {
+				float t = (elapsed - phase1Duration) / phase2Duration;
+				zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+				if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 2));
+					zombie2Spawn.reset();
+				}
+			}
+		}
+
+
+
+		if (!playersArr.empty()) {
+			//camera view max view and min view to track player
+			Vector2f playerPos = playersArr[0].shape.getPosition();
+			float halfWidth = window.getSize().x / 2.0f;
+			float halfHeight = window.getSize().y / 2.0f;
+			float clampedX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+			float clampedY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+			view.setCenter(clampedX, clampedY);
+			window.setView(view);
+		}
+
+		for (int i = 0; i < playersArr.size(); i++) {
+			Vector2f playerPos = playersArr[i].shape.getPosition();
+
+			const float mapWidth = 2000.0f;
+			const float mapHeight = 1500.0f;
+
+			FloatRect playerBounds = playersArr[i].shape.getGlobalBounds();
+			float halfWidth = playerBounds.width / 2.0f;
+			float halfHeight = playerBounds.height / 2.0f;
+
+			if (playerPos.x < halfWidth) playerPos.x = halfWidth;
+			if (playerPos.x > mapWidth - halfWidth) playerPos.x = mapWidth - halfWidth;
+			if (playerPos.y < halfHeight) playerPos.y = halfHeight;
+			if (playerPos.y > mapHeight - halfHeight) playerPos.y = mapHeight - halfHeight;
+
+			playersArr[i].shape.setPosition(playerPos);
+		}
+		if (!playersArr.empty())
+		{
+			// Get player position
+			Vector2f pos = playersArr[0].shape.getPosition();
+
+			// Prevent moving out of top border
+			if (pos.y <= 0)
+				playersArr[0].shape.move(0, playersArr[0].speed);
+
+			// Prevent moving out of bottom border
+			if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight + 100)
+				playersArr[0].shape.move(0, -playersArr[0].speed);
+
+			// Prevent moving out of left border
+			if (pos.x <= 0)
+				playersArr[0].shape.move(playersArr[0].speed, 0);
+
+			// Prevent moving out of right border
+			if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
+				playersArr[0].shape.move(-playersArr[0].speed, 0);
+			for (int i = 0; i < zombiesArr.size(); i++) {
+				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+					if (doubleScore) {
+						score += (2 * zombiesArr[i].ScoreShouldBe);
+					}
+					else {
+						score += zombiesArr[i].ScoreShouldBe;
+					}
+					zombiesArr[i].isDeadCounter = true;
+					if ((rand() % 100) + 1 <= 20) {
+						deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+					}
+
+				}
+			}
+		}
+
+	};
+	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		window.draw(backgroundDesertRoadSprite);
+		drawEntities(playersArr, zombiesArr, window, true, true);
+
+	};
+};
+struct CityRushMulti {
+	Map map;
+	Traffic traffic;
+	Clock deltaClock;
+	Clock zombieDeathTimer;
+	float dt;
+	int mission1_zombies_counter = 0;
+	bool missionComplete = false;
+	Clock Timer;
+	float zombie_respawntime = 5.f;
+	int zombie_perspawn = 2;
+	int totalzombiekilled = 0;
+	Clock zombieSpawnClock;
+	Clock zombieSpawn;
+	float zombieSpawnTime = 3.0f; // Will decrease over time
+	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
+
+	int score = 0;
+	bool isSaved = false;
+	int mapWidth = 1920; // width of background
+	int mapHeight = 1080; // height of background
+
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.5f;
+
+	int getRandomOutsideRange_x() {
+		int left = rand() % 500 - 500;      // -500 to -1
+		int right = rand() % 580 + 1921;    // 1921 to 2500
+
+		if (rand() % 2 == 0)
+			return left;
+		else
+			return right;
+	}
+
+	int getRandomOutsideRange_y() {
+		int up = rand() % 500 - 500;       // -500 to -1
+		int down = rand() % 500 + 1081;     // 1081 to 1580
+
+		if (rand() % 2 == 0)
+			return up;
+		else
+			return down;
+	}
+
+	CityRushMulti(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+
+		map.init(buildingTexture);
+		traffic.init(cara, carb);
+	}
+	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		if (playersArr.empty() && !isSaved) {
+			addScoreIfHigh(score, playerName);
+			cout << score << endl;
+			isSaved = true;
+		}
+
+		dt = deltaClock.restart().asSeconds();
+		View view(window.getDefaultView());
+
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateBullets(dt);
+
+		if (!playersArr.empty()) {
+
+			if (!playersArr.empty()) {
+				float elapsed = gameTimer.getTime();
+
+				float zombie1SpawnTime;
+				if (elapsed <= phase1Duration) {
+					float t = elapsed / phase1Duration;
+					zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+				}
+				else {
+					zombie1SpawnTime = minSpawnTime;
+				}
+
+				if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 1));
+					zombie1Spawn.reset();
+				}
+
+				float zombie2SpawnTime;
+				if (elapsed > phase1Duration) {
+					float t = (elapsed - phase1Duration) / phase2Duration;
+					zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+					if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+						float x, y;
+						int side = rand() % 4;
+						switch (side) {
+						case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+						case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+						case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+						case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+						}
+						zombiesArr.push_back(ZOMBIE(x, y, 2));
+						zombie2Spawn.reset();
+					}
+				}
+			}
+
+			if (!playersArr.empty()) {
+				//camera view max view and min view to track player
+				Vector2f playerPos = playersArr[0].shape.getPosition();
+				float halfWidth = window.getSize().x / 2.0f;
+				float halfHeight = window.getSize().y / 2.0f;
+				float clampedX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+				float clampedY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+				view.setCenter(clampedX, clampedY);
+				window.setView(view);
+			}
+
+			if (!playersArr.empty())
+			{
+				// Get player position
+				Vector2f pos = playersArr[0].shape.getPosition();
+
+				// Prevent moving out of top border
+				if (pos.y <= 0)
+					playersArr[0].shape.move(0, playersArr[0].speed);
+
+				// Prevent moving out of bottom border
+				if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight + 100)
+					playersArr[0].shape.move(0, -playersArr[0].speed);
+
+				// Prevent moving out of left border
+				if (pos.x <= 0)
+					playersArr[0].shape.move(playersArr[0].speed, 0);
+
+				// Prevent moving out of right border
+				if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
+					playersArr[0].shape.move(-playersArr[0].speed, 0);
+
+			}
+		}
+		for (int i = 0; i < zombiesArr.size(); i++) {
+			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+				if (doubleScore) {
+					score += (2 * zombiesArr[i].ScoreShouldBe);
+				}
+				else {
+					score += zombiesArr[i].ScoreShouldBe;
+				}
+				zombiesArr[i].isDeadCounter = true;
+				if ((rand() % 100) + 1 <= 20) {
+					deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+				}
+
+			}
+		}
+
+		if (zombieSpawnClock.getElapsedTime().asSeconds() >= zombie_respawntime &&
+			!missionComplete)
+		{
+			zombieSpawnClock.restart();
+			for (int i = 0; i < zombie_perspawn; i++) {
+
+				zombiesArr.push_back(ZOMBIE(getRandomOutsideRange_x(), getRandomOutsideRange_y(), 1));
+			}
+		}
+
+		for (int i = 0; i < playersArr.size(); i++) {
+			for (int j = 0; j < NUM_BUILDINGS; j++) {
+				FloatRect playerBounds = playersArr[i].shape.getGlobalBounds();
+				FloatRect buildBounds = map.buildings[j].spriteB.getGlobalBounds();
+
+				if (playerBounds.intersects(buildBounds)) {
+					float overlapX = min(playerBounds.left + playerBounds.width - buildBounds.left,
+						buildBounds.left + buildBounds.width - playerBounds.left);
+					float overlapY = min(playerBounds.top + playerBounds.height - buildBounds.top,
+						buildBounds.top + buildBounds.height - playerBounds.top);
+
+					Vector2f pushDir(0.f, 0.f);
+					Vector2f playerPos = playersArr[i].shape.getPosition();
+
+					if (overlapX < overlapY) {
+						if (playerPos.x < buildBounds.left + buildBounds.width / 2) {
+							pushDir.x = -overlapX;
+						}
+						else {
+							pushDir.x = overlapX;
+						}
+					}
+					else {
+						if (playerPos.y < buildBounds.top + buildBounds.height / 2) {
+							pushDir.y = -overlapY;
+						}
+						else {
+							pushDir.y = overlapY;
+						}
+					}
+
+					playersArr[i].shape.setPosition(playerPos + pushDir);
+					break;
+				}
+			}
+		}
+
+		for (int i = 0; i < zombiesArr.size(); i++) {
+			for (int j = 0; j < NUM_BUILDINGS; j++) {
+				FloatRect playerBounds = zombiesArr[i].shape.getGlobalBounds();
+				FloatRect buildBounds = map.buildings[j].spriteB.getGlobalBounds();
+
+				if (playerBounds.intersects(buildBounds)) {
+					float overlapX = min(playerBounds.left + playerBounds.width - buildBounds.left,
+						buildBounds.left + buildBounds.width - playerBounds.left);
+					float overlapY = min(playerBounds.top + playerBounds.height - buildBounds.top,
+						buildBounds.top + buildBounds.height - playerBounds.top);
+
+					Vector2f pushDir(0.f, 0.f);
+					Vector2f playerPos = zombiesArr[i].shape.getPosition();
+
+					if (overlapX < overlapY) {
+						if (playerPos.x < buildBounds.left + buildBounds.width / 2) {
+							pushDir.x = -overlapX;
+						}
+						else {
+							pushDir.x = overlapX;
+						}
+					}
+					else {
+						if (playerPos.y < buildBounds.top + buildBounds.height / 2) {
+							pushDir.y = -overlapY;
+						}
+						else {
+							pushDir.y = overlapY;
+						}
+					}
+
+					zombiesArr[i].shape.setPosition(playerPos + pushDir);
+					break;
+				}
+			}
+		}
+
+		for (int i = 0; i < playersArr.size(); i++) {
+			for (int j = 0; j < NUM_CARS; j++) {
+				FloatRect playerBounds = playersArr[i].shape.getGlobalBounds();
+				playerBounds.left += playerBounds.width * 0.1f;
+				playerBounds.top += playerBounds.height * 0.1f;
+				playerBounds.width *= 0.8f;
+				playerBounds.height *= 0.8f;
+
+				FloatRect trafficBounds = traffic.cars[j].spriteC.getGlobalBounds();
+				trafficBounds.left += trafficBounds.width * 0.2f;
+				trafficBounds.top += trafficBounds.height * 0.2f;
+				trafficBounds.width *= 0.6f;
+				trafficBounds.height *= 0.6f;
+
+				if (playerBounds.intersects(trafficBounds)) {
+					float overlapX = min(playerBounds.left + playerBounds.width - trafficBounds.left,
+						trafficBounds.left + trafficBounds.width - playerBounds.left);
+					float overlapY = min(playerBounds.top + playerBounds.height - trafficBounds.top,
+						trafficBounds.top + trafficBounds.height - playerBounds.top);
+
+					Vector2f pushDir(0.f, 0.f);
+					Vector2f playerPos = playersArr[i].shape.getPosition();
+
+					if (overlapX < overlapY) {
+						pushDir.x = (playerPos.x < trafficBounds.left + trafficBounds.width / 2) ? -overlapX : overlapX;
+					}
+					else {
+						pushDir.y = (playerPos.y < trafficBounds.top + trafficBounds.height / 2) ? -overlapY : overlapY;
+					}
+
+					playersArr[i].shape.setPosition(playerPos + pushDir);
+					break;
+				}
+			}
+		}
+
+		for (int i = 0; i < zombiesArr.size(); i++) {
+			for (int j = 0; j < NUM_CARS; j++) {
+				FloatRect playerBounds = zombiesArr[i].shape.getGlobalBounds();
+				playerBounds.left += playerBounds.width * 0.1f;
+				playerBounds.top += playerBounds.height * 0.1f;
+				playerBounds.width *= 0.8f;
+				playerBounds.height *= 0.8f;
+
+				FloatRect trafficBounds = traffic.cars[j].spriteC.getGlobalBounds();
+				trafficBounds.left += trafficBounds.width * 0.2f;
+				trafficBounds.top += trafficBounds.height * 0.2f;
+				trafficBounds.width *= 0.6f;
+				trafficBounds.height *= 0.6f;
+
+				if (playerBounds.intersects(trafficBounds)) {
+					float overlapX = min(playerBounds.left + playerBounds.width - trafficBounds.left,
+						trafficBounds.left + trafficBounds.width - playerBounds.left);
+					float overlapY = min(playerBounds.top + playerBounds.height - trafficBounds.top,
+						trafficBounds.top + trafficBounds.height - playerBounds.top);
+
+					Vector2f pushDir(0.f, 0.f);
+					Vector2f playerPos = zombiesArr[i].shape.getPosition();
+
+					if (overlapX < overlapY) {
+						pushDir.x = (playerPos.x < trafficBounds.left + trafficBounds.width / 2) ? -overlapX : overlapX;
+					}
+					else {
+						pushDir.y = (playerPos.y < trafficBounds.top + trafficBounds.height / 2) ? -overlapY : overlapY;
+					}
+
+					zombiesArr[i].shape.setPosition(playerPos + pushDir);
+					break;
+				}
+			}
+		}
+
+
+
+		for (int j = 0; j < NUM_CARS; j++) {
+
+			for (int i = 0; i < bullets.size(); i++) {
+
+			}
+
+			for (int i = 0; i < bullets.size(); i++) {
+				FloatRect bounds = traffic.cars[j].spriteC.getGlobalBounds();
+				bounds.width *= 0.2f;
+				bounds.height *= 0.2f;
+				bounds.left += traffic.cars[j].spriteC.getGlobalBounds().width * 0.4f;
+				bounds.top += traffic.cars[j].spriteC.getGlobalBounds().height * 0.4f;
+
+				if (bullets[i].shape.getGlobalBounds().intersects(bounds)) {
+					bullets.erase(bullets.begin() + i);
+					i--;
+				}
+			}
+		}
+
+		if (!playersArr.empty())
+		{
+			if (playersArr[0].shape.getPosition().y <= 30) // check for top border
+			{
+				playersArr[0].shape.move(0, playersArr[0].speed);
+			}
+			if (playersArr[0].shape.getPosition().y >= 1050) //check for bottom border
+			{
+				playersArr[0].shape.move(0, -playersArr[0].speed);
+			}if (playersArr[0].shape.getPosition().x <= 30) //check for left border
+			{
+				playersArr[0].shape.move(playersArr[0].speed, 0);
+			}
+			if (playersArr[0].shape.getPosition().x >= 1920) //check for right border
+			{
+				playersArr[0].shape.move(-playersArr[0].speed, 0);
+			}
+		}
+
+	}
+	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+
+		draw_background(window, back_ground, 0, 0);
+		draw_background(window, back_ground, 1000, 0);
+		traffic.drawCars(window);
+		map.drawBuildings(window);
+		drawEntities(playersArr, zombiesArr, window, true, true);
+
+	}
+};
+struct WoodsRushMulti {
+	Clock deltaClock;
+	Clock zombieDeathTimer;
+	float dt;
+	int score = 0;
+	int mission1_zombies_counter = 0;
+	bool missionComplete = false;
+	Clock Timer;
+	float zombie_respawntime = 4.5f;
+	int zombie_perspawn = 2;
+	int dog_perspawn = 1;
+	int totalzombiekilled = 0;
+	Clock zombieSpawnClock;
+	Sprite backgroundWoods;
+	Clock zombieSpawn;
+	float zombieSpawnTime = 3.0f; // Will decrease over time
+	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
+	const int mapWidth = 2000;
+	const int mapHeight = 1500;
+	bool isSaved = false;
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.5f;
+
+	int getRandomOutsideRange_x() {
+		int left = rand() % 500 - 500;      // -500 to -1
+		int right = rand() % 580 + 1921;    // 1921 to 2500
+
+		if (rand() % 2 == 0)
+			return left;
+		else
+			return right;
+	}
+
+	int getRandomOutsideRange_y() {
+		int up = rand() % 500 - 500;       // -500 to -1
+		int down = rand() % 500 + 1081;     // 1081 to 1580
+
+		if (rand() % 2 == 0)
+			return up;
+		else
+			return down;
+	}
+
+	WoodsRushMulti(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		backgroundWoods.setTexture(woodsBackgroundTexture);
+		backgroundWoods.setScale(
+			(float)mapWidth / woodsBackgroundTexture.getSize().x,
+			(float)mapHeight / woodsBackgroundTexture.getSize().y
+		);
+
+	}
+	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		if (playersArr.empty() && !isSaved) {
+			addScoreIfHigh(score, playerName);
+			cout << score << endl;
+			isSaved = true;
+		}
+
+		dt = deltaClock.restart().asSeconds();
+		View view(window.getDefaultView());
+
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateBullets(dt);
+
+		if (!playersArr.empty()) {
+
+			if (!playersArr.empty()) {
+				float elapsed = gameTimer.getTime();
+
+				float zombie1SpawnTime;
+				if (elapsed <= phase1Duration) {
+					float t = elapsed / phase1Duration;
+					zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+				}
+				else {
+					zombie1SpawnTime = minSpawnTime;
+				}
+
+				if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 1));
+					zombie1Spawn.reset();
+				}
+
+				float zombie2SpawnTime;
+				if (elapsed > phase1Duration) {
+					float t = (elapsed - phase1Duration) / phase2Duration;
+					zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+					if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+						float x, y;
+						int side = rand() % 4;
+						switch (side) {
+						case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+						case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+						case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+						case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+						}
+						zombiesArr.push_back(ZOMBIE(x, y, 2));
+						zombie2Spawn.reset();
+					}
+				}
+			}
+
+			if (!playersArr.empty()) {
+				//camera view max view and min view to track player
+				Vector2f playerPos = playersArr[0].shape.getPosition();
+				float halfWidth = window.getSize().x / 2.0f;
+				float halfHeight = window.getSize().y / 2.0f;
+				float clampedX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+				float clampedY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+				view.setCenter(clampedX, clampedY);
+				window.setView(view);
+			}
+
+			if (!playersArr.empty())
+			{
+				// Get player position
+				Vector2f pos = playersArr[0].shape.getPosition();
+
+				// Prevent moving out of top border
+				if (pos.y <= 0)
+					playersArr[0].shape.move(0, playersArr[0].speed);
+
+				// Prevent moving out of bottom border
+				if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight + 100)
+					playersArr[0].shape.move(0, -playersArr[0].speed);
+
+				// Prevent moving out of left border
+				if (pos.x <= 0)
+					playersArr[0].shape.move(playersArr[0].speed, 0);
+
+				// Prevent moving out of right border
+				if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
+					playersArr[0].shape.move(-playersArr[0].speed, 0);
+
+			}
+		}
+		for (int i = 0; i < zombiesArr.size(); i++) {
+			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+				if (doubleScore) {
+					score += (2 * zombiesArr[i].ScoreShouldBe);
+				}
+				else {
+					score += zombiesArr[i].ScoreShouldBe;
+				}
+				zombiesArr[i].isDeadCounter = true;
+				if ((rand() % 100) + 1 <= 20) {
+					deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+				}
+
+			}
+		}
+
+	}
+	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		window.draw(backgroundWoods);
+		drawEntities(playersArr, zombiesArr, window, true, true);
+
+	};
+};
+struct ArmyRushMulti {
+	Clock deltaClock;
+	Clock zombieDeathTimer;
+	float dt;
+	int mission1_zombies_counter = 0;
+	bool missionComplete = false;
+	int score = 0;
+	bool isSaved = false;
+	float zombieSpawnTime = 3.0f; // Will decrease over time
+	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
+	int getRandomOutsideRange_x() {
+		int left = rand() % 500 - 500;      // -500 to -1
+		int right = rand() % 580 + 1921;    // 1921 to 2500
+
+		// Randomly choose between left and right range
+		if (rand() % 2 == 0)
+			return left;
+		else
+			return right;
+	}
+
+	int getRandomOutsideRange_y() {
+		int up = rand() % 500 - 500;       // -500 to -1
+		int down = rand() % 500 + 1081;     // 1081 to 1580
+
+		// Randomly choose one of the two ranges
+		if (rand() % 2 == 0)
+			return up;
+		else
+			return down;
+	}
+	bool rush = false; // rushMode flag 
+	bool bullet_touched = false;
+	Clock zombieSpawn;
+	const int intial_num = 4;
+
+	int armycampscore = 0;//score
+	Sprite armycampdead;
+	Font font;
+	Text scoreText;
+	Sprite tentSprite;
+	Sprite tankSprite1;
+	Sprite tankSprite2;
+	RectangleShape tankShape;
+	RectangleShape tankShape1;
+	RectangleShape tentshape;
+	Sprite sprite; // background Sprite
+	float mapWidth = 2000; // width of background
+	float mapHeight = 1500; // height of background
+	Clock timer;
+
+	PauseableTimer zombie1Spawn;
+	PauseableTimer zombie2Spawn;
+	const float totalDuration = 180.0f;
+	const float phase1Duration = 90.0f;
+	const float phase2Duration = 90.0f;
+	const float initialSpawnTime = 3.0f;
+	const float minSpawnTime = 0.5f;
+	ArmyRushMulti(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+
+
+		armycampdead.setTexture(armycampdeadTexture);
+		armycampdead.setOrigin(armycampdead.getLocalBounds().width / 2, armycampdead.getLocalBounds().height / 2);
+		armycampdead.setPosition(960, 540);
+		armycampdead.setScale(2, 2);
+		font.loadFromFile("img/Caliste.ttf");
+		scoreText.setFont(font);
+		scoreText.setCharacterSize(50);
+
+		for (int i = 0; i < intial_num; i++) {
+			float x, y;
+			int side = rand() % 3;  // 0 -> top , 1 -> right, 2 -> bottom, 3 -> left
+
+			int mapWidth = 2000;
+			int mapHeight = 1500;
+			switch (side) {
+			case 0: // Top
+				x = rand() % mapWidth;
+				y = 0;
+				break;
+			case 1: // Right
+				x = mapWidth;
+				y = rand() % mapHeight;
+				break;
+			case 2: // Bottom
+				x = rand() % mapWidth;
+				y = mapHeight;
+				break;
+			case 3: // Left
+				x = 0;
+				y = rand() % mapHeight;
+				break;
+			}
+
+			zombiesArr.push_back(ZOMBIE(x, y, 1));
+		}
+		tentSprite.setTexture(Tent);
+		tentSprite.setPosition(400, 400);
+		tentSprite.setScale(0.2f, 0.2f);
+
+
+
+		tankSprite1.setTexture(Tank1);
+		tankSprite1.setPosition(800, 600);
+
+
+
+		tankSprite2.setTexture(Tank2);
+		tankSprite2.setPosition(100, 100);
+
+		tankShape.setSize(Vector2f(85, 150));
+		tankShape.setPosition(890, 655);
+
+		tankShape1.setSize(Vector2f(85, 150));
+		tankShape1.setPosition(190, 155);
+
+		tentshape.setSize(Vector2f(160, 160));
+		tentshape.setPosition(422, 420);
+
+		sprite.setTexture(armyBackground);
+		sprite.setScale(
+			mapWidth / armyBackground.getSize().x,
+			mapHeight / armyBackground.getSize().y
+		);
+	}
+
+	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		cout << score << endl;
+		if (playersArr.empty() && !isSaved) {
+			addScoreIfHigh(score, playerName);
+			cout << score << endl;
+			isSaved = true;
+		}
+
+		dt = deltaClock.restart().asSeconds();
+		View view(window.getDefaultView());
+
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateBullets(dt);
+
+		if (!playersArr.empty()) {
+
+			if (!playersArr.empty()) {
+				float elapsed = gameTimer.getTime();
+
+				float zombie1SpawnTime;
+				if (elapsed <= phase1Duration) {
+					float t = elapsed / phase1Duration;
+					zombie1SpawnTime = initialSpawnTime - t * (initialSpawnTime - minSpawnTime);
+				}
+				else {
+					zombie1SpawnTime = minSpawnTime;
+				}
+
+				if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
+					float x, y;
+					int side = rand() % 4;
+					switch (side) {
+					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+					}
+					zombiesArr.push_back(ZOMBIE(x, y, 1));
+					zombie1Spawn.reset();
+				}
+
+				float zombie2SpawnTime;
+				if (elapsed > phase1Duration) {
+					float t = (elapsed - phase1Duration) / phase2Duration;
+					zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
+
+					if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
+						float x, y;
+						int side = rand() % 4;
+						switch (side) {
+						case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
+						case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
+						case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
+						case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
+						}
+						zombiesArr.push_back(ZOMBIE(x, y, 2));
+						zombie2Spawn.reset();
+					}
+				}
+			}
+
+			if (!playersArr.empty()) {
+				//camera view max view and min view to track player
+				Vector2f playerPos = playersArr[0].shape.getPosition();
+				float halfWidth = window.getSize().x / 2.0f;
+				float halfHeight = window.getSize().y / 2.0f;
+				float clampedX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+				float clampedY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+				view.setCenter(clampedX, clampedY);
+				window.setView(view);
+			}
+
+			if (!playersArr.empty())
+			{
+				// Get player position
+				Vector2f pos = playersArr[0].shape.getPosition();
+
+				// Prevent moving out of top border
+				if (pos.y <= 0)
+					playersArr[0].shape.move(0, playersArr[0].speed);
+
+				// Prevent moving out of bottom border
+				if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight + 100)
+					playersArr[0].shape.move(0, -playersArr[0].speed);
+
+				// Prevent moving out of left border
+				if (pos.x <= 0)
+					playersArr[0].shape.move(playersArr[0].speed, 0);
+
+				// Prevent moving out of right border
+				if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
+					playersArr[0].shape.move(-playersArr[0].speed, 0);
+
+			}
+		}
+		for (int i = 0; i < zombiesArr.size(); i++) {
+			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+				if (doubleScore) {
+					score += (2 * zombiesArr[i].ScoreShouldBe);
+				}
+				else {
+					score += zombiesArr[i].ScoreShouldBe;
+				}
+				zombiesArr[i].isDeadCounter = true;
+				if ((rand() % 100) + 1 <= 20) {
+					deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+				}
+
+			}
+		}
+
+		int zombie_speed = 4;
+		int speed = 5;
+
+		if (!playersArr.empty()) {
+
+			for (int i = 0; i < zombiesArr.size(); i++) //loop for the zombies
+			{
+				FloatRect zombie_bounds = zombiesArr[i].shape.getGlobalBounds(); //player bounding box
+				FloatRect intersection; //intersection area
+				FloatRect Wall_bound = tentshape.getGlobalBounds(); //intersected object(tent)
+				FloatRect Wall_bound1 = tankShape.getGlobalBounds(); //intersected object(tank1)
+				FloatRect Wall_bound2 = tankShape1.getGlobalBounds(); //intersected object(tank2)
+				if (zombie_bounds.intersects(Wall_bound))
+				{
+
+					zombie_bounds.intersects(Wall_bound, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (zombie_bounds.left < Wall_bound.left)
+						{
+							zombiesArr[i].shape.move(-zombie_speed, 0);
+						}
+						//left collision
+						else
+						{
+							zombiesArr[i].shape.move(zombie_speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (zombie_bounds.top < Wall_bound.top)
+						{
+							zombiesArr[i].shape.move(0, -zombie_speed);
+						}
+						//up collision
+						else
+						{
+							zombiesArr[i].shape.move(0, zombie_speed);
+						}
+					}
+				}
+				if (zombie_bounds.intersects(Wall_bound1))
+				{
+
+					zombie_bounds.intersects(Wall_bound1, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (zombie_bounds.left < Wall_bound1.left)
+						{
+							zombiesArr[i].shape.move(-zombie_speed, 0);
+						}
+						//left collision
+						else
+						{
+							zombiesArr[i].shape.move(zombie_speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (zombie_bounds.top < Wall_bound1.top)
+						{
+							zombiesArr[i].shape.move(0, -zombie_speed);
+						}
+						//up collision
+						else
+						{
+							zombiesArr[i].shape.move(0, zombie_speed);
+						}
+					}
+				}
+				if (zombie_bounds.intersects(Wall_bound2))
+				{
+
+					zombie_bounds.intersects(Wall_bound2, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (zombie_bounds.left < Wall_bound2.left)
+						{
+							zombiesArr[i].shape.move(-zombie_speed, 0);
+						}
+						//left collision
+						else
+						{
+							zombiesArr[i].shape.move(zombie_speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (zombie_bounds.top < Wall_bound2.top)
+						{
+							zombiesArr[i].shape.move(0, -zombie_speed);
+						}
+						//up collision
+						else
+						{
+							zombiesArr[i].shape.move(0, zombie_speed);
+						}
+					}
+				}
+			}
+
+
+			if (!bullets.empty())
+			{
+
+
+				for (int i = 0; i < bullets.size();) {
+
+					if (bullets[i].shape.getGlobalBounds().intersects(tankShape.getGlobalBounds()) || bullets[i].shape.getGlobalBounds().intersects(tankShape1.getGlobalBounds()))
+					{
+						bullet_touched = true;
+					}
+
+
+
+					if (bullets[i].age >= bullets[i].lifetime || bullet_touched) {
+						bullets.erase(bullets.begin() + i);
+						bullet_touched = false;
+					}
+
+					else
+
+						i++;
+
+				}
+			}
+
+			if (!playersArr.empty()) {
+				FloatRect Player_Bounds = playersArr[0].shape.getGlobalBounds(); //player bounding box
+				FloatRect intersection; //intersection area
+				FloatRect Wall_bound = tentshape.getGlobalBounds(); //intersected object
+				FloatRect Wall_bound1 = tankShape.getGlobalBounds(); //intersected object
+				FloatRect Wall_bound2 = tankShape1.getGlobalBounds(); //intersected object
+				if (Player_Bounds.intersects(Wall_bound))
+				{
+
+					Player_Bounds.intersects(Wall_bound, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (Player_Bounds.left < Wall_bound.left)
+						{
+							playersArr[0].shape.move(-speed, 0);
+						}
+						//left collision
+						else
+						{
+							playersArr[0].shape.move(speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (Player_Bounds.top < Wall_bound.top)
+						{
+							playersArr[0].shape.move(0, -speed);
+						}
+						//up collision
+						else
+						{
+							playersArr[0].shape.move(0, speed);
+						}
+					}
+				}
+
+				if (Player_Bounds.intersects(Wall_bound1))
+				{
+
+					Player_Bounds.intersects(Wall_bound1, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (Player_Bounds.left < Wall_bound1.left)
+						{
+							playersArr[0].shape.move(-speed, 0);
+						}
+						//left collision
+						else
+						{
+							playersArr[0].shape.move(speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (Player_Bounds.top < Wall_bound1.top)
+						{
+							playersArr[0].shape.move(0, -speed);
+						}
+						//up collision
+						else
+						{
+							playersArr[0].shape.move(0, speed);
+						}
+					}
+				}
+
+				if (Player_Bounds.intersects(Wall_bound2))
+				{
+
+					Player_Bounds.intersects(Wall_bound2, intersection);
+					// left/right
+					if (intersection.width < intersection.height)
+					{
+						//right collision
+						if (Player_Bounds.left < Wall_bound2.left)
+						{
+							playersArr[0].shape.move(-speed, 0);
+						}
+						//left collision
+						else
+						{
+							playersArr[0].shape.move(speed, 0);
+						}
+					}
+					// up/down
+					else
+					{
+						//down collision
+						if (Player_Bounds.top < Wall_bound2.top)
+						{
+							playersArr[0].shape.move(0, -speed);
+						}
+						//up collision
+						else
+						{
+							playersArr[0].shape.move(0, speed);
+						}
+					}
+				}
+			}
+
+			//border collision
+			int speed = 5;
+			int zombie_speed = 4;
+			if (!playersArr.empty())
+			{
+				if (playersArr[0].shape.getPosition().y <= 30) // check for top border
+				{
+					playersArr[0].shape.move(0, speed);
+				}
+				if (playersArr[0].shape.getPosition().y >= 1450) //check for bottom border
+				{
+					playersArr[0].shape.move(0, -speed);
+				}if (playersArr[0].shape.getPosition().x <= 30) //check for left border
+				{
+					playersArr[0].shape.move(speed, 0);
+				}
+				if (playersArr[0].shape.getPosition().x >= 1930) //check for right border
+				{
+					playersArr[0].shape.move(-speed, 0);
+				}
+			}
+
+
+			//camera view --- player_Tracking
+			Vector2f playerPos = playersArr[0].shape.getPosition();
+			float halfWidth = window.getSize().x / 2.0f;
+			float halfHeight = window.getSize().y / 2.0f;
+
+			float vX = max(halfWidth, min(mapWidth - halfWidth, playerPos.x));
+			float vY = max(halfHeight, min(mapHeight - halfHeight, playerPos.y));
+
+			view.setCenter(vX, vY);
+			window.setView(view);
+		}
+	}
+
+
+	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		window.draw(sprite);
+		window.draw(tentSprite);
+		window.draw(tankSprite1);
+		window.draw(tankSprite2);
+		drawEntities(playersArr, zombiesArr, window, true, true);
+
+	}
+};
+
 
 
 struct levelHandler {
@@ -9064,7 +11118,10 @@ struct levelHandler {
 			currentLevel = new CityRush(playersArr, zombiesArr, window);
 			break;
 		case 16:
-			currentLevel = new ArmyRush(playersArr, zombiesArr, window);
+			currentLevel = new BeachRushMulti(playersArr, zombiesArr, window);
+			break;
+		case 17:
+			currentLevel = new BeachRushMulti(playersArr, zombiesArr, window);
 			break;
 		}
 
@@ -9121,7 +11178,10 @@ struct levelHandler {
 			((CityRush*)currentLevel)->update(playersArr, zombiesArr, window);
 			break;
 		case 16:
-			((ArmyRush*)currentLevel)->update(playersArr, zombiesArr, window);
+			((BeachRushMulti*)currentLevel)->update(playersArr, zombiesArr, window);
+			break;
+		case 17:
+			((BeachRushMulti*)currentLevel)->update(playersArr, zombiesArr, window);
 			break;
 		}
 
@@ -9145,7 +11205,8 @@ struct levelHandler {
 		case 13: return ((DesertroadRush*)currentLevel)->missionComplete;
 		case 14: return ((WoodsRush*)currentLevel)->missionComplete;
 		case 15: return ((CityRush*)currentLevel)->missionComplete;
-		case 16: return ((ArmyRush*)currentLevel)->missionComplete;
+		case 16: return ((BeachRushMulti*)currentLevel)->missionComplete;
+		case 17: return ((BeachRushMulti*)currentLevel)->missionComplete;
 		default: return false;
 		}
 	}
@@ -9168,7 +11229,8 @@ struct levelHandler {
 		case 13: ((DesertroadRush*)currentLevel)->missionComplete = value; break;
 		case 14: ((WoodsRush*)currentLevel)->missionComplete = value; break;
 		case 15: ((CityRush*)currentLevel)->missionComplete = value; break;
-		case 16: ((ArmyRush*)currentLevel)->missionComplete = value; break;
+		case 16: ((BeachRushMulti*)currentLevel)->missionComplete = value; break;
+		case 17: ((BeachRushMulti*)currentLevel)->missionComplete = value; break;
 		}
 	}
 
@@ -9224,7 +11286,10 @@ struct levelHandler {
 			((CityRush*)currentLevel)->draw(playersArr, zombiesArr, window);
 			break;
 		case 16:
-			((ArmyRush*)currentLevel)->draw(playersArr, zombiesArr, window);
+			((BeachRushMulti*)currentLevel)->draw(playersArr, zombiesArr, window);
+			break;
+		case 17:
+			((BeachRushMulti*)currentLevel)->draw(playersArr, zombiesArr, window);
 			break;
 		}
 	}
@@ -9250,7 +11315,8 @@ struct levelHandler {
 		case 13: delete (DesertroadRush*)currentLevel; break;
 		case 14: delete (WoodsRush*)currentLevel; break;
 		case 15: delete (CityRush*)currentLevel; break;
-		case 16: delete (ArmyRush*)currentLevel; break;
+		case 16: delete (BeachRushMulti*)currentLevel; break;
+		case 17: delete (BeachRushMulti*)currentLevel; break;
 		default: break;
 		}
 
@@ -9258,7 +11324,7 @@ struct levelHandler {
 		id = -1;
 	}
 	~levelHandler() {
-		deleteCurrentLevel(); 
+		deleteCurrentLevel();
 	}
 };
 
@@ -9736,7 +11802,6 @@ void pause_menu(RenderWindow& window, Event& event, Font& font, levelHandler& cu
 	window.setMouseCursorVisible(false);
 }
 
-bool tryAgain = false;
 int main() {
 
 
@@ -9959,6 +12024,7 @@ int main() {
 		else {
 			if (!levelStarted) {
 				currentLevel.id = levelIDMenu;
+				
 				currentLevel.init(playersArr, zombiesArr, window);
 				endScene = false;
 				isEndedEndScene = false;
@@ -10140,7 +12206,7 @@ int main() {
 				}
 			}
 			if (!tryAgain) {
-				if ( ((currentLevel.id == 11) && !endScene && isEndedEndScene) || isMainmenuTriggerdByPause) {
+				if (((currentLevel.id == 11) && !endScene && isEndedEndScene) || isMainmenuTriggerdByPause) {
 					window.setView(window.getDefaultView());
 
 					running = true;
