@@ -9258,7 +9258,7 @@ struct levelHandler {
 		id = -1;
 	}
 	~levelHandler() {
-		deleteCurrentLevel(); // already sets currentLevel = nullptr
+		deleteCurrentLevel(); 
 	}
 };
 
