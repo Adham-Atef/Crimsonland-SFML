@@ -2222,7 +2222,7 @@ struct Bullet {
 	float lifetime = 2.0f;
 	float damage;
 
-	Bullet(int id ,float localDamage) {
+	Bullet(int id, float localDamage) {
 		playerID = id;
 		damage = localDamage;
 	}
@@ -2249,8 +2249,8 @@ Vector2f rotateVector(Vector2f v, float angleDeg) {
 	);
 }
 
-Bullet createBullet(int playerID,Vector2f playerPos, float playerRotationDeg, Weapon currentWeapon, RenderWindow& window, Vector2f mouseWorld) {
-	Bullet b(playerID,currentWeapon.damage);
+Bullet createBullet(int playerID, Vector2f playerPos, float playerRotationDeg, Weapon currentWeapon, RenderWindow& window, Vector2f mouseWorld) {
+	Bullet b(playerID, currentWeapon.damage);
 
 	int shellID;
 	if (currentWeapon.id == PISTOL || currentWeapon.id == SHOTGUN)
@@ -2781,6 +2781,8 @@ struct PLAYER {
 
 
 	void playerMouse(Vector2f MouseGlobalPos) {
+		if (isDead) return;
+
 		Vector2f aimDirection = MouseGlobalPos - shape.getPosition();
 		shape.setRotation(atan2(aimDirection.y, aimDirection.x) * 180 / PI);
 	}
@@ -2796,9 +2798,12 @@ struct PLAYER {
 	}
 
 	void emotesStarter(Event event) {
+		if (isDead) return;
+
 		if (secondplayer)
 		{
-			if (Joystick::isButtonPressed(0, 7)) {
+			float z = Joystick::getAxisPosition(0, Joystick::Z);
+			if (z < -20) {
 				if (!(currentState == 2 || currentState == 3) && (currentWeapon[currentWeaponindex].currentSprite != 0) && currentWeapon[currentWeaponindex].reloadClipSize != 0) {
 					ReloadShotgun();
 					changeState(2);
@@ -2815,7 +2820,7 @@ struct PLAYER {
 				}
 			}
 
-			if (Joystick::isButtonPressed(0, 6)) {
+			if (z > 20) {
 				switchWeapons();
 			}
 		}
@@ -2869,8 +2874,8 @@ struct PLAYER {
 				Vector2f playerPos = shape.getPosition();
 				Vector2f crosshairPos;
 
-				float stickX = Joystick::getAxisPosition(0, Joystick::R);
-				float stickY = Joystick::getAxisPosition(0, Joystick::Z);
+				float stickX = Joystick::getAxisPosition(0, Joystick::U);
+				float stickY = Joystick::getAxisPosition(0, Joystick::V);
 				const float deadzone = 15.0f;
 
 				float maxDistance = 300.0f;
@@ -2893,7 +2898,7 @@ struct PLAYER {
 					if (currentWeapon[currentWeaponindex].id == SHOTGUN || currentWeapon[currentWeaponindex].id == PLASMA_SHOTGUN) { // Shotgun
 						for (int i = -2; i <= 2; ++i) {
 							float spread = i * 9.5f;
-							Bullet b = createBullet(id,playerPos, angle, currentWeapon[currentWeaponindex], window, crosshairPos);
+							Bullet b = createBullet(id, playerPos, angle, currentWeapon[currentWeaponindex], window, crosshairPos);
 							b.shape.rotate(spread);
 							b.velocity = rotateVector(b.velocity, spread);
 							bullets.push_back(b);
@@ -2918,7 +2923,7 @@ struct PLAYER {
 
 						if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
 							PlasmaShotgun(); // or SingleShot(); if you have a separate function
-							bullets.push_back(createBullet(id,playerPos, angle, currentWeapon[currentWeaponindex], window, crosshairPos));
+							bullets.push_back(createBullet(id, playerPos, angle, currentWeapon[currentWeaponindex], window, crosshairPos));
 							currentWeapon[currentWeaponindex].currentClipSize--;
 
 						}
@@ -2926,7 +2931,7 @@ struct PLAYER {
 					}
 
 					else {
-						bullets.push_back(createBullet(id,playerPos, angle, currentWeapon[currentWeaponindex], window, crosshairPos));
+						bullets.push_back(createBullet(id, playerPos, angle, currentWeapon[currentWeaponindex], window, crosshairPos));
 						currentWeapon[currentWeaponindex].currentClipSize--;
 					}
 				}
@@ -2979,7 +2984,7 @@ struct PLAYER {
 					if (currentWeapon[currentWeaponindex].id == SHOTGUN || currentWeapon[currentWeaponindex].id == PLASMA_SHOTGUN) { // Shotgun
 						for (int i = -2; i <= 2; ++i) {
 							float spread = i * 9.5f;
-							Bullet b = createBullet(id,playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window, mousePos);
+							Bullet b = createBullet(id, playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window, mousePos);
 							b.shape.rotate(spread);
 							b.velocity = rotateVector(b.velocity, spread);
 							bullets.push_back(b);
@@ -3004,7 +3009,7 @@ struct PLAYER {
 
 						if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
 							PlasmaShotgun(); // or SingleShot(); if you have a separate function
-							bullets.push_back(createBullet(id,playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window, mousePos));
+							bullets.push_back(createBullet(id, playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window, mousePos));
 							currentWeapon[currentWeaponindex].currentClipSize--;
 
 						}
@@ -3012,7 +3017,7 @@ struct PLAYER {
 					}
 
 					else {
-						bullets.push_back(createBullet(id,playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window, mousePos));
+						bullets.push_back(createBullet(id, playerPos, shape.getRotation(), currentWeapon[currentWeaponindex], window, mousePos));
 						currentWeapon[currentWeaponindex].currentClipSize--;
 					}
 				}
@@ -3077,6 +3082,8 @@ struct PLAYER {
 	}
 
 	void update(RenderWindow& window) {
+		if (isDead) return;
+
 		if (secondplayer) {
 			crosshair.shape.setColor(Color(0, 0, 255, 255));
 		}
@@ -3098,8 +3105,8 @@ struct PLAYER {
 		{
 
 			Vector2f crosshairPos;
-			float stickX = Joystick::getAxisPosition(0, Joystick::R);
-			float stickY = Joystick::getAxisPosition(0, Joystick::Z);
+			float stickX = Joystick::getAxisPosition(0, Joystick::U);
+			float stickY = Joystick::getAxisPosition(0, Joystick::V);
 			const float deadzone = 15.0f;
 
 			if (abs(stickX) > deadzone || abs(stickY) > deadzone) {
@@ -3122,7 +3129,7 @@ struct PLAYER {
 				float now = fireClock.getElapsedTime().asSeconds();
 
 				if (now >= nextBurstTime && burstShotsFired < 3) {
-					Bullet b = createBullet(id,shape.getPosition(), shape.getRotation(), currentWeapon[currentWeaponindex], window, crosshairPos);
+					Bullet b = createBullet(id, shape.getPosition(), shape.getRotation(), currentWeapon[currentWeaponindex], window, crosshairPos);
 					bullets.push_back(b);
 					burstShotsFired++;
 					nextBurstTime = now + burstDelay;
@@ -3143,7 +3150,7 @@ struct PLAYER {
 				float now = fireClock.getElapsedTime().asSeconds();
 
 				if (now >= nextBurstTime && burstShotsFired < 3) {
-					Bullet b = createBullet(id,shape.getPosition(), shape.getRotation(), currentWeapon[currentWeaponindex], window, MouseGlobalPos);
+					Bullet b = createBullet(id, shape.getPosition(), shape.getRotation(), currentWeapon[currentWeaponindex], window, MouseGlobalPos);
 					bullets.push_back(b);
 					burstShotsFired++;
 					nextBurstTime = now + burstDelay;
@@ -3358,15 +3365,16 @@ void gui_game_loop_multiplayer(vector<PLAYER>& playersArr, RenderWindow& window,
 	hud_gui_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 10, viewCenter.y - viewSize.y / 2 + 10);
 	hp_gui_multi.setPosition(viewCenter.x - viewSize.x / 2 + 30, viewCenter.y - viewSize.y / 2 + 20);
 
-	health_percentage.setString(playersArr.empty() ? "0 %" :
-		to_string((int)playersArr[0].health) + " %");
+	health_percentage.setString(playersArr[0].isDead ? "0 %" :
+		to_string((int)(playersArr[0].health * 100) / 150) + " %");
 	health_percentage.setPosition(viewCenter.x - viewSize.x / 2 + 70, viewCenter.y - viewSize.y / 2 + 13);
 
 	// Player 2 GUI (right side)
 	if (playersArr.size() > 1) {
 		hud_gui_p2[0].setPosition(viewCenter.x + viewSize.x / 2 - 180, viewCenter.y - viewSize.y / 2 + 10);
 		hp_gui_p2.setPosition(viewCenter.x + viewSize.x / 2 - 155, viewCenter.y - viewSize.y / 2 + 20);
-		health_percentage_p2.setString(to_string((int)playersArr[1].health) + " %");
+		health_percentage_p2.setString((playersArr[1].isDead ? "0 %" :
+			to_string((int)(playersArr[0].health * 100) / 150) + " %"));
 		health_percentage_p2.setPosition(viewCenter.x + viewSize.x / 2 - 115, viewCenter.y - viewSize.y / 2 + 13);
 	}
 	else {
@@ -3967,15 +3975,15 @@ struct ZOMBIE {
 				pow(shape.getPosition().y - nearestPlayerPos.y, 2));
 
 			if (currentState == 2) {
-					if (distance >= zombieAttackDistance && attackIndex == 0) {
-						isCompletingAttack = false;
-						zombieMoveTowards(nearestPlayerPos, distance,players);
-					}
-					else {
-							attackingPlayer(players); 
+				if (distance >= zombieAttackDistance && attackIndex == 0) {
+					isCompletingAttack = false;
+					zombieMoveTowards(nearestPlayerPos, distance, players);
+				}
+				else {
+					attackingPlayer(players);
 
-					}
-				
+				}
+
 			}
 			else if (distance < zombieAttackDistance) {
 				changeState(2);
@@ -3983,7 +3991,7 @@ struct ZOMBIE {
 				attackingPlayer(players);
 			}
 			else {
-				zombieMoveTowards(nearestPlayerPos, distance,players);
+				zombieMoveTowards(nearestPlayerPos, distance, players);
 			}
 		}
 
@@ -4059,6 +4067,7 @@ struct planes
 
 void playersAvoidOtherZombies(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr) {
 	for (int i = 0; i < playersArr.size(); ++i) {
+		if (playersArr[i].isDead) continue;
 		Vector2f playerPos = playersArr[i].shape.getPosition();
 
 		for (int j = 0; j < zombiesArr.size(); ++j) {
@@ -4141,7 +4150,7 @@ void meleeAttack(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr) {
 }
 
 void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vector<Bullet>& bullets, Clock zombieDeathTimer, RenderWindow& window, int mission1_zombies_counter, bool mission_is_on = false, bool isRush = false, bool isMulti = false) {
-	
+
 	if (slowEffectActive && slowEffectClock.getElapsedTime().asSeconds() >= 10.f) {
 		slowEffectActive = false;
 	}
@@ -4176,7 +4185,7 @@ void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vect
 				playersArr[i].crosshair.shape.setScale(0, 0);
 				playersArr[i].shape.setScale(0, 0);
 				playersArr[i].isDead = true;
-				
+
 
 			}
 		}
@@ -4191,7 +4200,7 @@ void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vect
 	deathCircleEnter(playersArr);
 }
 
-void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window, bool mission_is_on = false, bool isRush = false,bool isMulti = false) {
+void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window, bool mission_is_on = false, bool isRush = false, bool isMulti = false) {
 
 
 	for (int i = 0; i < zombiesArr.size(); ++i) {
@@ -8175,9 +8184,37 @@ struct BeachRush {
 	const float initialSpawnTime = 3.0f;
 	const float minSpawnTime = 0.5f;
 
+	int getRandomOutsideRange_x() {
+
+		int left = rand() % 500 - 500;      // -500 to -1
+
+		int right = rand() % 580 + 1921;    // 1921 to 2500
+
+
+
+		// Randomly choose between left and right range
+
+		if (rand() % 2 == 0)
+
+			return left;
+
+		else
+
+			return right;
+
+	}
+
+	int getRandomOutsideRange_y() {
+
+		int left = rand() % 500 - 500;       // -500 to -1
+
+		// Randomly choose one of the two ranges
+
+		return left;
+
+	}
 	BeachRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
-
 		// Spawn initial zombies randomly on the edges
 
 
@@ -8219,10 +8256,10 @@ struct BeachRush {
 		// timer and view and point after 2 min
 	};
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		
+
 		if (playersArr.empty() && !isSaved) {
 			addScoreIfHigh(score, playerName);
-			cout <<score << endl;
+			cout << score << endl;
 			isSaved = true;
 		}
 		dt = deltaClock.restart().asSeconds();
@@ -8254,15 +8291,7 @@ struct BeachRush {
 			}
 
 			if (zombie1Spawn.getTime() >= zombie1SpawnTime) {
-				float x, y;
-				int side = rand() % 4;
-				switch (side) {
-				case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
-				case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
-				case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
-				case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
-				}
-				zombiesArr.push_back(ZOMBIE(x, y, 1));
+				zombiesArr.push_back(ZOMBIE(getRandomOutsideRange_x(), getRandomOutsideRange_y(), 1));
 				zombie1Spawn.reset();
 			}
 
@@ -8272,15 +8301,7 @@ struct BeachRush {
 				zombie2SpawnTime = initialSpawnTime - std::min(t, 1.0f) * (initialSpawnTime - minSpawnTime);
 
 				if (zombie2Spawn.getTime() >= zombie2SpawnTime) {
-					float x, y;
-					int side = rand() % 4;
-					switch (side) {
-					case 0: x = rand() % (int)mapWidth; y = 1.0f; break;
-					case 1: x = mapWidth - 1.0f; y = rand() % (int)mapHeight; break;
-					case 2: x = rand() % (int)mapWidth; y = mapHeight - 1.0f; break;
-					case 3: x = 1.0f; y = rand() % (int)mapHeight; break;
-					}
-					zombiesArr.push_back(ZOMBIE(x, y, 2));
+					zombiesArr.push_back(ZOMBIE(getRandomOutsideRange_x(), getRandomOutsideRange_y(), 2));
 					zombie2Spawn.reset();
 				}
 			}
@@ -8985,7 +9006,7 @@ struct WoodsRush {
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window,score, true, true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
 		updateBullets(dt);
 
 		if (!playersArr.empty()) {
@@ -9698,11 +9719,11 @@ struct BeachRushMulti {
 		// timer and view and point after 2 min
 	};
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		
+
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, -1, true, true,true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, -1, true, true, true);
 		updateBullets(dt);
 		frameCounter++;
 
@@ -9812,32 +9833,32 @@ struct BeachRushMulti {
 			if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
 				playersArr[0].shape.move(-playersArr[0].speed, 0);
 
-				for (int i = 0; i < zombiesArr.size(); i++) {
-					if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-						if (playersArr[zombiesArr[i].lastBulletID].doubleScore) {
-							playersArr[zombiesArr[i].lastBulletID].score += (2 * zombiesArr[i].ScoreShouldBe);
-						}
-						else {
-							playersArr[zombiesArr[i].lastBulletID].score += zombiesArr[i].ScoreShouldBe;
-						}
-						zombiesArr[i].isDeadCounter = true;
-						if ((rand() % 100) + 1 <= 20) {
-							deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
-						}
-
+			for (int i = 0; i < zombiesArr.size(); i++) {
+				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+					if (playersArr[zombiesArr[i].lastBulletID].doubleScore) {
+						playersArr[zombiesArr[i].lastBulletID].score += (2 * zombiesArr[i].ScoreShouldBe);
 					}
-					score_ = playersArr[0].score;
-					score_2 = playersArr[1].score;
+					else {
+						playersArr[zombiesArr[i].lastBulletID].score += zombiesArr[i].ScoreShouldBe;
+					}
+					zombiesArr[i].isDeadCounter = true;
+					if ((rand() % 100) + 1 <= 20) {
+						deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+					}
+
 				}
-				
+				score_ = playersArr[0].score;
+				score_2 = playersArr[1].score;
 			}
-		
+
+		}
+
 
 	};
 	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		window.draw(sand);
 		window.draw(sea);
-		drawEntities(playersArr, zombiesArr, window, true, true,true);
+		drawEntities(playersArr, zombiesArr, window, true, true, true);
 
 	};
 };
@@ -10604,7 +10625,7 @@ struct ArmyRushMulti {
 		else
 			return down;
 	}
-	bool rush = false; // rushMode flag 
+	bool rush = false; // rushMode flag
 	bool bullet_touched = false;
 	Clock zombieSpawn;
 	const int intial_num = 4;
@@ -12075,7 +12096,7 @@ int main() {
 		else {
 			if (!levelStarted) {
 				currentLevel.id = levelIDMenu;
-				
+
 				currentLevel.init(playersArr, zombiesArr, window);
 				endScene = false;
 				isEndedEndScene = false;
@@ -12169,7 +12190,7 @@ int main() {
 					kk = true;
 					currentLevel.setMissionComplete(true);
 				}
-				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape || Joystick::isButtonPressed(0, 7))
 				{
 					pauseGame = !pauseGame;
 				}
@@ -12252,6 +12273,53 @@ int main() {
 
 					saveScores();
 
+				}
+				else {
+					if (playersArr.size()>1) {
+						if (playersArr[0].isDead && playersArr[1].isDead) {
+							currentLevel.update(playersArr, zombiesArr, window);
+
+
+							for (auto& sound : gameSounds)
+							{
+								sound.stop();
+							}
+
+							//you dead menu
+
+							string deathChoice = youdead(window, event, font, currentLevel.id);
+
+
+							if (deathChoice == "try_again") {
+
+								levelIDMenu = currentLevel.id;
+								tryAgain = true;
+								currentLevel.deleteCurrentLevel();
+								isGameEntered = false;
+								gameSounds[1].stop();
+								gameSounds[5].stop();
+								levelStarted = false;
+								isGameEntered = false;
+
+								playersArr.clear();
+
+								zombiesArr.clear();
+
+								deathArr.clear();
+								slowEffectActive = false;
+
+								bullets.clear();
+
+
+							}
+
+							else if (deathChoice == "back_to_main_menu") {
+
+								isMainmenuTriggerdByPause = true;
+							}
+						}
+
+					}
 				}
 			}
 			if (!tryAgain) {
