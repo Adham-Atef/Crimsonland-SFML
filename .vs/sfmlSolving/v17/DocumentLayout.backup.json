@@ -27,9 +27,10 @@
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
               "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
               "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
-              "ViewState": "AgIAAFgHAAAAAAAAAIAwwIkHAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHQHAAAAAAAAAAAcwIkHAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-06-24T14:17:36.88Z"
+              "WhenOpened": "2025-06-24T14:17:36.88Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -37,9 +38,9 @@
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\adham\\onedrive\\Desktop\\ACM\\sfmlSolving\\sfmlSolving\\main.cpp",
               "RelativeDocumentMoniker": "sfmlSolving\\main.cpp",
-              "ToolTip": "C:\\Users\\adham\\onedrive\\Desktop\\ACM\\sfmlSolving\\sfmlSolving\\main.cpp",
-              "RelativeToolTip": "sfmlSolving\\main.cpp",
-              "ViewState": "AgIAAJgRAAAAAAAAAAAAAA0TAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\adham\\onedrive\\Desktop\\ACM\\sfmlSolving\\sfmlSolving\\main.cpp*",
+              "RelativeToolTip": "sfmlSolving\\main.cpp*",
+              "ViewState": "AgIAAAULAAAAAAAAAAAswMcJAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-10T20:46:20.388Z",
               "EditorCaption": ""

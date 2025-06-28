@@ -2533,11 +2533,13 @@ struct PLAYER {
 
 	Clock shieldClock;
 	Clock speedClock;
-
+	bool doubleScore = false;
+	Clock doubleScoreClock;
 
 	PLAYER(float x, float y, WeaponID weaponIndex1, WeaponID weaponIndex2, WeaponID weaponIndex3, WeaponID weaponIndex4, int maxWeaponsLocal, RenderWindow& window, float localscaleX = 0.35, float localscaleY = 0.35, bool isRushPlayerLocal = false) : crosshair(crosshairTexture, window) {
 		id = playerIndex++;
 		gui_main();
+		gui_main_multiplayer();
 		gameTimer.reset();
 		isGameEntered = true;
 		maxWeapons = maxWeaponsLocal;
@@ -2858,7 +2860,7 @@ struct PLAYER {
 
 
 		if (secondplayer) {
-			if (Joystick::isButtonPressed(0, 5) && ((currentWeapon[currentWeaponindex].clipSize == currentWeapon[currentWeaponindex].currentClipSize) || ((now - lastFireTime) >= currentWeapon[currentWeaponindex].bulletDelay))) {
+			if ((Joystick::isButtonPressed(0, 5) || Joystick::isButtonPressed(0, 1)) && ((currentWeapon[currentWeaponindex].clipSize == currentWeapon[currentWeaponindex].currentClipSize) || ((now - lastFireTime) >= currentWeapon[currentWeaponindex].bulletDelay))) {
 
 				if (gameTimer.getTime() <= 1.0f) {
 					return;
@@ -3075,6 +3077,9 @@ struct PLAYER {
 	}
 
 	void update(RenderWindow& window) {
+		if (secondplayer) {
+			crosshair.shape.setColor(Color(0, 0, 255, 255));
+		}
 		shootBullets(window);
 		playerMove();
 		changingFrames();
@@ -3083,7 +3088,9 @@ struct PLAYER {
 		}
 
 
-
+		if (doubleScore && doubleScoreClock.getElapsedTime().asSeconds() >= 10.f) {
+			doubleScore = false;
+		}
 
 		endState();
 
@@ -3538,8 +3545,7 @@ void gui_draw_multiplayer(bool mission_is_on, RenderWindow& window, const vector
 
 bool slowEffectActive = false;
 Clock slowEffectClock;
-bool doubleScore = false;
-Clock doubleScoreClock;
+
 
 struct ZOMBIE {
 
@@ -3566,7 +3572,7 @@ struct ZOMBIE {
 
 	float animationDelay = 0.05f;
 	float animationIdleDelay = 0.15f;
-
+	int lastBulletID = -1;
 	int currentState = 1;
 	/*
 		0: Moving
@@ -3771,17 +3777,35 @@ struct ZOMBIE {
 
 
 
-	void zombieMoveTowards(Vector2f targetPosition, float distance) {
+
+	void zombieAttack() {
+		changeState(2);
+	}
+
+	void zombieDie() {
+		changeState(3);
+	}
+
+	void zombieMoveTowards(Vector2f targetPosition, float distance, const vector<PLAYER>& players) {
 		if ((distance < zombieAttackDistance) || (currentState == 3)) {
+			// If no valid target, go idle
+			bool allDead = true;
+			for (const auto& p : players)
+				if (!p.isDead) allDead = false;
+
+			if (allDead) {
+				changeState(1); // idle
+				isAttacking = false;
+			}
 			return;
 		}
-		else {
-			if (attackIndex == attackIndexMax && currentState == 2) {
-				isFar = true;
-				return;
-			}
-			changeState(0);
+
+		if (attackIndex == attackIndexMax && currentState == 2) {
+			isFar = true;
+			return;
 		}
+
+		changeState(0); // walking
 		isAttacking = false;
 
 		Vector2f direction = targetPosition - shape.getPosition();
@@ -3794,27 +3818,32 @@ struct ZOMBIE {
 		float moveSpeed = slowEffectActive ? speed / 2.0f : speed;
 		shape.move(direction.x * moveSpeed, direction.y * moveSpeed);
 		shape.setRotation(atan2(direction.y, direction.x) * 180 / PI);
-		changeState(0);
 	}
 
-	void zombieAttack() {
-		changeState(2);
-	}
-
-	void zombieDie() {
-		changeState(3);
-	}
 
 	Vector2f findNearestPlayerPosition(const Vector2f& zombiePosition, const vector<PLAYER>& players) {
 		if (players.empty()) {
-			changeState(1);
+			changeState(1); // idle
 			return zombiePosition;
 		}
-		Vector2f nearestPlayerPos = players[0].shape.getPosition();
-		float minDistance = sqrt(pow(nearestPlayerPos.x - zombiePosition.x, 2) + pow(nearestPlayerPos.y - zombiePosition.y, 2));
 
-		for (int i = 1; i < players.size(); ++i) {
-			Vector2f playerPos = players[i].shape.getPosition();
+		bool allDead = true;
+		for (const auto& p : players)
+			if (!p.isDead) allDead = false;
+
+		if (allDead) {
+			changeState(1); // idle
+			isAttacking = false;
+			return zombiePosition;
+		}
+
+		Vector2f nearestPlayerPos = zombiePosition;
+		float minDistance = FLT_MAX;
+
+		for (const auto& player : players) {
+			if (player.isDead) continue;
+
+			Vector2f playerPos = player.shape.getPosition();
 			float distance = sqrt(pow(playerPos.x - zombiePosition.x, 2) + pow(playerPos.y - zombiePosition.y, 2));
 
 			if (distance < minDistance) {
@@ -3825,6 +3854,44 @@ struct ZOMBIE {
 
 		return nearestPlayerPos;
 	}
+
+	void attackingPlayer(vector<PLAYER>& players) {
+		if (attackIndex == attackIndexMax) {
+			bool playerHit = false;
+
+			for (auto& player : players) {
+				if (player.isDead) continue;
+
+				float distance = sqrt(
+					pow(shape.getPosition().x - player.shape.getPosition().x, 2) +
+					pow(shape.getPosition().y - player.shape.getPosition().y, 2));
+
+				if (distance < zombieAttackDistance + 20.0f) {
+					playerHit = true;
+
+					if (!hasDealtDamage) {
+						if (!player.hasShield) {
+							player.health -= damage;
+							Damage();
+						}
+						hasDealtDamage = true;
+					}
+					break;
+				}
+			}
+
+			if (!playerHit) {
+				// Nobody nearby to hit → go idle
+				changeState(1);
+				isAttacking = false;
+			}
+		}
+
+		if (attackIndex == 0) {
+			hasDealtDamage = false;
+		}
+	}
+
 
 	void avoidOtherZombies(vector<ZOMBIE>& zombies) {
 		for (int i = 0; i < zombies.size(); ++i) {
@@ -3845,33 +3912,6 @@ struct ZOMBIE {
 		}
 	}
 
-	void attackingPlayer(vector<PLAYER>& players) {
-		bool isPlayerInRange = false;
-
-		// Check if any player is in range during the damage frame
-		if (attackIndex == attackIndexMax) {
-			for (auto& player : players) {
-				float distance = sqrt(pow(shape.getPosition().x - player.shape.getPosition().x, 2) +
-					pow(shape.getPosition().y - player.shape.getPosition().y, 2));
-				if (distance < zombieAttackDistance + 20.0f) {
-					isPlayerInRange = true;
-					if (!hasDealtDamage) {
-						if (!player.hasShield)
-						{
-							player.health -= damage;
-							Damage();
-							hasDealtDamage = true;
-						}
-					}
-					break;
-				}
-			}
-		}
-
-		if (attackIndex == 0) {
-			hasDealtDamage = false;
-		}
-	}
 
 	void drawHealthBar(RenderWindow& window) {
 		float barWidth = 50.0f;
@@ -3927,13 +3967,15 @@ struct ZOMBIE {
 				pow(shape.getPosition().y - nearestPlayerPos.y, 2));
 
 			if (currentState == 2) {
-				if (distance >= zombieAttackDistance && attackIndex == 0) {
-					isCompletingAttack = false;
-					zombieMoveTowards(nearestPlayerPos, distance);
-				}
-				else {
-					attackingPlayer(players);
-				}
+					if (distance >= zombieAttackDistance && attackIndex == 0) {
+						isCompletingAttack = false;
+						zombieMoveTowards(nearestPlayerPos, distance,players);
+					}
+					else {
+							attackingPlayer(players); 
+
+					}
+				
 			}
 			else if (distance < zombieAttackDistance) {
 				changeState(2);
@@ -3941,7 +3983,7 @@ struct ZOMBIE {
 				attackingPlayer(players);
 			}
 			else {
-				zombieMoveTowards(nearestPlayerPos, distance);
+				zombieMoveTowards(nearestPlayerPos, distance,players);
 			}
 		}
 
@@ -3993,8 +4035,8 @@ void deathCircleEnter(vector<PLAYER>& playersArr) {
 					playersArr[i].toggleShield();
 				}
 				else if (deathArr[j].perkID == 10) {
-					doubleScore = true;
-					doubleScoreClock.restart();
+					playersArr[i].doubleScore = true;
+					playersArr[i].doubleScoreClock.restart();
 				}
 				else if (deathArr[j].perkID == 11) {
 					slowEffectActive = true;
@@ -4054,7 +4096,7 @@ void bulletIntersection(vector<Bullet>& bullets, vector<PLAYER>& playersArr, vec
 			if (dist < 20.0f && dist > 0.0f) {
 				Vector2f away = bulletPos - zombiePos;
 				zombiesArr[j].health -= bullets[i].damage;
-
+				zombiesArr[j].lastBulletID = bullets[i].playerID;
 				bullets.erase(bullets.begin() + i);
 				isBulletGone = true;
 				break;
@@ -4099,9 +4141,7 @@ void meleeAttack(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr) {
 }
 
 void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vector<Bullet>& bullets, Clock zombieDeathTimer, RenderWindow& window, int mission1_zombies_counter, bool mission_is_on = false, bool isRush = false, bool isMulti = false) {
-	if (doubleScore && doubleScoreClock.getElapsedTime().asSeconds() >= 10.f) {
-		doubleScore = false;
-	}
+	
 	if (slowEffectActive && slowEffectClock.getElapsedTime().asSeconds() >= 10.f) {
 		slowEffectActive = false;
 	}
@@ -4128,8 +4168,17 @@ void updateEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, vect
 	}
 	for (int i = 0; i < playersArr.size(); i++) {
 		if (playersArr[i].health <= 0) {
-			playersArr.erase(playersArr.begin() + i);
-			--i;
+			if (!isMulti) {
+				playersArr.erase(playersArr.begin() + i);
+				--i;
+			}
+			else {
+				playersArr[i].crosshair.shape.setScale(0, 0);
+				playersArr[i].shape.setScale(0, 0);
+				playersArr[i].isDead = true;
+				
+
+			}
 		}
 	}
 
@@ -8116,7 +8165,7 @@ struct BeachRush {
 	int mission1_zombies_counter = 0;
 	Texture beach, seatexture;
 	Sprite sand, sea;
-
+	int score = 0;
 
 	PauseableTimer zombie1Spawn;
 	PauseableTimer zombie2Spawn;
@@ -8170,15 +8219,16 @@ struct BeachRush {
 		// timer and view and point after 2 min
 	};
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
+		
 		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(playersArr[0].score, playerName);
-			cout << playersArr[0].score << endl;
+			addScoreIfHigh(score, playerName);
+			cout <<score << endl;
 			isSaved = true;
 		}
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, playersArr[0].score, true, true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
 		updateBullets(dt);
 		frameCounter++;
 
@@ -8288,13 +8338,13 @@ struct BeachRush {
 			if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
 				playersArr[0].shape.move(-playersArr[0].speed, 0);
 
-			for (int i = 0; i < zombiesArr.size(); i++) {
+			for (int i = 0; i < zombiesArr.size() && !playersArr.empty(); i++) {
 				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-					if (doubleScore) {
-						playersArr[0].score += (2 * zombiesArr[i].ScoreShouldBe);
+					if (playersArr[0].doubleScore) {
+						score += (2 * zombiesArr[i].ScoreShouldBe);
 					}
 					else {
-						playersArr[0].score += zombiesArr[i].ScoreShouldBe;
+						score += zombiesArr[i].ScoreShouldBe;
 					}
 					zombiesArr[i].isDeadCounter = true;
 					if ((rand() % 100) + 1 <= 20) {
@@ -8315,7 +8365,6 @@ struct BeachRush {
 	};
 };
 struct DesertroadRush {
-	int score = 0;
 	bool missionComplete = false;
 	Clock deltaClock;
 	Clock zombieDeathTimer;
@@ -8329,7 +8378,7 @@ struct DesertroadRush {
 	int mission1_zombies_counter = 0;
 	bool isSaved = false;
 	Sprite backgroundDesertRoadSprite;
-
+	int score = 0;
 	PauseableTimer zombie1Spawn;
 	PauseableTimer zombie2Spawn;
 	const float totalDuration = 180.0f;
@@ -8473,9 +8522,9 @@ struct DesertroadRush {
 			// Prevent moving out of right border
 			if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
 				playersArr[0].shape.move(-playersArr[0].speed, 0);
-			for (int i = 0; i < zombiesArr.size(); i++) {
+			for (int i = 0; i < zombiesArr.size() && !playersArr.empty(); i++) {
 				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-					if (doubleScore) {
+					if (playersArr[0].doubleScore) {
 						score += (2 * zombiesArr[i].ScoreShouldBe);
 					}
 					else {
@@ -8513,7 +8562,6 @@ struct CityRush {
 	Clock zombieSpawn;
 	float zombieSpawnTime = 3.0f; // Will decrease over time
 	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
-
 	int score = 0;
 	bool isSaved = false;
 	int mapWidth = 1920; // width of background
@@ -8647,9 +8695,9 @@ struct CityRush {
 
 			}
 		}
-		for (int i = 0; i < zombiesArr.size(); i++) {
+		for (int i = 0; i < zombiesArr.size() && !playersArr.empty(); i++) {
 			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-				if (doubleScore) {
+				if (playersArr[0].doubleScore) {
 					score += (2 * zombiesArr[i].ScoreShouldBe);
 				}
 				else {
@@ -8875,7 +8923,6 @@ struct WoodsRush {
 	Clock deltaClock;
 	Clock zombieDeathTimer;
 	float dt;
-	int score = 0;
 	int mission1_zombies_counter = 0;
 	bool missionComplete = false;
 	Clock Timer;
@@ -8898,7 +8945,7 @@ struct WoodsRush {
 	const float phase2Duration = 90.0f;
 	const float initialSpawnTime = 3.0f;
 	const float minSpawnTime = 0.5f;
-
+	int score = 0;
 	int getRandomOutsideRange_x() {
 		int left = rand() % 500 - 500;      // -500 to -1
 		int right = rand() % 580 + 1921;    // 1921 to 2500
@@ -8938,7 +8985,7 @@ struct WoodsRush {
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window,score, true, true);
 		updateBullets(dt);
 
 		if (!playersArr.empty()) {
@@ -9022,9 +9069,9 @@ struct WoodsRush {
 
 			}
 		}
-		for (int i = 0; i < zombiesArr.size(); i++) {
+		for (int i = 0; i < zombiesArr.size() && !playersArr.empty(); i++) {
 			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-				if (doubleScore) {
+				if (playersArr[0].doubleScore) {
 					score += (2 * zombiesArr[i].ScoreShouldBe);
 				}
 				else {
@@ -9173,7 +9220,6 @@ struct ArmyRush {
 	}
 
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		cout << score << endl;
 		if (playersArr.empty() && !isSaved) {
 			addScoreIfHigh(score, playerName);
 			cout << score << endl;
@@ -9267,9 +9313,9 @@ struct ArmyRush {
 
 			}
 		}
-		for (int i = 0; i < zombiesArr.size(); i++) {
+		for (int i = 0; i < zombiesArr.size() && !playersArr.empty(); i++) {
 			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-				if (doubleScore) {
+				if (playersArr[0].doubleScore) {
 					score += (2 * zombiesArr[i].ScoreShouldBe);
 				}
 				else {
@@ -9580,8 +9626,6 @@ struct ArmyRush {
 
 struct BeachRushMulti {
 	int frameCounter = 0, frameDelay = 20, seaindex = 0;
-	int score0 = 0;
-	int score1 = 0;
 	bool missionComplete = false;
 	Clock deltaClock;
 	Clock zombieDeathTimer;
@@ -9658,7 +9702,7 @@ struct BeachRushMulti {
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score0, true, true,true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, -1, true, true,true);
 		updateBullets(dt);
 		frameCounter++;
 
@@ -9768,23 +9812,26 @@ struct BeachRushMulti {
 			if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
 				playersArr[0].shape.move(-playersArr[0].speed, 0);
 
-			for (int i = 0; i < zombiesArr.size(); i++) {
-				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-					if (doubleScore) {
-						score0 += (2 * zombiesArr[i].ScoreShouldBe);
-					}
-					else {
-						score0 += zombiesArr[i].ScoreShouldBe;
-					}
-					zombiesArr[i].isDeadCounter = true;
-					if ((rand() % 100) + 1 <= 20) {
-						deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
-					}
+				for (int i = 0; i < zombiesArr.size(); i++) {
+					if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
+						if (playersArr[zombiesArr[i].lastBulletID].doubleScore) {
+							playersArr[zombiesArr[i].lastBulletID].score += (2 * zombiesArr[i].ScoreShouldBe);
+						}
+						else {
+							playersArr[zombiesArr[i].lastBulletID].score += zombiesArr[i].ScoreShouldBe;
+						}
+						zombiesArr[i].isDeadCounter = true;
+						if ((rand() % 100) + 1 <= 20) {
+							deathArr.push_back(DeathCircle(zombiesArr[i].shape.getPosition().x, zombiesArr[i].shape.getPosition().y, rand() % 12));
+						}
 
+					}
+					score_ = playersArr[0].score;
+					score_2 = playersArr[1].score;
 				}
+				
 			}
-		}
-
+		
 
 	};
 	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
@@ -9794,6 +9841,7 @@ struct BeachRushMulti {
 
 	};
 };
+/*
 struct DesertroadRushMulti {
 	int score = 0;
 	bool missionComplete = false;
@@ -11057,6 +11105,7 @@ struct ArmyRushMulti {
 
 	}
 };
+*/
 
 
 
@@ -11804,6 +11853,8 @@ void pause_menu(RenderWindow& window, Event& event, Font& font, levelHandler& cu
 
 int main() {
 
+	srand(static_cast<unsigned>(time(0)));
+
 
 	loadScores();
 
@@ -12078,7 +12129,6 @@ int main() {
 						zombiesArr.clear();
 
 						deathArr.clear();
-						doubleScore = false;
 						slowEffectActive = false;
 
 						bullets.clear();
@@ -12186,7 +12236,6 @@ int main() {
 						zombiesArr.clear();
 
 						deathArr.clear();
-						doubleScore = false;
 						slowEffectActive = false;
 
 						bullets.clear();
@@ -12224,7 +12273,6 @@ int main() {
 					gameSounds[1].stop();
 					gameSounds[5].stop();
 					deathArr.clear();
-					doubleScore = false;
 					slowEffectActive = false;
 				}
 
