@@ -5676,7 +5676,7 @@ struct Beachlevel {
 	{
 
 		isTryingAgain = tryAgain;
-		if (!sceneSkipped) runBeachScene(window);
+		if (!sceneSkipped && !isTryingAgain) runBeachScene(window);
 
 
 		if (!font.loadFromFile("tag.ttf")) {
