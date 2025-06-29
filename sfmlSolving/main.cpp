@@ -17,52 +17,103 @@ using namespace std;
 
 // Weapon types (IDs)
 int levelIDMenu = -1;
+
 bool tryAgain = false;
 
-Texture gui[7];
+
+
+Texture gui[8];
+
 Sprite pistol_gui;
+
+
 Sprite shotgun_gui;
+
 Sprite rifle_gui;
+
 Sprite hp_gui;
+
 Sprite ammo_gui;
+
 Sprite knife_gui;
+
 Sprite hud_gui[3];
+
 Sprite hp_gui_p2;
+
 Sprite hud_gui_p2[3];
 
-Texture gui_multi[7];
+
+
+Texture gui_multi[8];
+
 Sprite pistol_gui_multi[2];
+
+Sprite dead_gui_multi[2];
+
+
 Sprite shotgun_gui_multi[2];
+
 Sprite rifle_gui_multi[2];
+
 Sprite hp_gui_multi;
+
 Sprite ammo_gui_multi[2];
+
 Sprite knife_gui_multi[2];
+
 Sprite hud_gui_multi[3];
 
 
+
+
+
 Text ammo_in_clip_multi[2];
+
 Text weapon_name_multi[2];
 
+
+
 Text score;
+
 Text colon_text;
+
 Text score_p2;
+
 Text health_percentage;
+
 Text health_percentage_p2;
+
 Text zombies;
+
 Text timeleft;
+
 Text ammo_in_clip;
+
 Text weapon_name;
+
 Clock time_left;
+
 Font font;
+
 int score_ = 0;
+
 int score_2 = 0;
+
 bool rush = false;
+
 Music menuMusic;
+
 bool isGameEntered = false;;
+
 struct MenuButton {
+
 	Text label;
+
 	Text phrase;
+
 	FloatRect bounds;
+
 };
 bool pauseGame = false;
 
@@ -74,8 +125,13 @@ const int MAX_SCORES = 10;
 const char* const SCORE_FILE = "highscores.txt";
 
 string playerName = "Player7"; // Change it With GUI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+string player1 = "Player 1";
+string player2 = "Player 2";
+string storyPlayer = "Player";
 
 
+float musicVolume = 50.f;
+float sfxVolume = 50.f;
 
 
 
@@ -336,29 +392,31 @@ const int num_sound = 14;
 gameSound gameSounds[num_sound];
 
 
-void runDesertScene(RenderWindow& window) {
+bool runDesertScene(RenderWindow& window) {
+	window.setMouseCursorVisible(false);
+	window.setView(window.getDefaultView());
 	Texture bgTexture;
-	if (!bgTexture.loadFromFile("crimsongndd.png")) return;
+	if (!bgTexture.loadFromFile("crimsongndd.png")) return false;
 	Sprite background(bgTexture);
 
 	Font font;
-	if (!font.loadFromFile("tag.ttf")) return;
+	if (!font.loadFromFile("tag.ttf")) return false;
 
 	Music music;
-	if (!music.openFromFile("MainSound.wav")) return;
+	if (!music.openFromFile("MainSound.wav")) return false;
 	music.setLoop(true);
 	music.play();
+	music.setVolume(musicVolume);
 
 	Texture talking;
-	if (!talking.loadFromFile("imgs/speechbox.png")) return;
+	if (!talking.loadFromFile("imgs/speechbox.png")) return false;
 	Sprite talk(talking);
 
 	Texture desertScene;
-	if (!desertScene.loadFromFile("imgs/desertScene.png")) return;
+	if (!desertScene.loadFromFile("imgs/desertScene.png")) return false;
 	Sprite scene(desertScene);
-	scene.setScale(3.75f, 2.75f);
-	scene.setPosition(70, -30);
-
+	scene.setScale(6.8f, 3.5f);
+	scene.setPosition(-1000, -30);
 
 	Text pressSpace;
 	pressSpace.setFont(font);
@@ -367,39 +425,37 @@ void runDesertScene(RenderWindow& window) {
 	pressSpace.setFillColor(Color::White);
 	pressSpace.setPosition(100, 900);
 
-
 	Text framesText[5];
 	for (int i = 0; i < 5; i++) {
 		framesText[i].setFont(font);
-		if (i % 2 == 0 && i != 0)
-			framesText[i].setFillColor(Color::Black);
-		else
-			framesText[i].setFillColor(Color::Blue);
+		framesText[i].setFillColor((i % 2 == 0 && i != 0) ? Color::Black : Color::Black);
 
-		if (i == 0) {
+		switch (i) {
+		case 0:
 			framesText[i].setCharacterSize(26);
-			framesText[i].setPosition(550, 300);
+			framesText[i].setPosition(450, 300);
 			framesText[i].setString("You are now so close to your home.");
-		}
-		if (i == 1) {
+			break;
+		case 1:
 			framesText[i].setCharacterSize(20);
-			framesText[i].setPosition(550, 300);
+			framesText[i].setPosition(450, 300);
 			framesText[i].setString("I must go where I told you. My family is waiting for me.");
-		}
-		if (i == 2) {
+			break;
+		case 2:
 			framesText[i].setCharacterSize(18);
-			framesText[i].setPosition(620, 470);
+			framesText[i].setPosition(620, 570);
 			framesText[i].setString("ohhh! I hope you find them doing well. Thank you a lot for saving my life");
-		}
-		if (i == 3) {
+			break;
+		case 3:
 			framesText[i].setCharacterSize(20);
-			framesText[i].setPosition(550, 300);
+			framesText[i].setPosition(450, 300);
 			framesText[i].setString("You are welcome. Take this pistol and take care of yourself.");
-		}
-		if (i == 4) {
+			break;
+		case 4:
 			framesText[i].setCharacterSize(26);
-			framesText[i].setPosition(650, 490);
+			framesText[i].setPosition(650, 590);
 			framesText[i].setString("Thank You. Goodbye!");
+			break;
 		}
 	}
 
@@ -414,11 +470,9 @@ void runDesertScene(RenderWindow& window) {
 		while (window.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				window.close();
-			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space) {
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
 				frame = 7;
-			}
 		}
-
 
 		float time = sceneClock.getElapsedTime().asSeconds();
 		if (frame < 7) {
@@ -431,46 +485,990 @@ void runDesertScene(RenderWindow& window) {
 			if (time >= 14) frame = 7;
 		}
 
-
 		window.clear();
 		window.draw(background);
 		window.draw(scene);
-		if (frame >= 1 && frame < 6) window.draw(talk);
 		window.draw(pressSpace);
 
 		switch (frame) {
 		case 0: {
 			int alpha = static_cast<int>(255 - (time / 2.0f) * 255);
-			if (alpha < 0) alpha = 0;
+			alpha = std::clamp(alpha, 0, 255);
 			fade.setFillColor(Color(0, 0, 0, alpha));
 			window.draw(fade);
 			break;
 		}
-		case 1: { window.draw(framesText[0]); talk.setPosition(430, 170); break; }
-		case 2: { window.draw(framesText[1]); talk.setPosition(430, 170); break; }
-		case 3: { window.draw(framesText[2]); talk.setPosition(540, 340); break; }
-		case 4: { window.draw(framesText[3]); talk.setPosition(430, 170); break; }
-		case 5: { window.draw(framesText[4]); talk.setPosition(540, 340); break; }
+		case 1: {
+			talk.setPosition(330, 170);
+			window.draw(talk);
+			window.draw(framesText[0]);
+			break;
+		}
+		case 2: {
+			talk.setPosition(330, 170);
+			window.draw(talk);
+			window.draw(framesText[1]);
+			break;
+		}
+		case 3: {
+			talk.setPosition(540, 440);
+			window.draw(talk);
+			window.draw(framesText[2]);
+			break;
+		}
+		case 4: {
+			talk.setPosition(330, 170);
+			window.draw(talk);
+			window.draw(framesText[3]);
+			break;
+		}
+		case 5: {
+			talk.setPosition(540, 440);
+			window.draw(talk);
+			window.draw(framesText[4]);
+			break;
+		}
 		case 6: {
 			int alpha = static_cast<int>(((time - 12.0f) / 2.0f) * 255);
-			if (alpha > 255) alpha = 255;
+			alpha = std::clamp(alpha, 0, 255);
 			fade.setFillColor(Color(0, 0, 0, alpha));
 			window.draw(fade);
 			break;
 		}
 		case 7: {
 			music.stop();
-			window.close();
+			return true;
+		}
+		}
+
+		window.display();
+	}
+
+	return false;
+}
+
+
+bool runCityScene(RenderWindow& window) {
+	window.setMouseCursorVisible(false);
+	window.setView(window.getDefaultView());
+	Texture bgTexture;
+	if (!bgTexture.loadFromFile("crimsongndd.png")) return false;
+	Sprite background(bgTexture);
+
+	Font font;
+	if (!font.loadFromFile("tag.ttf")) return false;
+
+	Music music;
+	if (!music.openFromFile("MainSound.wav")) return false;
+	music.setLoop(true);
+	music.play();
+	music.setVolume(musicVolume);
+
+	Texture talking;
+	if (!talking.loadFromFile("imgs/speechbox.png")) return false;
+	Sprite talk(talking);
+	talk.setPosition(-90, -40);
+	talk.setScale(1.79f, 0.8f);
+
+
+	Texture desertScene;
+	if (!desertScene.loadFromFile("imgs/city_scene.png")) return false;
+	Sprite scene(desertScene);
+	scene.setScale(6.8f, 3.6f);
+	scene.setPosition(-700, -30);
+
+
+	Text pressSpace;
+	pressSpace.setFont(font);
+	pressSpace.setString("Press Space to skip...");
+	pressSpace.setCharacterSize(26);
+	pressSpace.setFillColor(Color::White);
+	pressSpace.setPosition(100, 900);
+
+
+	Text framesText[2];
+	for (int i = 0; i < 2; i++) {
+		framesText[i].setFont(font);
+		framesText[i].setFillColor(Color::Black);
+
+		if (i == 0) {
+			framesText[i].setCharacterSize(22);
+			framesText[i].setPosition(35, 50);
+			framesText[i].setString("To all who managed to survive, anyone who's still alive around!! Head to the Train Staion. it's a SAFE ZONE.");
+		}
+		if (i == 1) {
+			framesText[i].setCharacterSize(22);
+			framesText[i].setPosition(7, 50);
+			framesText[i].setString("Again... To all who managed to survive, anyone who's still alive around!! Head to the Train Staion. it's a SAFE ZONE.");
+		}
+	}
+	RectangleShape fade(Vector2f(1920, 1080));
+	fade.setFillColor(Color(0, 0, 0, 255));
+
+	Clock sceneClock;
+	int frame = 0;
+
+	while (window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space) {
+				frame = 4;
+			}
+		}
+
+
+		float time = sceneClock.getElapsedTime().asSeconds();
+		if (frame < 4) {
+			if (time >= 3.5 && time < 7) frame = 1;
+			if (time >= 7 && time < 10.5) frame = 2;
+			if (time >= 10.5 && time < 14) frame = 3;
+			if (time >= 14 && time < 17.5) frame = 4;
+		}
+
+
+		window.clear();
+		window.draw(background);
+		window.draw(scene);
+		if (frame >= 1 && frame < 3) window.draw(talk);
+		window.draw(pressSpace);
+
+		switch (frame) {
+		case 0: {
+			int alpha = static_cast<int>(255 - (time / 3.5f) * 255);
+			if (alpha < 0) alpha = 0;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
 			break;
+		}
+		case 1: { window.draw(framesText[0]);  break; }
+		case 2: { window.draw(framesText[1]);  break; }
+		case 3: {
+			int alpha = static_cast<int>(((time - 10.5f) / 3.5f) * 255);
+			if (alpha > 255) alpha = 255;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 4: {
+			music.stop();
+			return true;
 		}
 		}
 
 		window.display();
 
 	}
+	return false;
 }
 
 
+
+bool runTrainScene(RenderWindow& window) {
+	window.setMouseCursorVisible(false);
+	window.setView(window.getDefaultView());
+	Texture bgTexture;
+	if (!bgTexture.loadFromFile("crimsongndd.png")) return false;
+	Sprite background(bgTexture);
+
+	Font font;
+	if (!font.loadFromFile("tag.ttf")) return false;
+
+	Music music;
+	if (!music.openFromFile("MainSound.wav")) return false;
+	music.setLoop(true);
+	music.play();
+	music.setVolume(musicVolume);
+
+	Texture talking1;
+	if (!talking1.loadFromFile("imgs/talk1.png")) return false;
+	Sprite talk1(talking1);
+	talk1.setPosition(850, 190);
+	talk1.setScale(0.8f, 0.4f);
+
+
+	Texture talking2;
+	if (!talking2.loadFromFile("imgs/talk2.png")) return false;
+	Sprite talk2(talking2);
+	talk2.setPosition(580, 250);
+	talk2.setScale(0.5f, 0.37f);
+
+
+	Texture desertScene;
+	if (!desertScene.loadFromFile("imgs/trainScene.png")) return false;
+	Sprite scene(desertScene);
+	scene.setScale(4.15f, 2.6f);
+	scene.setPosition(0, 0);
+
+
+	Text pressSpace;
+	pressSpace.setFont(font);
+	pressSpace.setString("Press Space to skip...");
+	pressSpace.setCharacterSize(26);
+	pressSpace.setFillColor(Color::White);
+	pressSpace.setPosition(100, 900);
+
+
+	Text framesText[2];
+	for (int i = 0; i < 2; i++) {
+		framesText[i].setFont(font);
+		framesText[i].setFillColor(Color::Black);
+
+		if (i == 0) {
+			framesText[i].setCharacterSize(26);
+			framesText[i].setPosition(670, 500);
+			framesText[i].setString("Where would we go then?!!");
+		}
+		if (i == 1) {
+			framesText[i].setCharacterSize(24);
+			framesText[i].setPosition(990, 460);
+			framesText[i].setString("The Farm is a safe zone. Perhaps,it's still safe.\nIt will be our destination...");
+		}
+	}
+	RectangleShape fade(Vector2f(1920, 1080));
+	fade.setFillColor(Color(0, 0, 0, 255));
+
+	Clock sceneClock;
+	int frame = 0;
+
+	while (window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space) {
+				frame = 4;
+			}
+		}
+
+
+		float time = sceneClock.getElapsedTime().asSeconds();
+		if (frame < 4) {
+			if (time >= 3.5 && time < 7) frame = 1;
+			if (time >= 7 && time < 10.5) frame = 2;
+			if (time >= 10.5 && time < 14) frame = 3;
+			if (time >= 14 && time < 17.5) frame = 4;
+		}
+
+
+		window.clear();
+		window.draw(background);
+		window.draw(scene);
+		window.draw(pressSpace);
+
+		switch (frame) {
+		case 0: {
+			int alpha = static_cast<int>(255 - (time / 3.5f) * 255);
+			if (alpha < 0) alpha = 0;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 1: { window.draw(talk2); window.draw(framesText[0]); break; }
+		case 2: { window.draw(talk1); window.draw(framesText[1]); break; }
+		case 3: {
+			int alpha = static_cast<int>(((time - 10.5f) / 3.5f) * 255);
+			if (alpha > 255) alpha = 255;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 4: {
+			music.stop();
+			return true;
+		}
+		}
+
+		window.display();
+
+	}
+	return false;
+}
+
+
+
+
+bool runWoodsScene(RenderWindow& window) {
+	window.setMouseCursorVisible(false);
+	window.setView(window.getDefaultView());
+	Texture smsTex, sceneTex;
+	if (!smsTex.loadFromFile("imgs/sms.png") || !sceneTex.loadFromFile("imgs/WoodsScene.png")) return false;
+	Sprite sms(smsTex); sms.setPosition(200.f, 200.f);
+	Sprite scene(sceneTex); scene.setScale(4.25f, 2.75f); scene.setPosition(-30, 0);
+
+	RectangleShape fade(Vector2f(1920, 1080));
+	float fadeAlpha = 255.f, fadeSpeed = 200.f;
+	fade.setFillColor(Color(0, 0, 0, (Uint8)fadeAlpha));
+
+	Font font;
+	if (!font.loadFromFile("tag.ttf")) return false;
+
+	Text pressSpace("Press Space to skip...", font, 26);
+	pressSpace.setFillColor(Color::White);
+	pressSpace.setPosition(200, 900);
+
+	string lines[] = {
+		"Alert!",
+		"The Airport is Under Attack!! The Airport is NOT safe anymore.",
+		"Rescue Teams can not reach them right now.",
+		"So, We ask everyone who can help to provide help."
+	};
+
+	Text alerts[4];
+	for (int i = 0; i < 4; ++i) {
+		alerts[i].setFont(font);
+		alerts[i].setString(lines[i]);
+		alerts[i].setCharacterSize(36);
+		alerts[i].setFillColor(Color::White);
+		alerts[i].setPosition(700.f, 300.f + i * 100.f);
+	}
+
+	Music music;
+	if (!music.openFromFile("MainSound.wav")) return false;
+	music.setLoop(true);
+	music.play();
+	music.setVolume(musicVolume);
+
+	Clock clock;
+	enum SceneState { FadeInScene, ShowScene, FadeOutScene, FadeInSMS, ShowSMS, FadeOutAll };
+	SceneState state = FadeInScene;
+	Clock stateClock;
+
+	while (window.isOpen()) {
+		Event ev;
+		while (window.pollEvent(ev)) {
+			if (ev.type == Event::Closed)
+				window.close();
+			if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::Space && state == ShowSMS)
+				state = FadeOutAll;
+		}
+
+		float dt = clock.restart().asSeconds();
+
+
+		switch (state) {
+		case FadeInScene:
+			fadeAlpha -= fadeSpeed * dt;
+			if (fadeAlpha <= 0.f) {
+				fadeAlpha = 0.f;
+				state = ShowScene;
+				stateClock.restart();
+			}
+			break;
+
+		case ShowScene:
+			if (stateClock.getElapsedTime().asSeconds() >= 2.5f)
+				state = FadeOutScene;
+			break;
+
+		case FadeOutScene:
+			fadeAlpha += fadeSpeed * dt;
+			if (fadeAlpha >= 255.f) {
+				fadeAlpha = 255.f;
+				state = FadeInSMS;
+				stateClock.restart();
+			}
+			break;
+
+		case FadeInSMS:
+			fadeAlpha -= fadeSpeed * dt;
+			if (fadeAlpha <= 0.f) {
+				fadeAlpha = 0.f;
+				state = ShowSMS;
+				stateClock.restart();
+			}
+			break;
+
+		case ShowSMS:
+			if (stateClock.getElapsedTime().asSeconds() >= 10.f)
+				state = FadeOutAll;
+			break;
+
+		case FadeOutAll:
+			fadeAlpha += fadeSpeed * dt;
+			if (fadeAlpha >= 255.f) {
+				fadeAlpha = 255.f;
+				return true;
+			}
+			break;
+		}
+
+		fade.setFillColor(Color(0, 0, 0, (Uint8)fadeAlpha));
+
+		window.clear();
+		if (state == FadeInScene || state == ShowScene || state == FadeOutScene)
+			window.draw(scene);
+
+		else {
+			window.draw(sms);
+			window.draw(pressSpace);
+			for (auto& txt : alerts) window.draw(txt);
+		}
+		window.draw(fade);
+		window.display();
+	}
+	return false;
+}
+
+
+
+bool runCampScene(RenderWindow& window) {
+	window.setMouseCursorVisible(false);
+	window.setView(window.getDefaultView());
+	Texture bgTexture;
+	if (!bgTexture.loadFromFile("crimsongndd.png")) return false;
+	Sprite background(bgTexture);
+
+	Font font;
+	if (!font.loadFromFile("tag.ttf")) return false;
+
+	Music music;
+	if (!music.openFromFile("MainSound.wav")) return false;
+	music.setLoop(true);
+	music.play();
+	music.setVolume(musicVolume);
+
+	Texture talking1;
+	if (!talking1.loadFromFile("imgs/talk1.png")) return false;
+	Sprite talk1(talking1);
+	talk1.setPosition(20, -150);
+	talk1.setScale(0.88f, 0.5f);
+
+	Texture desertScene;
+	if (!desertScene.loadFromFile("imgs/armyScene.png")) return false;
+	Sprite scene1(desertScene);
+	scene1.setScale(4.2f, 2.79f);
+	scene1.setPosition(0, 0);
+
+	Texture airScene;
+	if (!airScene.loadFromFile("imgs/Army_Scene.png")) return false;
+	Sprite scene2(airScene);
+	scene2.setScale(4.2f, 2.6f);
+	scene2.setPosition(0, 0);
+
+	Text pressSpace;
+	pressSpace.setFont(font);
+	pressSpace.setString("Press Space to skip...");
+	pressSpace.setCharacterSize(26);
+	pressSpace.setFillColor(Color::White);
+	pressSpace.setPosition(100, 900);
+
+	Text framesText[3];
+	for (int i = 0; i < 3; i++) {
+		framesText[i].setFont(font);
+		framesText[i].setFillColor(Color::Black);
+		framesText[i].setCharacterSize(20);
+
+		if (i == 0)
+			framesText[i].setPosition(170, 210),
+			framesText[i].setString("We won't escape anymore.. We must fight and save our Island\n save our People...save our History\n We won't just our History, we'll enrich it.");
+		else if (i == 1)
+			framesText[i].setPosition(120, 210),
+			framesText[i].setString("There are weapons and armor in the Army Camp but zombies have seized it\n I'll go ther and you'll go with me.\n We all will fight for CrimsonLand...");
+		else if (i == 2)
+			framesText[i].setPosition(250, 370),
+			framesText[i].setString("I'm gonna free the Camp and then let you in\n Don't get close till I tell you to come!");
+	}
+
+	RectangleShape fade(Vector2f(1920, 1080));
+	fade.setFillColor(Color(0, 0, 0, 255));
+
+	Clock sceneClock;
+	int frame = 0;
+
+	while (window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
+				frame = 7;
+		}
+
+		float time = sceneClock.getElapsedTime().asSeconds();
+		if (frame < 7) {
+			if (time >= 3.5 && time < 7) frame = 1;
+			if (time >= 7 && time < 10.5) frame = 2;
+			if (time >= 10.5 && time < 14) frame = 3;
+			if (time >= 14 && time < 17.5) frame = 4;
+			if (time >= 17.5 && time < 21) frame = 5;
+			if (time >= 21 && time < 24.5) frame = 6;
+			if (time >= 24.5) frame = 7;
+		}
+
+		window.clear();
+		window.draw(background);
+		if (frame >= 0 && frame <= 3)
+			window.draw(scene1);
+		if (frame >= 4)
+			window.draw(scene2);
+
+		if (frame >= 1 && frame < 3)
+			talk1.setPosition(20, -150), window.draw(talk1);
+		if (frame == 5)
+			talk1.setScale(0.57f, 0.33f), talk1.setPosition(170, 150), window.draw(talk1);
+
+		window.draw(pressSpace);
+
+		switch (frame) {
+		case 0: {
+			int alpha = static_cast<int>(255 - (time / 3.5f) * 255);
+			if (alpha < 0) alpha = 0;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 1: window.draw(framesText[0]); break;
+		case 2: window.draw(framesText[1]); break;
+		case 3: {
+			int alpha = static_cast<int>(((time - 10.5f) / 3.5f) * 255);
+			if (alpha > 255) alpha = 255;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 4: {
+			int alpha = static_cast<int>(255 - ((time - 14.0f) / 3.5f) * 255);
+			if (alpha < 0) alpha = 0;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 5: window.draw(framesText[2]); break;
+		case 6: {
+			int alpha = static_cast<int>(((time - 21.0f) / 3.5f) * 255);
+			if (alpha > 255) alpha = 255;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 7:
+			music.stop();
+			return true;
+		}
+
+		window.display();
+	}
+	return false;
+}
+
+
+
+
+
+bool runstartMissionScene(RenderWindow& window) {
+	window.setMouseCursorVisible(false);
+	window.setView(window.getDefaultView());
+	Texture bgTexture;
+	if (!bgTexture.loadFromFile("crimsongndd.png")) return false;
+	Sprite background(bgTexture);
+
+	Font font;
+	if (!font.loadFromFile("tag.ttf")) return false;
+
+	Music music;
+	if (!music.openFromFile("MainSound.wav")) return false;
+	music.setLoop(true);
+	music.play();
+	music.setVolume(musicVolume);
+
+
+	Texture talking1;
+	if (!talking1.loadFromFile("imgs/talk1.png")) return false;
+	Sprite talk1(talking1);
+	talk1.setPosition(200, -100);
+	talk1.setScale(0.9f, 0.4f);
+
+
+	Texture desertScene;
+	if (!desertScene.loadFromFile("imgs/startMission.png")) return false;
+	Sprite scene(desertScene);
+	scene.setScale(4.1f, 2.6f);
+	scene.setPosition(0, 0);
+
+
+	Text pressSpace;
+	pressSpace.setFont(font);
+	pressSpace.setString("Press Space to skip...");
+	pressSpace.setCharacterSize(26);
+	pressSpace.setFillColor(Color::White);
+	pressSpace.setPosition(100, 900);
+
+
+	Text framesText[2];
+	for (int i = 0; i < 2; i++) {
+		framesText[i].setFont(font);
+		framesText[i].setFillColor(Color::Black);
+
+		if (i == 0) {
+			framesText[i].setCharacterSize(23);
+			framesText[i].setPosition(300, 200);
+			framesText[i].setString("Now, everyone takes enough weapons and armor. There's a plenty.");
+		}
+		if (i == 1) {
+			framesText[i].setCharacterSize(24);
+			framesText[i].setPosition(310, 200);
+			framesText[i].setString("Go and fight in groups. And I'm gonna fight alone. I can do that.");
+		}
+	}
+	RectangleShape fade(Vector2f(1920, 1080));
+	fade.setFillColor(Color(0, 0, 0, 255));
+
+	Clock sceneClock;
+	int frame = 0;
+
+	while (window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space) {
+				frame = 4;
+			}
+		}
+
+
+		float time = sceneClock.getElapsedTime().asSeconds();
+		if (frame < 4) {
+			if (time >= 3.5 && time < 7) frame = 1;
+			if (time >= 7 && time < 10.5) frame = 2;
+			if (time >= 10.5 && time < 14) frame = 3;
+			if (time >= 14 && time < 17.5) frame = 4;
+		}
+
+
+		window.clear();
+		window.draw(background);
+		window.draw(scene);
+		if (frame >= 1 && frame < 3) window.draw(talk1);
+		window.draw(pressSpace);
+
+		switch (frame) {
+		case 0: {
+			int alpha = static_cast<int>(255 - (time / 3.5f) * 255);
+			if (alpha < 0) alpha = 0;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 1: { window.draw(framesText[0]);  break; }
+		case 2: { window.draw(framesText[1]);  break; }
+		case 3: {
+			int alpha = static_cast<int>(((time - 10.5f) / 3.5f) * 255);
+			if (alpha > 255) alpha = 255;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 4: {
+			music.stop();
+			return true;
+		}
+		}
+
+		window.display();
+
+	}
+	return false;
+}
+
+
+
+void runMissionScene(RenderWindow& window) {
+	window.setMouseCursorVisible(false);
+	window.setView(window.getDefaultView());
+	Font font;
+	if (!font.loadFromFile("tag.ttf")) {
+		cout << "Failed to load font\n";
+		return;
+	}
+
+	Music music;
+	if (!music.openFromFile("MainSound.wav")) return;
+	music.setLoop(true);
+	music.play();
+	music.setVolume(musicVolume);
+
+	const int frames = 5;
+	const float fadeDuration = 2.0f;
+	float textDurations[frames] = { 6.2f, 5.1f, 5.7f, 4.5f, 9.6f };
+	const float letterDelay = 0.06f;
+
+	Texture frameTextures[frames];
+	Sprite frameSprites[frames];
+
+	for (int i = 0; i < frames; ++i) {
+		string path = "imgs/frame" + to_string(i + 1) + ".png";
+		if (!frameTextures[i].loadFromFile(path)) {
+			cout << "Failed to load " << path << endl;
+			return;
+		}
+		frameSprites[i].setTexture(frameTextures[i]);
+		frameSprites[i].setScale(4.15f, 2.65f);
+	}
+
+	string narration[frames] = {
+		"All CrimsonLand People are fighting side by side and Zombies menance is about to end.",
+		"Some CrimsonLand cities came back to life.",
+		"The Colonizers eventually failed and the epidemic became out of control.",
+		"It has spread out in the whole world.",
+		"And now, the Colonizers are facing their fate....\nAnd CrimsonLand is the inspiration to the whole world just as it has been throughout ages."
+	};
+
+	RectangleShape textBox(Vector2f(1050, 90));
+	textBox.setFillColor(Color(0, 0, 0, 180));
+	textBox.setPosition(70, 50);
+
+	Text storyText("", font, 24);
+	storyText.setFillColor(Color::White);
+	storyText.setPosition(90, 70);
+
+	Text pressSpace;
+	pressSpace.setFont(font);
+	pressSpace.setString("Press Space to skip...");
+	pressSpace.setCharacterSize(26);
+	pressSpace.setFillColor(Color::White);
+	pressSpace.setPosition(100, 900);
+
+	RectangleShape fadeRect(Vector2f(1920, 1080));
+	fadeRect.setFillColor(Color::Black);
+
+	bool skipAll = false;
+
+	for (int currentFrame = 0; currentFrame < frames && !skipAll; ++currentFrame) {
+
+
+		Clock fadeClock;
+		while (window.isOpen() && !skipAll && fadeClock.getElapsedTime().asSeconds() < fadeDuration) {
+			Event event;
+			while (window.pollEvent(event)) {
+				if (event.type == Event::Closed)
+					return;
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
+					skipAll = true;
+			}
+
+			float alpha = 255 - (fadeClock.getElapsedTime().asSeconds() / fadeDuration) * 255;
+			if (alpha < 0) alpha = 0;
+			fadeRect.setFillColor(Color(0, 0, 0, static_cast<Uint8>(alpha)));
+
+			window.clear();
+			window.draw(frameSprites[currentFrame]);
+			window.draw(textBox);
+			window.draw(fadeRect);
+			window.draw(pressSpace);
+			window.display();
+		}
+
+		if (skipAll) break;
+
+		string fullText = narration[currentFrame], displayedText = "";
+		Clock textClock;
+		int charIndex = 0;
+		float lastLetterTime = 0;
+
+		while (window.isOpen() && !skipAll && textClock.getElapsedTime().asSeconds() < textDurations[currentFrame]) {
+			Event event;
+			while (window.pollEvent(event)) {
+				if (event.type == Event::Closed)
+					return;
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
+					skipAll = true;
+			}
+
+			float elapsed = textClock.getElapsedTime().asSeconds();
+			if (charIndex < fullText.size() && elapsed - lastLetterTime > letterDelay) {
+				displayedText += fullText[charIndex++];
+				storyText.setString(displayedText);
+				lastLetterTime = elapsed;
+			}
+
+			window.clear();
+			window.draw(frameSprites[currentFrame]);
+			window.draw(textBox);
+			window.draw(storyText);
+			window.draw(pressSpace);
+			window.display();
+		}
+
+		if (skipAll) break;
+
+
+		fadeClock.restart();
+		while (window.isOpen() && !skipAll && fadeClock.getElapsedTime().asSeconds() < fadeDuration) {
+			Event event;
+			while (window.pollEvent(event)) {
+				if (event.type == Event::Closed)
+					return;
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
+					skipAll = true;
+			}
+
+			float alpha = (fadeClock.getElapsedTime().asSeconds() / fadeDuration) * 255;
+			if (alpha > 255) alpha = 255;
+			fadeRect.setFillColor(Color(0, 0, 0, static_cast<Uint8>(alpha)));
+
+			window.clear();
+			window.draw(frameSprites[currentFrame]);
+			window.draw(textBox);
+			window.draw(storyText);
+			window.draw(fadeRect);
+			window.draw(pressSpace);
+			window.display();
+		}
+	}
+}
+
+
+bool runBeachScene(RenderWindow& window) {
+	window.setMouseCursorVisible(false);
+	window.setView(window.getDefaultView());
+	Texture bgTexture;
+	if (!bgTexture.loadFromFile("crimsongndd.png")) return false;
+	Sprite background(bgTexture);
+
+	Font font;
+	if (!font.loadFromFile("tag.ttf")) return false;
+
+	Music music;
+	if (!music.openFromFile("Sound/beachScene.wav")) return false;
+	music.setLoop(true);
+	music.play();
+	music.setVolume(musicVolume);
+
+	Texture talking1;
+	if (!talking1.loadFromFile("imgs/talk2.png")) return false;
+	Sprite talk1(talking1);
+	talk1.setPosition(1100, 270);
+	talk1.setScale(0.8f, 0.4f);
+
+
+	Texture talking2;
+	if (!talking2.loadFromFile("imgs/talk1.png")) return false;
+	Sprite talk2(talking2);
+	talk2.setPosition(280, 400);
+	talk2.setScale(0.8f, 0.4f);
+
+
+	Texture desertScene;
+	if (!desertScene.loadFromFile("imgs/beachScene.png")) return false;
+	Sprite scene(desertScene);
+	scene.setScale(4.15f, 2.6f);
+	scene.setPosition(0, 0);
+
+
+	Text pressSpace;
+	pressSpace.setFont(font);
+	pressSpace.setString("Press Space to skip...");
+	pressSpace.setCharacterSize(26);
+	pressSpace.setFillColor(Color::White);
+	pressSpace.setPosition(100, 900);
+
+
+	Text framesText[6];
+	for (int i = 0; i < 6; i++) {
+		framesText[i].setFont(font);
+		framesText[i].setFillColor(Color::Black);
+
+		if (i == 0) {
+			framesText[i].setCharacterSize(26);
+			framesText[i].setPosition(450, 690);
+			framesText[i].setString("Hey man, happy Victory Day.");
+		}
+		if (i == 1) {
+			framesText[i].setCharacterSize(24);
+			framesText[i].setPosition(1260, 520);
+			framesText[i].setString("Thanks, my friend.\n Happy Victory Day to you too.");
+		}
+		if (i == 2) {
+			framesText[i].setCharacterSize(24);
+			framesText[i].setPosition(420, 670);
+			framesText[i].setString("So.. You're still heading to the beach today?\n Skipping lunch with us, huh?");
+		}
+		if (i == 3) {
+			framesText[i].setCharacterSize(23);
+			framesText[i].setPosition(1220, 500);
+			framesText[i].setString(" Yeah, I'm sorry.\nYou know that place holds a special meaning for me.\n I just can't let this day go by without being there.");
+		}
+		if (i == 4) {
+			framesText[i].setCharacterSize(24);
+			framesText[i].setPosition(420, 670);
+			framesText[i].setString("I get it.\n You were a great soldier..You deserve that moment.\n Alright, we'll catch up later.");
+		}
+		if (i == 5) {
+			framesText[i].setCharacterSize(26);
+			framesText[i].setPosition(1260, 535);
+			framesText[i].setString("Thanks for understanding. See you soon.");
+		}
+	}
+	RectangleShape fade(Vector2f(1920, 1080));
+	fade.setFillColor(Color(0, 0, 0, 255));
+
+	Clock sceneClock;
+	int frame = 0;
+
+	while (window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space) {
+				frame = 8;
+			}
+		}
+
+
+		float time = sceneClock.getElapsedTime().asSeconds();
+		if (frame < 8) {
+			if (time >= 3.5 && time < 7) frame = 1;
+			if (time >= 7 && time < 10.5) frame = 2;
+			if (time >= 10.5 && time < 14) frame = 3;
+			if (time >= 14 && time < 17.5) frame = 4;
+			if (time >= 17.5 && time < 21) frame = 5;
+			if (time >= 21 && time < 24.5) frame = 6;
+			if (time >= 24.5 && time < 28) frame = 7;
+			if (time > 28) frame = 8;
+		}
+
+
+		window.clear();
+		window.draw(background);
+		window.draw(scene);
+		window.draw(pressSpace);
+
+		switch (frame) {
+		case 0: {
+			int alpha = static_cast<int>(255 - (time / 3.5f) * 255);
+			if (alpha < 0) alpha = 0;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 1: { window.draw(talk2); window.draw(framesText[0]); break; }
+		case 2: { window.draw(talk1); window.draw(framesText[1]); break; }
+		case 3: { window.draw(talk2); window.draw(framesText[2]); break; }
+		case 4: { window.draw(talk1); window.draw(framesText[3]); break; }
+		case 5: { window.draw(talk2); window.draw(framesText[4]); break; }
+		case 6: { window.draw(talk1); window.draw(framesText[5]); break; }
+		case 7: {
+			int alpha = static_cast<int>(((time - 24.5f) / 3.5f) * 255);
+			if (alpha > 255) alpha = 255;
+			fade.setFillColor(Color(0, 0, 0, alpha));
+			window.draw(fade);
+			break;
+		}
+		case 8: {
+			music.stop();
+			return true;
+		}
+		}
+
+		window.display();
+
+	}
+	return false;
+}
 
 
 
@@ -488,6 +1486,7 @@ void runEndScene(RenderWindow& window) {
 	if (!music.openFromFile("theEndCrimson.Wav")) return;
 	music.setLoop(true);
 	music.play();
+	music.setVolume(musicVolume);
 
 	const int lineCount = 10;
 	string fullLines[lineCount] = {
@@ -659,6 +1658,33 @@ struct PauseableTimer {
 }gameTimer;
 
 
+
+const int totalLevels = 12;
+bool unlocked[totalLevels];
+
+
+
+void saveStoryProgress(bool unlocked[], int totalLevels) {
+	ofstream outFile("progress.dat", ios::binary);
+	if (outFile)
+		outFile.write(reinterpret_cast<char*>(unlocked), sizeof(bool) * totalLevels);
+}
+
+
+void loadStoryProgress(bool unlocked[], int totalLevels) {
+	ifstream inFile("progress.dat", ios::binary);
+	if (inFile)
+		inFile.read(reinterpret_cast<char*>(unlocked), sizeof(bool) * totalLevels);
+	else {
+		unlocked[0] = true;
+		for (int i = 1; i < totalLevels; ++i)
+			unlocked[i] = false;
+	}
+}
+
+
+
+
 void runStoryMode(RenderWindow& window) {
 	const int totalLevels = 12;
 	const string levelNames[totalLevels] = {
@@ -667,7 +1693,8 @@ void runStoryMode(RenderWindow& window) {
 		"Safe Zone 3", "Army Camp", "Mission 1",
 		"Mission 2", "Mission 3", "Mission 4"
 	};
-	bool unlocked[totalLevels] = { true, true, true, true, true, true, true, true, true, true, true, true };
+
+	loadStoryProgress(unlocked, totalLevels);
 
 	Font font;
 	font.loadFromFile("tag.ttf");
@@ -691,6 +1718,7 @@ void runStoryMode(RenderWindow& window) {
 	SoundBuffer clickBuffer;
 	clickBuffer.loadFromFile("Button.wav");
 	Sound clickSound(clickBuffer);
+	clickSound.setVolume(sfxVolume);
 
 	RectangleShape levelRects[totalLevels];
 	Text levelTexts[totalLevels];
@@ -754,11 +1782,10 @@ void runStoryMode(RenderWindow& window) {
 		Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
 
 		while (window.pollEvent(event)) {
-			if (event.type == Event::Closed)
-			{
+			if (event.type == Event::Closed) {
 				saveScores();
+				saveStoryProgress(unlocked, totalLevels);
 				window.close();
-
 			}
 
 			if (event.type == Event::MouseMoved) {
@@ -774,6 +1801,7 @@ void runStoryMode(RenderWindow& window) {
 			if (event.type == Event::KeyPressed) {
 				if (event.key.code == Keyboard::Escape) {
 					clickSound.play();
+					saveStoryProgress(unlocked, totalLevels);
 					return;
 				}
 
@@ -783,11 +1811,13 @@ void runStoryMode(RenderWindow& window) {
 						cout << "Starting Level: " << levelNames[selectedIndex] << "\n";
 						levelIDMenu = selectedIndex;
 						menuMusic.stop();
+
 						return;
 					}
 					else if (onBackButton) {
 						clickSound.play();
 						sleep(milliseconds(150));
+						saveStoryProgress(unlocked, totalLevels);
 						return;
 					}
 				}
@@ -809,6 +1839,7 @@ void runStoryMode(RenderWindow& window) {
 				}
 				else if (onBackButton) {
 					clickSound.play();
+					saveStoryProgress(unlocked, totalLevels);
 					return;
 				}
 			}
@@ -822,18 +1853,23 @@ void runStoryMode(RenderWindow& window) {
 		for (int i = 0; i < totalLevels; ++i) {
 			levelRects[i].setScale(1.f, 1.f);
 			if (i == selectedIndex && unlocked[i]) {
-				levelRects[i].setScale(1.05f, 1.05f);
+				levelRects[i].setScale(1.12f, 1.12f);
 			}
 			window.draw(levelRects[i]);
 			window.draw(levelTexts[i]);
 		}
 
-		backBtn.setFillColor(onBackButton ? Color(150, 35, 35, 255) : Color(155, 155, 155, 240));
+		backBtn.setFillColor(onBackButton ? Color(125, 15, 15, 255) : Color(155, 155, 155, 240));
 		window.draw(backBtn);
 		window.draw(backText);
 		window.display();
 	}
 }
+
+
+
+
+
 
 bool getPlayerName(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite, Sound& clickSound) {
 	Text ask("Enter Your Name:", font, 35);
@@ -893,9 +1929,91 @@ bool getPlayerName(RenderWindow& window, Font& font, Sprite& backgroundSprite, S
 	return false;
 }
 
+bool getMultiPlayerName(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite, Sound& clickSound) {
+	Text ask1("Enter Player 1 Name:", font, 35);
+	ask1.setFillColor(Color(160, 160, 160));
+	ask1.setPosition(200, 300);
+
+	Text ask2("Enter Player 2 Name:", font, 35);
+	ask2.setFillColor(Color(160, 160, 160));
+	ask2.setPosition(200, 550);
+
+	Text name1Text("", font, 40);
+	name1Text.setFillColor(Color(200, 50, 50));
+	name1Text.setPosition(200, 400);
+
+	Text name2Text("", font, 40);
+	name2Text.setFillColor(Color(200, 50, 50));
+	name2Text.setPosition(200, 650);
+
+	Text instructions("\t\t\t\t\t\t\t\t\t\t\tPress\n\n Enter to confirm\t  Backspace to delete\t  Esc to cancel.", font, 25);
+	instructions.setFillColor(Color(150, 150, 150, 240));
+	instructions.setPosition(100, 800);
+
+	string input1 = "";
+	string input2 = "";
+	bool firstNameEntered = false;
+
+	while (window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				saveScores();
+				window.close();
+			}
+			else if (event.type == Event::TextEntered) {
+				if (event.text.unicode < 128 && isprint(event.text.unicode)) {
+					if (!firstNameEntered && input1.length() < 20)
+						input1 += static_cast<char>(event.text.unicode);
+					else if (firstNameEntered && input2.length() < 20)
+						input2 += static_cast<char>(event.text.unicode);
+				}
+				else if (event.text.unicode == 8) {
+					if (!firstNameEntered && !input1.empty())
+						input1.pop_back();
+					else if (firstNameEntered && !input2.empty())
+						input2.pop_back();
+				}
+			}
+			else if (event.type == Event::KeyPressed) {
+				if (event.key.code == Keyboard::Enter) {
+					if (!firstNameEntered && !input1.empty()) {
+						clickSound.play();
+						player1 = input1;
+						firstNameEntered = true;
+					}
+					else if (firstNameEntered && !input2.empty()) {
+						clickSound.play();
+						player2 = input2;
+						return true;
+					}
+				}
+				else if (event.key.code == Keyboard::Escape) {
+					clickSound.play();
+					return false;
+				}
+			}
+		}
+
+		name1Text.setString(input1);
+		name2Text.setString(input2);
+
+		window.clear(Color::Black);
+		window.draw(backgroundSprite);
+		window.draw(logoSprite);
+		window.draw(ask1);
+		window.draw(ask2);
+		window.draw(name1Text);
+		window.draw(name2Text);
+		window.draw(instructions);
+		window.display();
+	}
+
+	return false;
+}
 
 
-void rushMaps(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite,
+void rushSingleMaps(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite,
 	Sound& clickSound, int& selectedMap, bool& backToRushMain) {
 	const int MAP_COUNT = 5;
 	const string mapNames[MAP_COUNT] = { "Beach", "Desert Road", "Woods", "City", "Army Camp" };
@@ -1008,6 +2126,119 @@ void rushMaps(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite
 }
 
 
+void rushMultiMaps(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite,
+	Sound& clickSound, int& selectedMap, bool& backToRushMain) {
+	const int MAP_COUNT = 5;
+	const string mapNames[MAP_COUNT] = { "Beach", "Desert Road", "Woods", "City", "Army Camp" };
+
+	Text title("Rush Mode", font, 38);
+	title.setFillColor(Color(160, 155, 155, 240));
+	title.setPosition(150, 100);
+
+	Text choose("Choose a map:", font, 25);
+	choose.setFillColor(Color(74, 8, 8, 240));
+	choose.setPosition(125, 350);
+
+	Text mapOptions[MAP_COUNT];
+	for (int i = 0; i < MAP_COUNT; ++i) {
+		mapOptions[i].setFont(font);
+		mapOptions[i].setString(mapNames[i]);
+		mapOptions[i].setCharacterSize(40);
+		mapOptions[i].setPosition(350, 250 + i * 70);
+		mapOptions[i].setFillColor(Color(150, 150, 150, 240));
+	}
+
+	Text back;
+	back.setFont(font);
+	back.setString("Back");
+	back.setCharacterSize(38);
+	back.setPosition(375, 850);
+	back.setFillColor(Color(150, 150, 150, 240));
+
+	int selected = 0;
+	bool inMapMenu = true;
+
+	while (inMapMenu && window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				saveScores();
+				window.close();
+			}
+			if (event.type == Event::KeyPressed) {
+				if (event.key.code == Keyboard::Up)
+					selected = (selected - 1 + MAP_COUNT + 1) % (MAP_COUNT + 1);
+				else if (event.key.code == Keyboard::Down)
+					selected = (selected + 1) % (MAP_COUNT + 1);
+				else if (event.key.code == Keyboard::Enter) {
+					clickSound.play();
+					if (selected == MAP_COUNT) {
+						backToRushMain = true;
+						inMapMenu = false;
+					}
+					else {
+						selectedMap = selected;
+						levelIDMenu = selected + 17;
+						inMapMenu = false;
+						backToRushMain = false;
+					}
+				}
+				else if (event.key.code == Keyboard::Escape) {
+					clickSound.play();
+					backToRushMain = true;
+					inMapMenu = false;
+				}
+			}
+
+			if (event.type == Event::MouseMoved) {
+				Vector2f mousePos(event.mouseMove.x, event.mouseMove.y);
+				for (int i = 0; i < MAP_COUNT; ++i) {
+					if (mapOptions[i].getGlobalBounds().contains(mousePos)) {
+						selected = i;
+					}
+				}
+				if (back.getGlobalBounds().contains(mousePos)) {
+					selected = MAP_COUNT;
+				}
+			}
+			if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+				Vector2f clickPos(event.mouseButton.x, event.mouseButton.y);
+				for (int i = 0; i < MAP_COUNT; ++i) {
+					if (mapOptions[i].getGlobalBounds().contains(clickPos)) {
+						selectedMap = i;
+						levelIDMenu = selectedMap + 17;
+						clickSound.play();
+						menuMusic.stop();
+						backToRushMain = false;
+						inMapMenu = false;
+						break;
+					}
+				}
+				if (back.getGlobalBounds().contains(clickPos)) {
+					clickSound.play();
+					backToRushMain = true;
+					inMapMenu = false;
+				}
+			}
+		}
+
+		for (int i = 0; i < MAP_COUNT; ++i)
+			mapOptions[i].setFillColor(i == selected ? Color(150, 35, 35, 255) : Color(150, 150, 150, 240));
+		back.setFillColor(selected == MAP_COUNT ? Color(150, 35, 35, 255) : Color(150, 150, 150, 240));
+
+		window.clear(Color::Black);
+		window.draw(backgroundSprite);
+		window.draw(logoSprite);
+		window.draw(title);
+		window.draw(choose);
+		for (int i = 0; i < MAP_COUNT; ++i)
+			window.draw(mapOptions[i]);
+		window.draw(back);
+		window.display();
+	}
+}
+
+
 bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sprite& logoSprite,
 	Sound& clickSound, int& selectedMap) {
 
@@ -1052,13 +2283,19 @@ bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sp
 						bool gotName = getPlayerName(window, font, backgroundSprite, logoSprite, clickSound);
 						if (gotName) {
 							bool goBack = false;
-							rushMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
+							rushSingleMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
 							if (!goBack)
 								return false;
 						}
 					}
 					else if (selected == 1) {
-						cout << "Multiplayer not implemented yet.\n";
+						bool gotName = getMultiPlayerName(window, font, backgroundSprite, logoSprite, clickSound);
+						if (gotName) {
+							bool goBack = false;
+							rushMultiMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
+							if (!goBack)
+								return false;
+						}
 					}
 					else {
 						return true;
@@ -1090,13 +2327,19 @@ bool rushMainMenu(RenderWindow& window, Font& font, Sprite& backgroundSprite, Sp
 							bool gotName = getPlayerName(window, font, backgroundSprite, logoSprite, clickSound);
 							if (gotName) {
 								bool goBack = false;
-								rushMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
+								rushSingleMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
 								if (!goBack)
 									return false;
 							}
 						}
 						else if (i == 1) {
-							cout << "Multiplayer not implemented yet.\n";
+							bool gotName = getMultiPlayerName(window, font, backgroundSprite, logoSprite, clickSound);
+							if (gotName) {
+								bool goBack = false;
+								rushMultiMaps(window, font, backgroundSprite, logoSprite, clickSound, selectedMap, goBack);
+								if (!goBack)
+									return false;
+							}
 						}
 						else {
 							return true;
@@ -1142,6 +2385,7 @@ void runRushMode(RenderWindow& window) {
 	SoundBuffer clickBuffer;
 	clickBuffer.loadFromFile("Button.wav");
 	Sound clickSound(clickBuffer);
+	clickSound.setVolume(sfxVolume);
 
 	int selectedMap = 0;
 	bool returnToMainMenu = rushMainMenu(window, font, backgroundSprite, logoSprite, clickSound, selectedMap);
@@ -1184,6 +2428,7 @@ void runLeaderboard(RenderWindow& window) {
 
 	}
 	Sound clickSound(clickBuffer);
+	clickSound.setVolume(sfxVolume);
 
 	Text title;
 	title.setFont(font);
@@ -1297,19 +2542,15 @@ void runLeaderboard(RenderWindow& window) {
 	}
 }
 
-
-
 void runSettings(RenderWindow& window) {
 	Font font;
 	if (!font.loadFromFile("tag.ttf")) {
 		cout << "Failed to load font.\n";
-
 	}
 
 	Texture backgroundTexture;
 	if (!backgroundTexture.loadFromFile("crimsonMain.png")) {
 		cout << "Failed to load background.\n";
-
 	}
 	Sprite backgroundSprite(backgroundTexture);
 	backgroundSprite.setScale(2.0f, 2.0f);
@@ -1317,7 +2558,6 @@ void runSettings(RenderWindow& window) {
 	Texture logoTexture;
 	if (!logoTexture.loadFromFile("logo.png")) {
 		cout << "Failed to load logo.\n";
-
 	}
 	Sprite logoSprite(logoTexture);
 	logoSprite.setPosition(window.mapPixelToCoords({ 1000, -10 }));
@@ -1326,9 +2566,11 @@ void runSettings(RenderWindow& window) {
 	SoundBuffer clickBuffer;
 	if (!clickBuffer.loadFromFile("Button.wav")) {
 		cout << "Failed to load click sound.\n";
-
 	}
 	Sound clickSound(clickBuffer);
+	clickSound.setVolume(sfxVolume);
+
+	menuMusic.setVolume(musicVolume);
 
 	Text title;
 	title.setFont(font);
@@ -1339,9 +2581,9 @@ void runSettings(RenderWindow& window) {
 
 	Text controlsText;
 	controlsText.setFont(font);
-	controlsText.setCharacterSize(40);
+	controlsText.setCharacterSize(26);
 	controlsText.setFillColor(Color(180, 180, 180));
-	controlsText.setPosition(250, 300);
+	controlsText.setPosition(250, 200);
 	controlsText.setString(
 		"W/A/S/D   \t- move\n"
 		"Mouse         \t- Aim\n"
@@ -1349,7 +2591,14 @@ void runSettings(RenderWindow& window) {
 		"Q                  \t- Switch Weapons\n"
 		"F                   \t- Melee Attack\n"
 		"R                   \t- Reload\n"
-		"Escape        \t- Back / Pause"
+		"Escape        \t- Back / Pause\n\n"
+		"In Multiplayer: Using Controller\n"
+		"Left Analog   \t- move\n"
+		"Right Analog\t- Aim\n"
+		"R1                     \t- Shoot\n"
+		"R2                    \t- Reload\n"
+		"L1                     \t- Melee Attack\n"
+		"L2                    \t- Switch Weapons\n"
 	);
 
 	Text backButton;
@@ -1359,13 +2608,38 @@ void runSettings(RenderWindow& window) {
 	backButton.setFillColor(Color(155, 155, 155, 240));
 	backButton.setPosition(window.mapPixelToCoords({ 250, 900 }));
 
+
+	RectangleShape musicBarBack(Vector2f(300, 10));
+	musicBarBack.setFillColor(Color(50, 50, 50));
+	musicBarBack.setPosition(450, 760);
+
+	RectangleShape musicBarFill(Vector2f((musicVolume / 100.f) * 300.f, 10));
+	musicBarFill.setFillColor(Color(200, 100, 100));
+	musicBarFill.setPosition(450, 760);
+
+	Text musicLabel("Music Volume", font, 26);
+	musicLabel.setFillColor(Color(180, 180, 180));
+	musicLabel.setPosition(230, 745);
+
+
+	RectangleShape sfxBarBack(Vector2f(300, 10));
+	sfxBarBack.setFillColor(Color(50, 50, 50));
+	sfxBarBack.setPosition(450, 820);
+
+	RectangleShape sfxBarFill(Vector2f((sfxVolume / 100.f) * 300.f, 10));
+	sfxBarFill.setFillColor(Color(250, 150, 100));
+	sfxBarFill.setPosition(450, 820);
+
+	Text sfxLabel("SFX Volume", font, 26);
+	sfxLabel.setFillColor(Color(180, 180, 180));
+	sfxLabel.setPosition(230, 805);
+
 	while (window.isOpen()) {
 		Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == Event::Closed) {
 				saveScores();
 				window.close();
-
 			}
 
 			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
@@ -1373,30 +2647,61 @@ void runSettings(RenderWindow& window) {
 
 			if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
 				Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
+
+
 				if (backButton.getGlobalBounds().contains(mousePos)) {
 					clickSound.play();
 					sleep(milliseconds(150));
 					return;
 				}
+
+
+				if (musicBarBack.getGlobalBounds().contains(mousePos)) {
+					float relX = mousePos.x - musicBarBack.getPosition().x;
+					relX = clamp(relX, 0.f, 300.f);
+					musicBarFill.setSize(Vector2f(relX, 10));
+					musicVolume = (relX / 300.f) * 100.f;
+					menuMusic.setVolume(musicVolume);
+				}
+
+
+				if (sfxBarBack.getGlobalBounds().contains(mousePos)) {
+					float relX = mousePos.x - sfxBarBack.getPosition().x;
+					relX = clamp(relX, 0.f, 300.f);
+					sfxBarFill.setSize(Vector2f(relX, 10));
+					sfxVolume = (relX / 300.f) * 100.f;
+					clickSound.setVolume(sfxVolume);
+					clickSound.play();
+				}
 			}
 		}
 
-
 		Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
-		if (backButton.getGlobalBounds().contains(mousePos))
-			backButton.setFillColor(Color(155, 35, 35, 255));
-		else
-			backButton.setFillColor(Color(135, 135, 135, 240));
+		backButton.setFillColor(
+			backButton.getGlobalBounds().contains(mousePos) ?
+			Color(155, 35, 35, 255) : Color(135, 135, 135, 240)
+		);
 
 		window.clear();
 		window.draw(backgroundSprite);
 		window.draw(logoSprite);
 		window.draw(title);
 		window.draw(controlsText);
+
+
+		window.draw(musicLabel);
+		window.draw(musicBarBack);
+		window.draw(musicBarFill);
+
+		window.draw(sfxLabel);
+		window.draw(sfxBarBack);
+		window.draw(sfxBarFill);
+
 		window.draw(backButton);
 		window.display();
 	}
 }
+
 
 
 void runCredits(RenderWindow& window) {
@@ -1427,6 +2732,7 @@ void runCredits(RenderWindow& window) {
 		cout << "Failed to load click sound.\n";
 	}
 	Sound clickSound(clickBuffer);
+	clickSound.setVolume(sfxVolume);
 
 	Text title;
 	title.setFont(font);
@@ -1437,7 +2743,7 @@ void runCredits(RenderWindow& window) {
 
 	Text creditsText;
 	creditsText.setFont(font);
-	creditsText.setString("Developed by\n\n   \tAdham Atef\n   \tAli Adel\n   \tHassan Alaa\n   \tHazem Ahmed\n   \tMichael Sameh\n   \tRawan Ahmed\n   \tHossam Ibrahim\n  \n\n Scripted and Directed by\n\n  \tHossam Ibrahim");
+	creditsText.setString("Developed by\n\n   \tAli Adel\n   \tAdham Atef\n   \tHossam Ibrahim\n   \tRawan Ahmed\n   \tHazem Ahmed\n   \tHassan Alaa\n   \tMichael Sameh\n  \n\n\tDirected by\n\n  \tHossam Ibrahim");
 	creditsText.setCharacterSize(30);
 	creditsText.setFillColor(Color(180, 180, 180));
 	creditsText.setPosition(150, 250);
@@ -1466,7 +2772,7 @@ void runCredits(RenderWindow& window) {
 				Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
 				if (backButton.getGlobalBounds().contains(mousePos)) {
 					clickSound.play();
-					sleep(milliseconds(150)); // wait for the sound
+					sleep(milliseconds(150));
 					return;
 				}
 			}
@@ -2207,7 +3513,7 @@ struct Weapon {
 		}
 
 		currentClipSize = clipSize;
-		reloadClipSize = clipSize * 14;
+		reloadClipSize = clipSize * 7;
 	}
 
 };
@@ -2367,6 +3673,7 @@ void gui_main_multiplayer() {
 	gui_multi[4].loadFromFile("imgs/gui/ammo.png");
 	gui_multi[5].loadFromFile("imgs/gui/hud.png");
 	gui_multi[6].loadFromFile("imgs/gui/knife.png");
+	gui_multi[7].loadFromFile("imgs/gui/dead.png");
 
 	// Original GUI elements initialization
 	for (int i = 0; i < 2; i++) {
@@ -2375,6 +3682,8 @@ void gui_main_multiplayer() {
 		rifle_gui_multi[i].setTexture(gui_multi[2]);
 		ammo_gui_multi[i].setTexture(gui_multi[4]);
 		knife_gui_multi[i].setTexture(gui_multi[6]);
+		dead_gui_multi[i].setTexture(gui_multi[7]);
+
 	}
 
 	// Initialize second player's GUI elements
@@ -2407,6 +3716,7 @@ void gui_main_multiplayer() {
 		rifle_gui_multi[i].setScale(2, 2);
 		shotgun_gui_multi[i].setScale(2, 2);
 		pistol_gui_multi[i].setScale(2, 2);
+		dead_gui_multi[i].setScale(2, 2);
 		ammo_gui_multi[i].setScale(2.2, 2.2);
 		knife_gui_multi[i].setScale(0.3, 0.3);
 		knife_gui_multi[i].setOrigin(knife_gui_multi[i].getLocalBounds().width / 2, knife_gui_multi[i].getLocalBounds().height / 2);
@@ -2449,13 +3759,13 @@ void gui_main_multiplayer() {
 
 int playerIndex = 0;
 
-
 struct PLAYER {
 
 	int id;
 
 	bool secondplayer = false;
-	Vector2f lastAimDir = Vector2f(1.f, 0.f); ;
+	Vector2f lastAimDir = Vector2f(1.f, 0.f);
+	Vector2f crosshairPos;
 
 
 	float  FRAME_WIDTH = 280.0f;
@@ -2872,27 +4182,7 @@ struct PLAYER {
 				}
 
 				Vector2f playerPos = shape.getPosition();
-				Vector2f crosshairPos;
-
-				float stickX = Joystick::getAxisPosition(0, Joystick::U);
-				float stickY = Joystick::getAxisPosition(0, Joystick::V);
-				const float deadzone = 15.0f;
-
-				float maxDistance = 300.0f;
-				float normX = stickX / 100.0f;
-				float normY = stickY / 100.0f;
-
-				if (abs(stickX) > deadzone || abs(stickY) > deadzone) {
-					float length = sqrt(normX * normX + normY * normY);
-					if (length > 1.0f) {
-						normX /= length;
-						normY /= length;
-					}
-					lastAimDir = Vector2f(normX, normY);
-				}
 				float angle = atan2f(lastAimDir.y, lastAimDir.x) * 180.f / PI;
-				Vector2f offset(lastAimDir.x * maxDistance, lastAimDir.y * maxDistance);
-				crosshairPos = shape.getPosition() + offset;
 
 				if (currentWeapon[currentWeaponindex].currentClipSize > 0) {
 					if (currentWeapon[currentWeaponindex].id == SHOTGUN || currentWeapon[currentWeaponindex].id == PLASMA_SHOTGUN) { // Shotgun
@@ -3104,7 +4394,6 @@ struct PLAYER {
 		if (secondplayer)
 		{
 
-			Vector2f crosshairPos;
 			float stickX = Joystick::getAxisPosition(0, Joystick::U);
 			float stickY = Joystick::getAxisPosition(0, Joystick::V);
 			const float deadzone = 15.0f;
@@ -3118,12 +4407,12 @@ struct PLAYER {
 					normX /= length;
 					normY /= length;
 				}
-				Vector2f offset(normX * maxDistance, normY * maxDistance);
+				lastAimDir = Vector2f(normX, normY);
+				Vector2f offset(lastAimDir.x * maxDistance, lastAimDir.y * maxDistance);
 				crosshairPos = shape.getPosition() + offset;
-				crosshair.mousePosSetter(crosshairPos);
-				playerMouse(crosshairPos);
 			}
-
+			crosshair.mousePosSetter(crosshairPos);
+			playerMouse(crosshairPos);
 
 			if (isBursting) {
 				float now = fireClock.getElapsedTime().asSeconds();
@@ -3167,6 +4456,7 @@ struct PLAYER {
 
 
 };
+
 
 void gui_game_loop(vector<PLAYER>& playersArr, RenderWindow& window, bool mission_is_on, bool isRush, int mission1_zombies_counter) {
 	score.setString("Score: " + to_string(score_));
@@ -3309,6 +4599,8 @@ void gui_draw(bool mission_is_on, bool isRush, RenderWindow& window, vector<PLAY
 
 
 }
+
+
 void gui_game_loop_multiplayer(vector<PLAYER>& playersArr, RenderWindow& window, bool mission_is_on, bool isRush, int mission1_zombies_counter) {
 	score.setString("Score: " + to_string(score_));
 
@@ -3374,7 +4666,7 @@ void gui_game_loop_multiplayer(vector<PLAYER>& playersArr, RenderWindow& window,
 		hud_gui_p2[0].setPosition(viewCenter.x + viewSize.x / 2 - 180, viewCenter.y - viewSize.y / 2 + 10);
 		hp_gui_p2.setPosition(viewCenter.x + viewSize.x / 2 - 155, viewCenter.y - viewSize.y / 2 + 20);
 		health_percentage_p2.setString((playersArr[1].isDead ? "0 %" :
-			to_string((int)(playersArr[0].health * 100) / 150) + " %"));
+			to_string((int)(playersArr[1].health * 100) / 150) + " %"));
 		health_percentage_p2.setPosition(viewCenter.x + viewSize.x / 2 - 115, viewCenter.y - viewSize.y / 2 + 13);
 	}
 	else {
@@ -3396,6 +4688,9 @@ void gui_game_loop_multiplayer(vector<PLAYER>& playersArr, RenderWindow& window,
 
 	pistol_gui_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 220, viewCenter.y - viewSize.y / 2 + 0);  //Pistol
 	pistol_gui_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 1550, viewCenter.y - viewSize.y / 2 + 0);  //Pistol player 2
+
+	dead_gui_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 220, viewCenter.y - viewSize.y / 2 + 0);  //Pistol
+	dead_gui_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 1550, viewCenter.y - viewSize.y / 2 + 0);  //Pistol player 2
 
 	ammo_in_clip_multi[0].setPosition(viewCenter.x - viewSize.x / 2 + 420, viewCenter.y - viewSize.y / 2 + 57);  //ammo left
 	ammo_in_clip_multi[1].setPosition(viewCenter.x - viewSize.x / 2 + 1420, viewCenter.y - viewSize.y / 2 + 57);  //ammo left player 2
@@ -3423,27 +4718,29 @@ void gui_draw_multiplayer(bool mission_is_on, RenderWindow& window, const vector
 
 	// Draw player 1 GUI
 
-	for (int i = 0; i < 3; i++)
-	{
-		window.draw(hud_gui_multi[i]);
-
-	}
-	for (int i = 0; i < 2; i++)
-	{
-		window.draw(hud_gui_p2[i]);
-
-	}
+	window.draw(hud_gui_multi[1]);
 	if (!playersArr.empty()) {
-		window.draw(hp_gui_multi);
-		window.draw(health_percentage);
+		if (!playersArr[0].isDead) {
+
+			window.draw(hud_gui_multi[0]);
+			window.draw(hud_gui_multi[2]);
+			window.draw(hp_gui_multi);
+			window.draw(health_percentage);
+		}
 	}
 
-	// Draw player 2 GUI if exists
 	if (isGameEntered && playersArr.size() > 1) {
+		if (!playersArr[1].isDead) {
+			for (int i = 0; i < 2; i++)
+			{
+				window.draw(hud_gui_p2[i]);
+				window.draw(hp_gui_p2);
+				window.draw(health_percentage_p2);
 
-		window.draw(hp_gui_p2);
-		window.draw(health_percentage_p2);
+			}
+		}
 	}
+
 
 	// Draw mission-specific elements
 	if (rush) {
@@ -3459,9 +4756,11 @@ void gui_draw_multiplayer(bool mission_is_on, RenderWindow& window, const vector
 	}
 	if (!playersArr.empty())
 	{
+		if (playersArr[0].isDead) {
+			
+		}
 
-
-		if ((playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 2 ||
+		else if ((playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 2 ||
 			playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 3 ||
 			playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 4 ||
 			playersArr[0].currentWeapon[playersArr[0].currentWeaponindex].id == 7))   //////RIFLE
@@ -3503,7 +4802,9 @@ void gui_draw_multiplayer(bool mission_is_on, RenderWindow& window, const vector
 
 		}
 		if (playersArr.size() > 1) {
-			if (playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 2 ||
+			if (playersArr[1].isDead) {
+			}
+			else if (playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 2 ||
 				playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 3 ||
 				playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 4 ||
 				playersArr[1].currentWeapon[playersArr[1].currentWeaponindex].id == 7)  //////RIFLE
@@ -4067,7 +5368,6 @@ struct planes
 
 void playersAvoidOtherZombies(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr) {
 	for (int i = 0; i < playersArr.size(); ++i) {
-		if (playersArr[i].isDead) continue;
 		Vector2f playerPos = playersArr[i].shape.getPosition();
 
 		for (int j = 0; j < zombiesArr.size(); ++j) {
@@ -4242,7 +5542,6 @@ void drawEntities(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, Render
 	}
 }
 
-
 const int MAX_LINES = 5;
 const int MAX_PARTS = 5;
 
@@ -4305,7 +5604,7 @@ struct Beachlevel {
 	float dt;
 	bool missionComplete = false;
 
-	CircleShape brokenumbrella, playercollider[2];
+	CircleShape brokenumbrella, playercollider;
 
 	Clock zombieSpawn;
 
@@ -4371,7 +5670,10 @@ struct Beachlevel {
 	Beachlevel(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window)
 
 	{
+
 		isTryingAgain = tryAgain;
+		if (isStoryOn) runBeachScene(window);
+
 
 		if (!font.loadFromFile("tag.ttf")) {
 			cout << "Failed to load font.\n";
@@ -4385,6 +5687,7 @@ struct Beachlevel {
 		}
 		music.setLoop(true);
 		music.play();
+		music.setVolume(musicVolume);
 
 		skipText.setFont(font);
 		skipText.setCharacterSize(24);
@@ -4398,7 +5701,7 @@ struct Beachlevel {
 			lines[i].setPosition(130, 250 + i * 100);
 		}
 
-		fade.setSize(Vector2f(1280, 720));
+		fade.setSize(Vector2f(1920, 1080));
 		fade.setFillColor(Color(0, 0, 0, static_cast<Uint8>(fadeAlpha)));
 
 
@@ -4434,8 +5737,7 @@ struct Beachlevel {
 
 		brokenumbrella.setRadius(70);
 
-		playercollider[0].setRadius(40);
-		playercollider[1].setRadius(40);
+		playercollider.setRadius(40);
 
 		for (int i = 0; i < 5; i++)
 
@@ -4592,7 +5894,7 @@ struct Beachlevel {
 
 		{
 
-			playercollider[i].setPosition(playersArr[i].shape.getPosition().x - 40, playersArr[i].shape.getPosition().y - 37);
+			playercollider.setPosition(playersArr[i].shape.getPosition().x - 40, playersArr[i].shape.getPosition().y - 37);
 
 		}
 
@@ -4760,90 +6062,12 @@ struct Beachlevel {
 			for (int i = 0; i < 9; i++) //////////////////////////////////////////////////////////loop for the player
 
 			{
-				for (int j = 0; j < playersArr.size(); j++) {
 
-					FloatRect Player_Bounds = playercollider[j].getGlobalBounds(); //player bounding box
-
-					FloatRect intersection; //intersection area
-
-					FloatRect Wall_bound = shapes[i].getGlobalBounds(); //intersected object
-
-					if (Player_Bounds.intersects(Wall_bound))
-
-					{
-
-
-
-						Player_Bounds.intersects(Wall_bound, intersection);
-
-						// left/right
-
-						if (intersection.width < intersection.height)
-
-						{
-
-							//right collision
-
-							if (Player_Bounds.left < Wall_bound.left)
-
-							{
-
-								playersArr[j].shape.move(-playersArr[j].speed, 0);
-
-							}
-
-							//left collision
-
-							else
-
-							{
-
-								playersArr[j].shape.move(playersArr[j].speed, 0);
-
-							}
-
-						}
-
-						// up/down
-
-						else
-
-						{
-
-							//down collision
-
-							if (Player_Bounds.top < Wall_bound.top)
-
-							{
-
-								playersArr[j].shape.move(0, -playersArr[j].speed);
-
-							}
-
-							//up collision
-
-							else
-
-							{
-
-								playersArr[j].shape.move(0, playersArr[j].speed);
-
-							}
-
-						}
-
-					}
-				}
-
-			}
-
-
-			for (int k = 0; k < playersArr.size(); k++) {
-				FloatRect Player_Bounds = playercollider[k].getGlobalBounds(); //player bounding box
+				FloatRect Player_Bounds = playercollider.getGlobalBounds(); //player bounding box
 
 				FloatRect intersection; //intersection area
 
-				FloatRect Wall_bound = brokenumbrella.getGlobalBounds(); //intersected object
+				FloatRect Wall_bound = shapes[i].getGlobalBounds(); //intersected object
 
 				if (Player_Bounds.intersects(Wall_bound))
 
@@ -4865,7 +6089,7 @@ struct Beachlevel {
 
 						{
 
-							playersArr[k].shape.move(-playersArr[k].speed, 0);
+							playersArr[0].shape.move(-playersArr[0].speed, 0);
 
 						}
 
@@ -4875,7 +6099,7 @@ struct Beachlevel {
 
 						{
 
-							playersArr[k].shape.move(playersArr[k].speed, 0);
+							playersArr[0].shape.move(playersArr[0].speed, 0);
 
 						}
 
@@ -4893,7 +6117,7 @@ struct Beachlevel {
 
 						{
 
-							playersArr[k].shape.move(0, -playersArr[k].speed);
+							playersArr[0].shape.move(0, -playersArr[0].speed);
 
 						}
 
@@ -4903,13 +6127,88 @@ struct Beachlevel {
 
 						{
 
-							playersArr[k].shape.move(0, playersArr[k].speed);
+							playersArr[0].shape.move(0, playersArr[0].speed);
 
 						}
 
 					}
 
 				}
+
+			}
+
+
+
+			FloatRect Player_Bounds = playercollider.getGlobalBounds(); //player bounding box
+
+			FloatRect intersection; //intersection area
+
+			FloatRect Wall_bound = brokenumbrella.getGlobalBounds(); //intersected object
+
+			if (Player_Bounds.intersects(Wall_bound))
+
+			{
+
+
+
+				Player_Bounds.intersects(Wall_bound, intersection);
+
+				// left/right
+
+				if (intersection.width < intersection.height)
+
+				{
+
+					//right collision
+
+					if (Player_Bounds.left < Wall_bound.left)
+
+					{
+
+						playersArr[0].shape.move(-playersArr[0].speed, 0);
+
+					}
+
+					//left collision
+
+					else
+
+					{
+
+						playersArr[0].shape.move(playersArr[0].speed, 0);
+
+					}
+
+				}
+
+				// up/down
+
+				else
+
+				{
+
+					//down collision
+
+					if (Player_Bounds.top < Wall_bound.top)
+
+					{
+
+						playersArr[0].shape.move(0, -playersArr[0].speed);
+
+					}
+
+					//up collision
+
+					else
+
+					{
+
+						playersArr[0].shape.move(0, playersArr[0].speed);
+
+					}
+
+				}
+
 			}
 
 		}
@@ -4925,13 +6224,21 @@ struct Beachlevel {
 		dt = deltaClock.restart().asSeconds();
 
 		if (isTryingAgain) {
+
 			sceneSkipped = true;
+
 			fadingOut = true;
+
 			music.stop();
+
 			for (int i = 0; i < MAX_LINES; ++i) {
+
 				lines[i].setString("");
+
 			}
+
 			isStoryOn = false;
+
 		}
 
 		if (isStoryOn) {
@@ -4940,6 +6247,7 @@ struct Beachlevel {
 				sceneSkipped = true;
 				fadingOut = true;
 				music.stop();
+				// Clear all text immediately when skipped
 				for (int i = 0; i < MAX_LINES; ++i) {
 					lines[i].setString("");
 				}
@@ -6416,7 +7724,7 @@ struct Army {
 		armycampdead.setOrigin(armycampdead.getLocalBounds().width / 2, armycampdead.getLocalBounds().height / 2);
 		armycampdead.setPosition(960, 540);
 		armycampdead.setScale(2, 2);
-		font.loadFromFile("img/Caliste.ttf");
+		//font.loadFromFile("img/Caliste.ttf");
 		score.setFont(font);
 		score.setCharacterSize(50);
 
@@ -8037,7 +9345,7 @@ struct Mission4 {
 		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, totalZombieKilled, true);
 		updateBullets(dt);
 
-		if (totalZombieKilled <= 98) {
+		if (totalZombieKilled <= 0) {
 			missionComplete = true;
 		}
 
@@ -8123,20 +9431,35 @@ struct Mission4 {
 		if (!playersArr.empty())
 		{
 			for (int i = 0; i < playersArr.size(); i++) {
+
 				if (playersArr[0].shape.getPosition().y <= 30) // check for top border
+
 				{
+
 					playersArr[0].shape.move(0, speed);
+
 				}
+
 				if (playersArr[0].shape.getPosition().y >= 1050) //check for bottom border
+
 				{
+
 					playersArr[0].shape.move(0, -speed);
+
 				}if (playersArr[0].shape.getPosition().x <= 30) //check for left border
+
 				{
+
 					playersArr[0].shape.move(speed, 0);
+
 				}
+
 				if (playersArr[0].shape.getPosition().x >= 1900) //check for right border
+
 				{
+
 					playersArr[0].shape.move(-speed, 0);
+
 				}
 			}
 		}
@@ -8184,6 +9507,7 @@ struct BeachRush {
 	const float initialSpawnTime = 3.0f;
 	const float minSpawnTime = 0.5f;
 
+
 	int getRandomOutsideRange_x() {
 
 		int left = rand() % 500 - 500;      // -500 to -1
@@ -8213,8 +9537,10 @@ struct BeachRush {
 		return left;
 
 	}
+
 	BeachRush(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+
 		// Spawn initial zombies randomly on the edges
 
 
@@ -9862,9 +11188,7 @@ struct BeachRushMulti {
 
 	};
 };
-/*
 struct DesertroadRushMulti {
-	int score = 0;
 	bool missionComplete = false;
 	Clock deltaClock;
 	Clock zombieDeathTimer;
@@ -9890,8 +11214,9 @@ struct DesertroadRushMulti {
 
 
 	DesertroadRushMulti(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
-
+		playersArr.push_back(PLAYER(1920 / 4, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr.push_back(PLAYER(1920 / 6, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr[1].secondplayer = true;
 
 
 		backgroundDesertRoadSprite.setTexture(backgroundDesertRoad);
@@ -9915,15 +11240,11 @@ struct DesertroadRushMulti {
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 
 
-		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score, playerName);
-			cout << score << endl;
-			isSaved = true;
-		}
+		
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, -1, true, true, true);
 		updateBullets(dt);
 
 
@@ -10024,11 +11345,11 @@ struct DesertroadRushMulti {
 				playersArr[0].shape.move(-playersArr[0].speed, 0);
 			for (int i = 0; i < zombiesArr.size(); i++) {
 				if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-					if (doubleScore) {
-						score += (2 * zombiesArr[i].ScoreShouldBe);
+					if (playersArr[zombiesArr[i].lastBulletID].doubleScore) {
+						playersArr[zombiesArr[i].lastBulletID].score += (2 * zombiesArr[i].ScoreShouldBe);
 					}
 					else {
-						score += zombiesArr[i].ScoreShouldBe;
+						playersArr[zombiesArr[i].lastBulletID].score += zombiesArr[i].ScoreShouldBe;
 					}
 					zombiesArr[i].isDeadCounter = true;
 					if ((rand() % 100) + 1 <= 20) {
@@ -10036,13 +11357,15 @@ struct DesertroadRushMulti {
 					}
 
 				}
+				score_ = playersArr[0].score;
+				score_2 = playersArr[1].score;
 			}
 		}
 
 	};
 	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		window.draw(backgroundDesertRoadSprite);
-		drawEntities(playersArr, zombiesArr, window, true, true);
+		drawEntities(playersArr, zombiesArr, window, true, true,true);
 
 	};
 };
@@ -10063,7 +11386,6 @@ struct CityRushMulti {
 	float zombieSpawnTime = 3.0f; // Will decrease over time
 	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
 
-	int score = 0;
 	bool isSaved = false;
 	int mapWidth = 1920; // width of background
 	int mapHeight = 1080; // height of background
@@ -10097,22 +11419,19 @@ struct CityRushMulti {
 	}
 
 	CityRushMulti(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
-
+		playersArr.push_back(PLAYER(1920 / 4, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr.push_back(PLAYER(1920 / 6, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr[1].secondplayer = true;
 		map.init(buildingTexture);
 		traffic.init(cara, carb);
 	}
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score, playerName);
-			cout << score << endl;
-			isSaved = true;
-		}
+		
 
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, -1, true, true,true);
 		updateBullets(dt);
 
 		if (!playersArr.empty()) {
@@ -10198,11 +11517,11 @@ struct CityRushMulti {
 		}
 		for (int i = 0; i < zombiesArr.size(); i++) {
 			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-				if (doubleScore) {
-					score += (2 * zombiesArr[i].ScoreShouldBe);
+				if (playersArr[zombiesArr[i].lastBulletID].doubleScore) {
+					playersArr[zombiesArr[i].lastBulletID].score += (2 * zombiesArr[i].ScoreShouldBe);
 				}
 				else {
-					score += zombiesArr[i].ScoreShouldBe;
+					playersArr[zombiesArr[i].lastBulletID].score += zombiesArr[i].ScoreShouldBe;
 				}
 				zombiesArr[i].isDeadCounter = true;
 				if ((rand() % 100) + 1 <= 20) {
@@ -10210,6 +11529,8 @@ struct CityRushMulti {
 				}
 
 			}
+			score_ = playersArr[0].score;
+			score_2 = playersArr[1].score;
 		}
 
 		if (zombieSpawnClock.getElapsedTime().asSeconds() >= zombie_respawntime &&
@@ -10416,7 +11737,7 @@ struct CityRushMulti {
 		draw_background(window, back_ground, 1000, 0);
 		traffic.drawCars(window);
 		map.drawBuildings(window);
-		drawEntities(playersArr, zombiesArr, window, true, true);
+		drawEntities(playersArr, zombiesArr, window, true, true,true);
 
 	}
 };
@@ -10424,7 +11745,6 @@ struct WoodsRushMulti {
 	Clock deltaClock;
 	Clock zombieDeathTimer;
 	float dt;
-	int score = 0;
 	int mission1_zombies_counter = 0;
 	bool missionComplete = false;
 	Clock Timer;
@@ -10469,8 +11789,9 @@ struct WoodsRushMulti {
 	}
 
 	WoodsRushMulti(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
-		backgroundWoods.setTexture(woodsBackgroundTexture);
+		playersArr.push_back(PLAYER(1920 / 4, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr.push_back(PLAYER(1920 / 6, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr[1].secondplayer = true;		backgroundWoods.setTexture(woodsBackgroundTexture);
 		backgroundWoods.setScale(
 			(float)mapWidth / woodsBackgroundTexture.getSize().x,
 			(float)mapHeight / woodsBackgroundTexture.getSize().y
@@ -10478,16 +11799,12 @@ struct WoodsRushMulti {
 
 	}
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score, playerName);
-			cout << score << endl;
-			isSaved = true;
-		}
+		
 
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, -1, true, true,true);
 		updateBullets(dt);
 
 		if (!playersArr.empty()) {
@@ -10573,11 +11890,11 @@ struct WoodsRushMulti {
 		}
 		for (int i = 0; i < zombiesArr.size(); i++) {
 			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-				if (doubleScore) {
-					score += (2 * zombiesArr[i].ScoreShouldBe);
+				if (playersArr[zombiesArr[i].lastBulletID].doubleScore) {
+					playersArr[zombiesArr[i].lastBulletID].score += (2 * zombiesArr[i].ScoreShouldBe);
 				}
 				else {
-					score += zombiesArr[i].ScoreShouldBe;
+					playersArr[zombiesArr[i].lastBulletID].score += zombiesArr[i].ScoreShouldBe;
 				}
 				zombiesArr[i].isDeadCounter = true;
 				if ((rand() % 100) + 1 <= 20) {
@@ -10585,12 +11902,15 @@ struct WoodsRushMulti {
 				}
 
 			}
+			score_ = playersArr[0].score;
+			score_2 = playersArr[1].score;
+		
 		}
 
 	}
 	void draw(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
 		window.draw(backgroundWoods);
-		drawEntities(playersArr, zombiesArr, window, true, true);
+		drawEntities(playersArr, zombiesArr, window, true, true,true);
 
 	};
 };
@@ -10600,7 +11920,6 @@ struct ArmyRushMulti {
 	float dt;
 	int mission1_zombies_counter = 0;
 	bool missionComplete = false;
-	int score = 0;
 	bool isSaved = false;
 	float zombieSpawnTime = 3.0f; // Will decrease over time
 	const float spawnRampDuration = 120.0f; // Time to reach fastest spawn rate
@@ -10653,8 +11972,9 @@ struct ArmyRushMulti {
 	const float initialSpawnTime = 3.0f;
 	const float minSpawnTime = 0.5f;
 	ArmyRushMulti(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		playersArr.push_back(PLAYER(1920 / 2, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
-
+		playersArr.push_back(PLAYER(1920 / 4, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr.push_back(PLAYER(1920 / 6, 1080 / 2, PISTOL, PISTOL, RIFLE, SINGLE_RIFLE, 1, window, 0.35, 0.35, true));
+		playersArr[1].secondplayer = true;
 
 		armycampdead.setTexture(armycampdeadTexture);
 		armycampdead.setOrigin(armycampdead.getLocalBounds().width / 2, armycampdead.getLocalBounds().height / 2);
@@ -10722,17 +12042,12 @@ struct ArmyRushMulti {
 	}
 
 	void update(vector<PLAYER>& playersArr, vector<ZOMBIE>& zombiesArr, RenderWindow& window) {
-		cout << score << endl;
-		if (playersArr.empty() && !isSaved) {
-			addScoreIfHigh(score, playerName);
-			cout << score << endl;
-			isSaved = true;
-		}
+		
 
 		dt = deltaClock.restart().asSeconds();
 		View view(window.getDefaultView());
 
-		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, score, true, true);
+		updateEntities(playersArr, zombiesArr, bullets, zombieDeathTimer, window, -1, true, true,true);
 		updateBullets(dt);
 
 		if (!playersArr.empty()) {
@@ -10818,11 +12133,11 @@ struct ArmyRushMulti {
 		}
 		for (int i = 0; i < zombiesArr.size(); i++) {
 			if (zombiesArr[i].health <= 0 && !zombiesArr[i].isDeadCounter) {
-				if (doubleScore) {
-					score += (2 * zombiesArr[i].ScoreShouldBe);
+				if (playersArr[zombiesArr[i].lastBulletID].doubleScore) {
+					playersArr[zombiesArr[i].lastBulletID].score += (2 * zombiesArr[i].ScoreShouldBe);
 				}
 				else {
-					score += zombiesArr[i].ScoreShouldBe;
+					playersArr[zombiesArr[i].lastBulletID].score += zombiesArr[i].ScoreShouldBe;
 				}
 				zombiesArr[i].isDeadCounter = true;
 				if ((rand() % 100) + 1 <= 20) {
@@ -10830,6 +12145,8 @@ struct ArmyRushMulti {
 				}
 
 			}
+			score_ = playersArr[0].score;
+			score_2 = playersArr[1].score;
 		}
 
 		int zombie_speed = 4;
@@ -11122,11 +12439,12 @@ struct ArmyRushMulti {
 		window.draw(tentSprite);
 		window.draw(tankSprite1);
 		window.draw(tankSprite2);
-		drawEntities(playersArr, zombiesArr, window, true, true);
+		drawEntities(playersArr, zombiesArr, window, true, true,true);
 
 	}
 };
-*/
+
+
 
 
 
@@ -11188,11 +12506,24 @@ struct levelHandler {
 			currentLevel = new CityRush(playersArr, zombiesArr, window);
 			break;
 		case 16:
-			currentLevel = new BeachRushMulti(playersArr, zombiesArr, window);
+			currentLevel = new ArmyRush(playersArr, zombiesArr, window);
 			break;
 		case 17:
 			currentLevel = new BeachRushMulti(playersArr, zombiesArr, window);
 			break;
+		case 18:
+			currentLevel = new DesertroadRushMulti(playersArr, zombiesArr, window);
+			break;
+		case 19:
+			currentLevel = new WoodsRushMulti(playersArr, zombiesArr, window);
+			break;
+		case 20:
+			currentLevel = new CityRushMulti(playersArr, zombiesArr, window);
+			break;
+		case 21:
+			currentLevel = new ArmyRushMulti(playersArr, zombiesArr, window);
+			break;
+
 		}
 
 	}
@@ -11248,10 +12579,22 @@ struct levelHandler {
 			((CityRush*)currentLevel)->update(playersArr, zombiesArr, window);
 			break;
 		case 16:
-			((BeachRushMulti*)currentLevel)->update(playersArr, zombiesArr, window);
+			((ArmyRush*)currentLevel)->update(playersArr, zombiesArr, window);
 			break;
 		case 17:
 			((BeachRushMulti*)currentLevel)->update(playersArr, zombiesArr, window);
+			break;
+		case 18:
+			((DesertroadRushMulti*)currentLevel)->update(playersArr, zombiesArr, window);
+			break;
+		case 19:
+			((WoodsRushMulti*)currentLevel)->update(playersArr, zombiesArr, window);
+			break;
+		case 20:
+			((CityRushMulti*)currentLevel)->update(playersArr, zombiesArr, window);
+			break;
+		case 21:
+			((ArmyRushMulti*)currentLevel)->update(playersArr, zombiesArr, window);
 			break;
 		}
 
@@ -11275,8 +12618,12 @@ struct levelHandler {
 		case 13: return ((DesertroadRush*)currentLevel)->missionComplete;
 		case 14: return ((WoodsRush*)currentLevel)->missionComplete;
 		case 15: return ((CityRush*)currentLevel)->missionComplete;
-		case 16: return ((BeachRushMulti*)currentLevel)->missionComplete;
+		case 16: return ((ArmyRush*)currentLevel)->missionComplete;
 		case 17: return ((BeachRushMulti*)currentLevel)->missionComplete;
+		case 18: return ((DesertroadRushMulti*)currentLevel)->missionComplete;
+		case 19: return ((WoodsRushMulti*)currentLevel)->missionComplete;
+		case 20: return ((CityRushMulti*)currentLevel)->missionComplete;
+		case 21: return ((ArmyRushMulti*)currentLevel)->missionComplete;
 		default: return false;
 		}
 	}
@@ -11299,8 +12646,12 @@ struct levelHandler {
 		case 13: ((DesertroadRush*)currentLevel)->missionComplete = value; break;
 		case 14: ((WoodsRush*)currentLevel)->missionComplete = value; break;
 		case 15: ((CityRush*)currentLevel)->missionComplete = value; break;
-		case 16: ((BeachRushMulti*)currentLevel)->missionComplete = value; break;
+		case 16: ((ArmyRush*)currentLevel)->missionComplete = value; break;
 		case 17: ((BeachRushMulti*)currentLevel)->missionComplete = value; break;
+		case 18: ((DesertroadRushMulti*)currentLevel)->missionComplete = value; break;
+		case 19: ((WoodsRushMulti*)currentLevel)->missionComplete = value; break;
+		case 20: ((CityRushMulti*)currentLevel)->missionComplete = value; break;
+		case 21: ((ArmyRushMulti*)currentLevel)->missionComplete = value; break;
 		}
 	}
 
@@ -11356,10 +12707,22 @@ struct levelHandler {
 			((CityRush*)currentLevel)->draw(playersArr, zombiesArr, window);
 			break;
 		case 16:
-			((BeachRushMulti*)currentLevel)->draw(playersArr, zombiesArr, window);
+			((ArmyRush*)currentLevel)->draw(playersArr, zombiesArr, window);
 			break;
 		case 17:
 			((BeachRushMulti*)currentLevel)->draw(playersArr, zombiesArr, window);
+			break;
+		case 18:
+			((DesertroadRushMulti*)currentLevel)->draw(playersArr, zombiesArr, window);
+			break;
+		case 19:
+			((WoodsRushMulti*)currentLevel)->draw(playersArr, zombiesArr, window);
+			break;
+		case 20:
+			((CityRushMulti*)currentLevel)->draw(playersArr, zombiesArr, window);
+			break;
+		case 21:
+			((ArmyRushMulti*)currentLevel)->draw(playersArr, zombiesArr, window);
 			break;
 		}
 	}
@@ -11385,8 +12748,12 @@ struct levelHandler {
 		case 13: delete (DesertroadRush*)currentLevel; break;
 		case 14: delete (WoodsRush*)currentLevel; break;
 		case 15: delete (CityRush*)currentLevel; break;
-		case 16: delete (BeachRushMulti*)currentLevel; break;
+		case 16: delete (ArmyRush*)currentLevel; break;
 		case 17: delete (BeachRushMulti*)currentLevel; break;
+		case 18: delete (DesertroadRushMulti*)currentLevel; break;
+		case 19: delete (WoodsRushMulti*)currentLevel; break;
+		case 20: delete (CityRushMulti*)currentLevel; break;
+		case 21: delete (ArmyRushMulti*)currentLevel; break;
 		default: break;
 		}
 
@@ -11649,20 +13016,88 @@ String youdead(RenderWindow& window, Event& event, Font& font, int currentLevelI
 
 
 
-//you win menu
 String youwin(RenderWindow& window, Event& event, Font& font, int currentLevelId)
 {
 	View currentView = window.getView();
 	Vector2f viewCenter = currentView.getCenter();
 	Vector2f viewSize = currentView.getSize();
 
+	Clock clock;
+
+	// Load Textures
 	Texture backgroundTexture;
-	if (!backgroundTexture.loadFromFile("imgs/pause/main3.jpg")) {
-		return "error";
-	}
+	if (!backgroundTexture.loadFromFile("imgs/pause/main3.jpg")) return "error";
+	Texture wordTexture;
+	if (!wordTexture.loadFromFile("imgs/pause/word.png")) return "error";
+	Texture starTexture;
+	if (!starTexture.loadFromFile("imgs/pause/star.png")) return "error";
+
+	// Background
 	Sprite backgroundSprite(backgroundTexture);
 	backgroundSprite.setScale(4.25f, 4.25f);
 	backgroundSprite.setPosition(viewCenter.x - viewSize.x / 2.f, viewCenter.y - viewSize.y / 2.f);
+
+	// Win Word
+	Sprite wordSprite(wordTexture);
+	wordSprite.setScale(2.0f, 2.0f);
+	wordSprite.setOrigin(wordSprite.getLocalBounds().width / 2.f, wordSprite.getLocalBounds().height / 2.f);
+	wordSprite.setPosition(viewCenter.x, viewCenter.y - 150.f);
+
+	// Middle stars animation
+	const int starCount = 5;
+	Sprite stars[starCount], glows[starCount];
+	Vector2f basePositions[starCount];
+	float spacing = 135.f;
+	float startX = viewCenter.x - ((starCount - 1) * spacing) / 2.f;
+
+	for (int i = 0; i < starCount; ++i) {
+		stars[i].setTexture(starTexture);
+		stars[i].setScale(1.5f, 1.5f);
+		stars[i].setOrigin(stars[i].getLocalBounds().width / 2.f, stars[i].getLocalBounds().height / 2.f);
+		stars[i].setPosition(startX + i * spacing, viewCenter.y - 20.f);
+		basePositions[i] = stars[i].getPosition();
+
+		glows[i] = stars[i];
+		glows[i].setScale(1.8f, 1.8f);
+		glows[i].setColor(Color(255, 255, 0, 100));
+	}
+
+	// Side stars (disappear/appear)
+	const int sideStarCount = 6;
+	Sprite sideStarsLeft[sideStarCount], sideGlowsLeft[sideStarCount];
+	Sprite sideStarsRight[sideStarCount], sideGlowsRight[sideStarCount];
+	Vector2f sideBasePositionsLeft[sideStarCount], sideBasePositionsRight[sideStarCount];
+
+	float verticalSpacing = 100.f;
+	float startY = viewCenter.y - ((sideStarCount - 1) * verticalSpacing) / 2.f;
+	float sideXRight = viewCenter.x + viewSize.x / 2.f - 70.f;
+	float sideXLeft = viewCenter.x - viewSize.x / 2.f + 70.f;
+
+	for (int i = 0; i < sideStarCount; ++i) {
+		// Right stars
+		sideStarsRight[i].setTexture(starTexture);
+		sideStarsRight[i].setScale(1.5f, 1.5f);
+		sideStarsRight[i].setOrigin(sideStarsRight[i].getLocalBounds().width / 2.f, sideStarsRight[i].getLocalBounds().height / 2.f);
+		sideStarsRight[i].setPosition(sideXRight, startY + i * verticalSpacing);
+		sideBasePositionsRight[i] = sideStarsRight[i].getPosition();
+
+		sideGlowsRight[i] = sideStarsRight[i];
+		sideGlowsRight[i].setScale(1.6f, 1.6f);
+		sideGlowsRight[i].setColor(Color(255, 255, 0, 100));
+
+		// Left stars
+		sideStarsLeft[i].setTexture(starTexture);
+		sideStarsLeft[i].setScale(1.5f, 1.5f);
+		sideStarsLeft[i].setOrigin(sideStarsLeft[i].getLocalBounds().width / 2.f, sideStarsLeft[i].getLocalBounds().height / 2.f);
+		sideStarsLeft[i].setPosition(sideXLeft, startY + i * verticalSpacing);
+		sideBasePositionsLeft[i] = sideStarsLeft[i].getPosition();
+
+		sideGlowsLeft[i] = sideStarsLeft[i];
+		sideGlowsLeft[i].setScale(1.6f, 1.6f);
+		sideGlowsLeft[i].setColor(Color(255, 255, 0, 100));
+	}
+
+	// Buttons
 	Text nextlevelText("Next Level", font, 48);
 	nextlevelText.setFillColor(Color::Black);
 	FloatRect tryBounds = nextlevelText.getLocalBounds();
@@ -11680,48 +13115,37 @@ String youwin(RenderWindow& window, Event& event, Font& font, int currentLevelId
 	backBox.setOrigin(backBox.getSize() / 2.f);
 	backText.setOrigin(backBounds.left + backBounds.width / 2.f, backBounds.top + backBounds.height / 2.f);
 
-	float centerX = window.getSize().x / 2.f;
-	float centerY = window.getSize().y / 2.f;
-	float spacingBetweenButtons = 90.f;
 
-	float totalWidth = nextlevelBox.getSize().x + backBox.getSize().x + spacingBetweenButtons;
-
-	nextlevelBox.setPosition(viewCenter.x - viewSize.x / 2 + centerX - (totalWidth / 2.f) + (nextlevelBox.getSize().x / 2.f), viewCenter.y - viewSize.y / 2 + centerY);
+	float centerX = viewCenter.x;
+	float centerY = viewCenter.y;
+	float buttonSpacing = 90.f;
+	float buttonsTotalWidth = nextlevelBox.getSize().x + backBox.getSize().x + buttonSpacing;
+	nextlevelBox.setPosition(centerX - (buttonsTotalWidth / 2.f) + (nextlevelBox.getSize().x / 2.f), centerY + 120.f);
 	nextlevelText.setPosition(nextlevelBox.getPosition());
 
-	backBox.setPosition(nextlevelBox.getPosition().x + (nextlevelBox.getSize().x / 2.f) + (spacingBetweenButtons)+(backBox.getSize().x / 2.f), viewCenter.y - viewSize.y / 2 + centerY);
+	backBox.setPosition(nextlevelBox.getPosition().x + (nextlevelBox.getSize().x / 2.f) + buttonSpacing + (backBox.getSize().x / 2.f), centerY + 120.f);
 	backText.setPosition(backBox.getPosition());
+
 
 	FloatRect tryAgainBounds = nextlevelBox.getGlobalBounds();
 	FloatRect backBoundsGlobal = backBox.getGlobalBounds();
-
 	int selectedIndex = -1;
 	bool usingMouse = false;
-
 	window.setMouseCursorVisible(true);
 
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
-			if (event.type == Event::Closed) {
-				window.close();
-				return "quit";
-			}
+			if (event.type == Event::Closed) return "quit";
 
 			if (event.type == Event::MouseMoved) {
-				if (!usingMouse) {
-					window.setMouseCursorVisible(true);
-					usingMouse = true;
-				}
+				if (!usingMouse) { window.setMouseCursorVisible(true); usingMouse = true; }
 				Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
 				if (tryAgainBounds.contains(mousePos)) selectedIndex = 0;
 				else if (backBoundsGlobal.contains(mousePos)) selectedIndex = 1;
 				else selectedIndex = -1;
 			}
 			else if (event.type == Event::KeyPressed) {
-				if (usingMouse) {
-					window.setMouseCursorVisible(false);
-					usingMouse = false;
-				}
+				if (usingMouse) { window.setMouseCursorVisible(false); usingMouse = false; }
 				if (event.key.code == Keyboard::Left) selectedIndex = (selectedIndex - 1 + 2) % 2;
 				else if (event.key.code == Keyboard::Right) selectedIndex = (selectedIndex + 1) % 2;
 				else if (event.key.code == Keyboard::Enter) {
@@ -11730,24 +13154,57 @@ String youwin(RenderWindow& window, Event& event, Font& font, int currentLevelId
 				}
 			}
 			else if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
-				if (!usingMouse) {
-					window.setMouseCursorVisible(true);
-					usingMouse = true;
-				}
 				Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
 				if (tryAgainBounds.contains(mousePos)) return "next_level";
 				if (backBoundsGlobal.contains(mousePos)) return "back_to_main_menu";
 			}
 		}
 
-		nextlevelText.setFillColor(Color::Black);
-		backText.setFillColor(Color::Black);
+		float elapsed = clock.getElapsedTime().asSeconds();
 
-		if (selectedIndex == 0) nextlevelText.setFillColor(Color::White);
-		else if (selectedIndex == 1) backText.setFillColor(Color::White);
+		// Animate middle stars
+		for (int i = 0; i < starCount; ++i) {
+			float offsetY = sin(elapsed * 3.f + i) * 4.f;
+			float rotation = sin(elapsed * 2.f + i) * 10.f;
+			Vector2f pos = basePositions[i];
+			stars[i].setPosition(pos.x, pos.y + offsetY);
+			stars[i].setRotation(rotation);
+			glows[i].setPosition(pos.x, pos.y + offsetY);
+			glows[i].setRotation(rotation);
+		}
+
+		// Animate side stars with fading
+		float fadeSpeed = 1.65f;
+		for (int i = 0; i < sideStarCount; ++i) {
+			float delay = i * 0.4f;
+			float fadeValue = sin((elapsed - delay) * fadeSpeed) * 0.5f + 0.5f;
+			int alpha = static_cast<int>(fadeValue * 255.f);
+
+			sideStarsRight[i].setColor(Color(255, 255, 255, alpha));
+			sideGlowsRight[i].setColor(Color(255, 255, 0, static_cast<int>(alpha * 0.4f)));
+			sideStarsLeft[i].setColor(Color(255, 255, 255, alpha));
+			sideGlowsLeft[i].setColor(Color(255, 255, 0, static_cast<int>(alpha * 0.4f)));
+		}
+
 
 		window.clear(Color::Black);
 		window.draw(backgroundSprite);
+		window.draw(wordSprite);
+
+		for (int i = 0; i < sideStarCount; ++i) {
+			window.draw(sideGlowsRight[i]);
+			window.draw(sideStarsRight[i]);
+			window.draw(sideGlowsLeft[i]);
+			window.draw(sideStarsLeft[i]);
+		}
+
+		for (int i = 0; i < starCount; ++i) {
+			window.draw(glows[i]);
+			window.draw(stars[i]);
+		}
+
+		nextlevelText.setFillColor(selectedIndex == 0 ? Color::White : Color::Black);
+		backText.setFillColor(selectedIndex == 1 ? Color::White : Color::Black);
 		window.draw(nextlevelBox);
 		window.draw(nextlevelText);
 		window.draw(backBox);
@@ -11872,10 +13329,10 @@ void pause_menu(RenderWindow& window, Event& event, Font& font, levelHandler& cu
 	window.setMouseCursorVisible(false);
 }
 
+
 int main() {
 
 	srand(static_cast<unsigned>(time(0)));
-
 
 	loadScores();
 
@@ -11904,13 +13361,27 @@ int main() {
 	SoundBuffer clickBuffer;
 	clickBuffer.loadFromFile("Button.wav");
 	Sound clickSound(clickBuffer);
+	clickSound.setVolume(sfxVolume);
 
 	menuMusic.openFromFile("MainSound.wav");
 	menuMusic.setLoop(true);
 	menuMusic.play();
+	menuMusic.setVolume(musicVolume);
 
 	const int buttonCount = 6;
 	MenuButton buttons[buttonCount];
+
+	Image image;
+	if (!image.loadFromFile("imgs/cursor48.png")) {
+		std::cout << "Failed to load image\n";
+	}
+
+	Cursor cursor;
+	if (cursor.loadFromPixels(image.getPixelsPtr(), image.getSize(), { 0, 0 })) {
+		window.setMouseCursor(cursor);
+	}
+
+
 
 	const string buttonLabels[buttonCount] = {
 		"Story Mode", "Rush Mode", "Leaderboard",
@@ -11921,7 +13392,7 @@ int main() {
 		"Live the story of CrimsonLand",
 		"Challenge and Get Scores",
 		"Top Ten High Scores",
-		"Customize your experience",
+		"Need Help",
 		"Meet CrimsonLand Heroes",
 		"See You Later"
 	};
@@ -12096,7 +13567,6 @@ int main() {
 		else {
 			if (!levelStarted) {
 				currentLevel.id = levelIDMenu;
-
 				currentLevel.init(playersArr, zombiesArr, window);
 				endScene = false;
 				isEndedEndScene = false;
@@ -12113,6 +13583,12 @@ int main() {
 			//you win menu
 
 			if (currentLevel.getMissionComplete()) {
+
+				if (currentLevel.id < totalLevels - 1 && !unlocked[currentLevel.id + 1]) {
+					unlocked[currentLevel.id + 1] = true;
+					saveStoryProgress(unlocked, totalLevels);
+				}
+
 
 				if (currentLevel.id == 11 && !endScene && !isEndedEndScene) {
 
@@ -12133,29 +13609,40 @@ int main() {
 					string winChoice = youwin(window, event, font, currentLevel.id);
 
 
-
+					bool sceneEnded = false;
 					if (winChoice == "next_level") {
+						if (currentLevel.id == 0) sceneEnded = runDesertScene(window);
+						else if (currentLevel.id == 2) sceneEnded = runCityScene(window);
+						else if (currentLevel.id == 3) sceneEnded = runTrainScene(window);
+						else if (currentLevel.id == 5) sceneEnded = runWoodsScene(window);
+						else if (currentLevel.id == 6) sceneEnded = runCampScene(window);
+						else if (currentLevel.id == 7) sceneEnded = runstartMissionScene(window);
+						else if (currentLevel.id == 10) {
+							runMissionScene(window);
+							sceneEnded = true;
+						}
+						else sceneEnded = true;
+						if (sceneEnded) {
+							levelIDMenu = currentLevel.id + 1;
+							tryAgain = true;
+							currentLevel.deleteCurrentLevel();
+							isGameEntered = false;
+							gameSounds[1].stop();
+							gameSounds[5].stop();
+							levelStarted = false;
+							isGameEntered = false;
 
-						levelIDMenu = currentLevel.id + 1;
-						tryAgain = true;
-						currentLevel.deleteCurrentLevel();
-						isGameEntered = false;
-						gameSounds[1].stop();
-						gameSounds[5].stop();
-						levelStarted = false;
-						isGameEntered = false;
+							playersArr.clear();
 
-						playersArr.clear();
+							zombiesArr.clear();
 
-						zombiesArr.clear();
+							deathArr.clear();
+							slowEffectActive = false;
 
-						deathArr.clear();
-						slowEffectActive = false;
+							bullets.clear();
 
-						bullets.clear();
-
+						}
 					}
-
 					else if (winChoice == "back_to_main_menu") {
 
 						isMainmenuTriggerdByPause = true;
@@ -12191,8 +13678,11 @@ int main() {
 					currentLevel.setMissionComplete(true);
 				}
 				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape || Joystick::isButtonPressed(0, 7))
+
 				{
+
 					pauseGame = !pauseGame;
+
 				}
 				if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left) {
 					gameSounds[12].stop();
@@ -12210,6 +13700,13 @@ int main() {
 
 				gameTimer.pause();
 				pause_menu(window, event, font, currentLevel, playersArr, zombiesArr);
+				for (auto& sound : gameSounds)
+
+				{
+
+					sound.stop();
+
+				}
 				pauseGame = false;
 			}
 
@@ -12274,8 +13771,9 @@ int main() {
 					saveScores();
 
 				}
+
 				else {
-					if (playersArr.size()>1) {
+					if (playersArr.size() > 1) {
 						if (playersArr[0].isDead && playersArr[1].isDead) {
 							currentLevel.update(playersArr, zombiesArr, window);
 
@@ -12322,6 +13820,7 @@ int main() {
 					}
 				}
 			}
+
 			if (!tryAgain) {
 				if (((currentLevel.id == 11) && !endScene && isEndedEndScene) || isMainmenuTriggerdByPause) {
 					window.setView(window.getDefaultView());
