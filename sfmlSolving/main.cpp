@@ -4230,6 +4230,10 @@ struct PLAYER {
 						currentWeapon[currentWeaponindex].currentClipSize--;
 					}
 				}
+				else {
+					ReloadShotgun();
+					changeState(2);
+				}
 
 				if (currentWeapon[currentWeaponindex].id == RIFLE) {
 					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
@@ -4262,6 +4266,7 @@ struct PLAYER {
 				lastFireTime = now;
 
 			}
+			
 		}
 		else
 		{
@@ -4316,6 +4321,10 @@ struct PLAYER {
 						currentWeapon[currentWeaponindex].currentClipSize--;
 					}
 				}
+				else {
+					ReloadShotgun();
+					changeState(2);
+				}
 
 				if (currentWeapon[currentWeaponindex].id == RIFLE) {
 					if (currentWeapon[currentWeaponindex].currentClipSize > 0)
@@ -4348,6 +4357,7 @@ struct PLAYER {
 				lastFireTime = now;
 
 			}
+			
 		}
 	}
 
@@ -5320,6 +5330,7 @@ struct DeathCircle {
 		circle.setTexture(&perksTexture[id]);
 		circle.setRadius(25.0f);
 		circle.setPosition(x, y - 30.0f);
+		circle.setOrigin(32, 32);
 		//circle.setFillColor(sf::Color(0,0,0));
 	}
 };
@@ -5329,8 +5340,17 @@ vector<DeathCircle> deathArr;
 
 void deathCircleEnter(vector<PLAYER>& playersArr) {
 	for (int i = 0; i < playersArr.size(); i++) {
-		for (int j = 0; j < deathArr.size(); j++) {
-			if (playersArr[i].shape.getGlobalBounds().intersects(deathArr[j].circle.getGlobalBounds())) {
+		for (int j = 0; j < deathArr.size();) {
+			Vector2f playerCenter = playersArr[i].shape.getPosition();
+			Vector2f deathCenter = deathArr[j].circle.getPosition();
+
+			float dx = playerCenter.x - deathCenter.x;
+			float dy = playerCenter.y - deathCenter.y;
+
+			float distance = sqrt(dx * dx + dy * dy);
+
+			if (distance < 25.f && deathArr[j].timePerk.getElapsedTime().asSeconds() >= 1.0f)
+			{
 				if (deathArr[j].perkID < 8) {
 					Weapon newWeapon;
 					newWeapon.weaponAdd(static_cast<WeaponID>(deathArr[j].perkID + PISTOL));
@@ -5356,7 +5376,9 @@ void deathCircleEnter(vector<PLAYER>& playersArr) {
 					slowEffectClock.restart();
 				}
 				deathArr.erase(deathArr.begin() + j);
-				--j;
+			}
+			else {
+				j++;
 			}
 		}
 	}
@@ -12114,25 +12136,27 @@ struct ArmyRushMulti {
 
 			if (!playersArr.empty())
 			{
-				// Get player position
-				Vector2f pos = playersArr[0].shape.getPosition();
+				for (int i = 0; i < playersArr.size(); i++) {
+					// Get player position
+					Vector2f pos = playersArr[i].shape.getPosition();
 
-				// Prevent moving out of top border
-				if (pos.y <= 0)
-					playersArr[0].shape.move(0, playersArr[0].speed);
+					// Prevent moving out of top border
+					if (pos.y <= 0)
+						playersArr[i].shape.move(0, playersArr[i].speed);
 
-				// Prevent moving out of bottom border
-				if (pos.y + playersArr[0].shape.getGlobalBounds().height >= mapHeight + 100)
-					playersArr[0].shape.move(0, -playersArr[0].speed);
+					// Prevent moving out of bottom border
+					if (pos.y + playersArr[i].shape.getGlobalBounds().height >= mapHeight + 100)
+						playersArr[i].shape.move(0, -playersArr[i].speed);
 
-				// Prevent moving out of left border
-				if (pos.x <= 0)
-					playersArr[0].shape.move(playersArr[0].speed, 0);
+					// Prevent moving out of left border
+					if (pos.x <= 0)
+						playersArr[i].shape.move(playersArr[i].speed, 0);
 
-				// Prevent moving out of right border
-				if (pos.x + playersArr[0].shape.getGlobalBounds().width >= mapWidth + 100)
-					playersArr[0].shape.move(-playersArr[0].speed, 0);
+					// Prevent moving out of right border
+					if (pos.x + playersArr[i].shape.getGlobalBounds().width >= mapWidth + 100)
+						playersArr[i].shape.move(-playersArr[i].speed, 0);
 
+				}
 			}
 		}
 		for (int i = 0; i < zombiesArr.size(); i++) {
@@ -12293,133 +12317,138 @@ struct ArmyRushMulti {
 			}
 
 			if (!playersArr.empty()) {
-				FloatRect Player_Bounds = playersArr[0].shape.getGlobalBounds(); //player bounding box
-				FloatRect intersection; //intersection area
-				FloatRect Wall_bound = tentshape.getGlobalBounds(); //intersected object
-				FloatRect Wall_bound1 = tankShape.getGlobalBounds(); //intersected object
-				FloatRect Wall_bound2 = tankShape1.getGlobalBounds(); //intersected object
-				if (Player_Bounds.intersects(Wall_bound))
-				{
+				for (int i = 0; i < playersArr.size(); i++) {
 
-					Player_Bounds.intersects(Wall_bound, intersection);
-					// left/right
-					if (intersection.width < intersection.height)
+					FloatRect Player_Bounds = playersArr[i].shape.getGlobalBounds(); //player bounding box
+					FloatRect intersection; //intersection area
+					FloatRect Wall_bound = tentshape.getGlobalBounds(); //intersected object
+					FloatRect Wall_bound1 = tankShape.getGlobalBounds(); //intersected object
+					FloatRect Wall_bound2 = tankShape1.getGlobalBounds(); //intersected object
+					if (Player_Bounds.intersects(Wall_bound))
 					{
-						//right collision
-						if (Player_Bounds.left < Wall_bound.left)
+
+						Player_Bounds.intersects(Wall_bound, intersection);
+						// left/right
+						if (intersection.width < intersection.height)
 						{
-							playersArr[0].shape.move(-speed, 0);
+							//right collision
+							if (Player_Bounds.left < Wall_bound.left)
+							{
+								playersArr[0].shape.move(-speed, 0);
+							}
+							//left collision
+							else
+							{
+								playersArr[0].shape.move(speed, 0);
+							}
 						}
-						//left collision
+						// up/down
 						else
 						{
-							playersArr[0].shape.move(speed, 0);
+							//down collision
+							if (Player_Bounds.top < Wall_bound.top)
+							{
+								playersArr[0].shape.move(0, -speed);
+							}
+							//up collision
+							else
+							{
+								playersArr[0].shape.move(0, speed);
+							}
 						}
 					}
-					// up/down
-					else
+
+					if (Player_Bounds.intersects(Wall_bound1))
 					{
-						//down collision
-						if (Player_Bounds.top < Wall_bound.top)
+
+						Player_Bounds.intersects(Wall_bound1, intersection);
+						// left/right
+						if (intersection.width < intersection.height)
 						{
-							playersArr[0].shape.move(0, -speed);
+							//right collision
+							if (Player_Bounds.left < Wall_bound1.left)
+							{
+								playersArr[0].shape.move(-speed, 0);
+							}
+							//left collision
+							else
+							{
+								playersArr[0].shape.move(speed, 0);
+							}
 						}
-						//up collision
+						// up/down
 						else
 						{
-							playersArr[0].shape.move(0, speed);
+							//down collision
+							if (Player_Bounds.top < Wall_bound1.top)
+							{
+								playersArr[0].shape.move(0, -speed);
+							}
+							//up collision
+							else
+							{
+								playersArr[0].shape.move(0, speed);
+							}
 						}
 					}
-				}
 
-				if (Player_Bounds.intersects(Wall_bound1))
-				{
-
-					Player_Bounds.intersects(Wall_bound1, intersection);
-					// left/right
-					if (intersection.width < intersection.height)
+					if (Player_Bounds.intersects(Wall_bound2))
 					{
-						//right collision
-						if (Player_Bounds.left < Wall_bound1.left)
+
+						Player_Bounds.intersects(Wall_bound2, intersection);
+						// left/right
+						if (intersection.width < intersection.height)
 						{
-							playersArr[0].shape.move(-speed, 0);
+							//right collision
+							if (Player_Bounds.left < Wall_bound2.left)
+							{
+								playersArr[0].shape.move(-speed, 0);
+							}
+							//left collision
+							else
+							{
+								playersArr[0].shape.move(speed, 0);
+							}
 						}
-						//left collision
+						// up/down
 						else
 						{
-							playersArr[0].shape.move(speed, 0);
-						}
-					}
-					// up/down
-					else
-					{
-						//down collision
-						if (Player_Bounds.top < Wall_bound1.top)
-						{
-							playersArr[0].shape.move(0, -speed);
-						}
-						//up collision
-						else
-						{
-							playersArr[0].shape.move(0, speed);
-						}
-					}
-				}
-
-				if (Player_Bounds.intersects(Wall_bound2))
-				{
-
-					Player_Bounds.intersects(Wall_bound2, intersection);
-					// left/right
-					if (intersection.width < intersection.height)
-					{
-						//right collision
-						if (Player_Bounds.left < Wall_bound2.left)
-						{
-							playersArr[0].shape.move(-speed, 0);
-						}
-						//left collision
-						else
-						{
-							playersArr[0].shape.move(speed, 0);
-						}
-					}
-					// up/down
-					else
-					{
-						//down collision
-						if (Player_Bounds.top < Wall_bound2.top)
-						{
-							playersArr[0].shape.move(0, -speed);
-						}
-						//up collision
-						else
-						{
-							playersArr[0].shape.move(0, speed);
+							//down collision
+							if (Player_Bounds.top < Wall_bound2.top)
+							{
+								playersArr[0].shape.move(0, -speed);
+							}
+							//up collision
+							else
+							{
+								playersArr[0].shape.move(0, speed);
+							}
 						}
 					}
 				}
 			}
-
 			//border collision
 			int speed = 5;
 			int zombie_speed = 4;
 			if (!playersArr.empty())
 			{
-				if (playersArr[0].shape.getPosition().y <= 30) // check for top border
-				{
-					playersArr[0].shape.move(0, speed);
-				}
-				if (playersArr[0].shape.getPosition().y >= 1450) //check for bottom border
-				{
-					playersArr[0].shape.move(0, -speed);
-				}if (playersArr[0].shape.getPosition().x <= 30) //check for left border
-				{
-					playersArr[0].shape.move(speed, 0);
-				}
-				if (playersArr[0].shape.getPosition().x >= 1930) //check for right border
-				{
-					playersArr[0].shape.move(-speed, 0);
+				for (int i = 0; i < playersArr.size(); i++) {
+
+					if (playersArr[i].shape.getPosition().y <= 30) // check for top border
+					{
+						playersArr[i].shape.move(0, speed);
+					}
+					if (playersArr[i].shape.getPosition().y >= 1450) //check for bottom border
+					{
+						playersArr[i].shape.move(0, -speed);
+					}if (playersArr[i].shape.getPosition().x <= 30) //check for left border
+					{
+						playersArr[i].shape.move(speed, 0);
+					}
+					if (playersArr[i].shape.getPosition().x >= 1930) //check for right border
+					{
+						playersArr[i].shape.move(-speed, 0);
+					}
 				}
 			}
 
@@ -13548,7 +13577,7 @@ int main() {
 	////////////////////////////////////////////////////////////////////////////EndScene Boolean
 
 
-	RenderWindow window(VideoMode(1920, 1080), "CrimsonLand", Style::Fullscreen);
+	RenderWindow window(VideoMode::getDesktopMode() , "CrimsonLand", Style::Resize);
 
 	int levelID;
 
@@ -13895,6 +13924,10 @@ int main() {
 
 				}
 				if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left) {
+					gameSounds[12].stop();
+					gameSounds[10].stop();
+				}
+				if (event.type == Event::JoystickButtonReleased && event.joystickButton.button == 5) {
 					gameSounds[12].stop();
 					gameSounds[10].stop();
 				}

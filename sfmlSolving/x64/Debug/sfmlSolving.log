@@ -211,64 +211,24 @@ C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4091,25): w
 C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4091,47): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
 C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4102,65): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4190,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4367,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4374,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4473,118): warning C4566: character represented by universal-character-name '\u221E' cannot be represented in the current code page (1252)
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4617,127): warning C4566: character represented by universal-character-name '\u221E' cannot be represented in the current code page (1252)
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4619,128): warning C4566: character represented by universal-character-name '\u221E' cannot be represented in the current code page (1252)
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4871,35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4938,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4960,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,51): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,51): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,51): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,51): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,51): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,38): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,38): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,38): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,38): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4969,38): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,103): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,103): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,103): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,103): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,90): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,90): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,90): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,90): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,74): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,74): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,74): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,74): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,46): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,46): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,46): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4984,46): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,101): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,101): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,101): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,101): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,101): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,88): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,88): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,88): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,88): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,88): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,72): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,72): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,72): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,72): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,72): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,44): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,44): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,44): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,44): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4989,44): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4377,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4384,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4483,118): warning C4566: character represented by universal-character-name '\u221E' cannot be represented in the current code page (1252)
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4627,127): warning C4566: character represented by universal-character-name '\u221E' cannot be represented in the current code page (1252)
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4629,128): warning C4566: character represented by universal-character-name '\u221E' cannot be represented in the current code page (1252)
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4881,35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4948,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4970,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,51): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,51): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,51): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,51): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,51): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,38): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,38): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,38): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,38): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4979,38): warning C4244:         ]
 C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4994,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
 C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4994,103): warning C4244:         with
 C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4994,103): warning C4244:         [
@@ -289,557 +249,597 @@ C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4994,46): w
 C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4994,46): warning C4244:         [
 C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4994,46): warning C4244:             T=int
 C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4994,46): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,103): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,103): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,103): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,103): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,90): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,90): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,90): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,90): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,74): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,74): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,74): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,74): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,46): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,46): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,46): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,46): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,103): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,103): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,103): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,103): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,90): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,90): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,90): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,90): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,74): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,74): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,74): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,74): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,46): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,46): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,46): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5017,46): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,101): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,101): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,101): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,101): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,101): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,88): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,88): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,88): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,88): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,88): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,72): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,72): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,72): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,72): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,72): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,44): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,44): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,44): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,44): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5029,44): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,103): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,103): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,103): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,103): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,90): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,90): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,90): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,90): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,74): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,74): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,74): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,74): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,46): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,46): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,46): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5034,46): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,103): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,103): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,103): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,103): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,90): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,90): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,90): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,90): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,74): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,74): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,74): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,74): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,46): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,46): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,46): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,46): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,103): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,103): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,103): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,103): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,90): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,90): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,90): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,90): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,74): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,74): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,74): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,74): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,46): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,46): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,46): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5051,46): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,101): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,101): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,101): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,101): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,101): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,88): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,88): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,88): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,88): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,88): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,72): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,72): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,72): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,72): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,72): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,44): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,44): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,44): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,44): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5068,44): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,103): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,103): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,103): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,103): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,90): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,90): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,90): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,90): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,74): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,74): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,74): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,74): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,46): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,46): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,46): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5072,46): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,103): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,103): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,103): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,103): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,90): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,90): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,90): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,90): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,74): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,74): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,74): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,74): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,46): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,46): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,46): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5077,46): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5133,59): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5160,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5178,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5215,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5268,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5268,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5279,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5382,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5407,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5434,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5705,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5740,24): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5762,28): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5762,23): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5802,24): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,71): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,71): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,71): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,71): warning C4244:             T=unsigned int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,71): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,45): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,45): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,45): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,45): warning C4244:             T=unsigned int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6265,45): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6350,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6350,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6369,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6369,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6389,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6389,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6391,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6391,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6393,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6393,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6505,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6509,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6510,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6513,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6514,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6518,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6551,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6555,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6556,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6559,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6560,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6564,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6643,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6643,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6663,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6663,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6901,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6901,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6922,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6922,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7123,82): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7123,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7134,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7163,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7241,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7241,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7260,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7260,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7263,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7263,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7400,31): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7400,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7459,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7464,34): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7473,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7478,37): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7506,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7511,33): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7520,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7525,36): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7571,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7575,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7576,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7579,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7580,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7584,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7616,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7621,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7624,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7629,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7743,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7747,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7748,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7751,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7752,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7756,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7810,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7810,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7823,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7823,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7860,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7865,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7874,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7879,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7893,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7898,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7907,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7912,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7926,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7931,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7940,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7945,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7993,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7998,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8007,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8012,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8027,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8032,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8041,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8046,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8061,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8066,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8075,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8080,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8093,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8097,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8100,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8104,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8258,31): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8258,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8289,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8290,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8356,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8360,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8363,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8367,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8390,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8395,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8404,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8409,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8432,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8437,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8446,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8451,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8591,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8642,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8643,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8705,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8709,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8712,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8716,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8740,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8745,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8754,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8759,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8788,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8793,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8802,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8807,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8926,31): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8926,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8927,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8927,21): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8937,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8941,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9054,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9055,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9116,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9120,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9123,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9127,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9150,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9155,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9164,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9169,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9198,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9203,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9212,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9217,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9306,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9306,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9360,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9361,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9380,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9410,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9443,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9451,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9457,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9465,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9546,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9546,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9624,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9624,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9634,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9634,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9744,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9744,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9797,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9798,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9799,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9800,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9815,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9816,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9817,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9818,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9950,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9950,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9986,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9987,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9988,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9989,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10004,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10005,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10006,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10007,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10071,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10071,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10321,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10321,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10360,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10361,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10362,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10363,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10378,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10379,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10380,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10381,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10505,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10505,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10524,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10528,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10529,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10532,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10533,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10537,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10604,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10605,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10606,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10607,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10622,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10623,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10624,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10625,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10705,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10710,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10719,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10724,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10738,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10743,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10752,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10757,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10771,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10776,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10785,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10790,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10838,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10843,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10852,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10857,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10872,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10877,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10886,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10891,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10906,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10911,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10920,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10925,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10938,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10942,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10945,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10949,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11007,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11007,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11008,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11008,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11085,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11086,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11087,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11088,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11103,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11104,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11105,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11106,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11221,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11221,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11222,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11222,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11271,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11272,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11273,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11274,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11289,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11290,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11291,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11292,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11426,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11426,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11427,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11427,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11459,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11460,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11461,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11462,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11477,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11478,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11479,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11480,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11546,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11546,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11796,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11796,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11797,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11797,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11832,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11833,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11834,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11835,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11850,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11851,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11852,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11853,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11979,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11979,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11980,105): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11980,99): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11999,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12003,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12004,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12007,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12008,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12012,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12075,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12076,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12077,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12078,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12093,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12094,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12095,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12096,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12178,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12183,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12192,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12197,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12211,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12216,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12225,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12230,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12244,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12249,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12258,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12263,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12311,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12316,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12325,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12330,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12345,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12350,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12359,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12364,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12379,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12384,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12393,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12398,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12411,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12415,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12418,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12422,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13614,25): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13614,25): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13614,25): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13614,25): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13614,25): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13623,35): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13623,35): warning C4244:         with
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13623,35): warning C4244:         [
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13623,35): warning C4244:             T=int
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13623,35): warning C4244:         ]
-C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13553,6): warning C4101: 'levelID': unreferenced local variable
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,101): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,101): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,101): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,101): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,101): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,88): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,88): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,88): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,88): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,88): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,72): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,72): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,72): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,72): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,72): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,44): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,44): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,44): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,44): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(4999,44): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,103): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,103): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,103): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,103): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,90): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,90): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,90): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,90): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,74): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,74): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,74): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,74): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,46): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,46): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,46): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5004,46): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,103): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,103): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,103): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,103): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,90): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,90): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,90): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,90): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,74): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,74): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,74): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,74): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,46): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,46): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,46): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5009,46): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,103): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,103): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,103): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,103): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,90): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,90): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,90): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,90): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,74): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,74): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,74): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,74): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,46): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,46): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,46): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5027,46): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,101): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,101): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,101): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,101): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,101): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,88): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,88): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,88): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,88): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,88): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,72): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,72): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,72): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,72): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,72): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,44): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,44): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,44): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,44): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5039,44): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,103): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,103): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,103): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,103): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,90): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,90): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,90): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,90): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,74): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,74): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,74): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,74): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,46): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,46): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,46): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5044,46): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,103): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,103): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,103): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,103): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,90): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,90): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,90): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,90): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,74): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,74): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,74): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,74): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,46): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,46): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,46): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5049,46): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,103): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,103): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,103): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,103): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,90): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,90): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,90): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,90): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,74): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,74): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,74): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,74): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,46): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,46): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,46): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5061,46): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,101): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,101): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,101): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,101): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,101): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,88): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,88): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,88): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,88): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,88): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,72): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,72): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,72): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,72): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,72): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,44): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,44): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,44): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,44): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5078,44): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,103): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,103): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,103): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,103): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,90): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,90): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,90): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,90): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,74): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,74): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,74): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,74): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,46): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,46): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,46): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5082,46): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,103): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,103): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,103): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,103): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,103): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,90): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,90): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,90): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,90): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,90): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,74): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,74): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,74): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,74): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,46): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,46): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,46): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,46): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5087,46): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5143,59): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5170,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5188,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5225,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5278,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5278,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5289,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5404,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5429,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5456,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5727,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5762,24): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5784,28): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5784,23): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(5824,24): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,71): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,71): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,71): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,71): warning C4244:             T=unsigned int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,71): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,45): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,45): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,45): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,45): warning C4244:             T=unsigned int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6287,45): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6372,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6372,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6391,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6391,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6411,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6411,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6413,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6413,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6415,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6415,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6527,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6531,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6532,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6535,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6536,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6540,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6573,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6577,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6578,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6581,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6582,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6586,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6665,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6665,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6685,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6685,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6923,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6923,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6944,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(6944,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7145,82): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7145,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7156,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7185,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7263,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7263,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7282,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7282,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7285,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7285,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7422,31): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7422,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7481,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7486,34): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7495,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7500,37): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7528,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7533,33): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7542,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7547,36): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7593,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7597,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7598,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7601,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7602,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7606,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7638,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7643,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7646,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7651,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7765,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7769,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7770,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7773,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7774,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7778,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7832,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7832,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7845,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7845,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7882,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7887,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7896,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7901,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7915,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7920,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7929,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7934,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7948,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7953,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7962,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(7967,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8015,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8020,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8029,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8034,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8049,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8054,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8063,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8068,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8083,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8088,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8097,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8102,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8115,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8119,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8122,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8126,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8280,31): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8280,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8311,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8312,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8378,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8382,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8385,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8389,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8412,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8417,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8426,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8431,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8454,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8459,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8468,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8473,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8613,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8664,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8665,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8727,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8731,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8734,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8738,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8762,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8767,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8776,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8781,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8810,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8815,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8824,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8829,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8948,31): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8948,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8949,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8949,21): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8959,30): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(8963,30): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9076,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9077,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9138,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9142,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9145,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9149,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9172,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9177,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9186,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9191,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9220,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9225,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9234,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9239,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9328,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9328,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9382,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9383,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9402,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9432,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9465,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9473,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9479,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9487,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9568,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9568,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9646,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9646,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9656,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9656,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9766,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9766,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9819,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9820,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9821,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9822,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9837,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9838,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9839,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9840,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9972,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(9972,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10008,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10009,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10010,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10011,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10026,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10027,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10028,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10029,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10093,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10093,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10343,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10343,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10382,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10383,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10384,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10385,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10400,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10401,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10402,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10403,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10527,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10527,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10546,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10550,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10551,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10554,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10555,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10559,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10626,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10627,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10628,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10629,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10644,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10645,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10646,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10647,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10727,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10732,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10741,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10746,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10760,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10765,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10774,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10779,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10793,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10798,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10807,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10812,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10860,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10865,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10874,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10879,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10894,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10899,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10908,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10913,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10928,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10933,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10942,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10947,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10960,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10964,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10967,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(10971,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11029,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11029,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11030,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11030,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11107,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11108,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11109,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11110,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11125,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11126,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11127,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11128,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11243,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11243,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11244,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11244,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11293,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11294,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11295,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11296,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11311,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11312,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11313,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11314,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11448,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11448,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11449,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11449,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11481,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11482,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11483,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11484,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11499,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11500,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11501,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11502,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11568,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11568,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11818,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11818,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11819,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11819,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11854,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11855,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11856,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11857,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11872,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11873,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11874,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(11875,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12001,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12001,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12002,105): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12002,99): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12021,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12025,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12026,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12029,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12030,9): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12034,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12097,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12098,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12099,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12100,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12115,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12116,47): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12117,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12118,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12202,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12207,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12216,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12221,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12235,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12240,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12249,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12254,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12268,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12273,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12282,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12287,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12337,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12342,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12351,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12356,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12371,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12376,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12385,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12390,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12405,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12410,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12419,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12424,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12439,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12443,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12446,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(12450,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13643,25): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13643,25): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13643,25): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13643,25): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13643,25): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13652,35): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13652,35): warning C4244:         with
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13652,35): warning C4244:         [
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13652,35): warning C4244:             T=int
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13652,35): warning C4244:         ]
+C:\Users\adham\onedrive\Desktop\ACM\sfmlSolving\sfmlSolving\main.cpp(13582,6): warning C4101: 'levelID': unreferenced local variable
   sfmlSolving.vcxproj -> C:\Users\adham\OneDrive\Desktop\ACM\sfmlSolving\x64\Debug\sfmlSolving.exe
